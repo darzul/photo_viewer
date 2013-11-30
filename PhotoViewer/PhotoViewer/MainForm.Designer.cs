@@ -30,10 +30,12 @@
         {
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
             this.secondarySplitContainer = new System.Windows.Forms.SplitContainer();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel2.SuspendLayout();
             this.mainSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.secondarySplitContainer)).BeginInit();
+            this.secondarySplitContainer.Panel2.SuspendLayout();
             this.secondarySplitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,9 +60,26 @@
             this.secondarySplitContainer.Location = new System.Drawing.Point(0, 0);
             this.secondarySplitContainer.Name = "secondarySplitContainer";
             this.secondarySplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // secondarySplitContainer.Panel2
+            // 
+            this.secondarySplitContainer.Panel2.Controls.Add(this.button1);
             this.secondarySplitContainer.Size = new System.Drawing.Size(519, 562);
             this.secondarySplitContainer.SplitterDistance = 483;
             this.secondarySplitContainer.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.button1.Location = new System.Drawing.Point(198, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(88, 67);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Diaporama";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Paint += new System.Windows.Forms.PaintEventHandler(this.button1_Paint);
             // 
             // MainForm
             // 
@@ -73,6 +92,7 @@
             this.mainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
             this.mainSplitContainer.ResumeLayout(false);
+            this.secondarySplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.secondarySplitContainer)).EndInit();
             this.secondarySplitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -83,6 +103,7 @@
 
         private System.Windows.Forms.SplitContainer mainSplitContainer;
         private System.Windows.Forms.SplitContainer secondarySplitContainer;
+        private System.Windows.Forms.Button button1;
 
     }
 }
