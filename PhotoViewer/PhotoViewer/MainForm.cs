@@ -12,9 +12,46 @@ namespace PhotoViewer
 {
     public partial class MainForm : Form
     {
+        AlbumUC AlbumUC2;
+        AlbumUC AlbumUC3;
+        List<AlbumUC> albums;
+        AlbumUC currentAlbumPrinted = null;
+
         public MainForm()
         {
             InitializeComponent();
+
+            this.AlbumUC2 = new AlbumUC("C:\\Users\\Guillaume\\Pictures");
+            albumsFlowLayoutPanel.Controls.Add(AlbumUC2);
+
+            this.AlbumUC3 = new AlbumUC("C:\\Users\\Guillaume\\Pictures");
+            this.AlbumUC3.Click += displayPictures;
+            albumsFlowLayoutPanel.Controls.Add(this.AlbumUC3);
+        }
+
+        private void displayPictures(object sender, EventArgs e)
+        {
+            if (sender.ToString().Contains("AlbumUC"))
+            {
+                if (sender.Equals(this.AlbumUC2))
+                {
+                    this.AlbumUC2.displayPictures(picturesFlowLayoutPanel);
+                    currentAlbumPrinted = AlbumUC2;
+                }
+                else if (sender.Equals(this.AlbumUC3))
+                {
+                    this.AlbumUC3.displayPictures(picturesFlowLayoutPanel);
+                    currentAlbumPrinted = AlbumUC3;
+                }
+
+                
+            }
+        }
+
+        private bool needDisplayvScrollBar ()
+        {
+            //picturesFlowLayoutPanel.get
+            return true;
         }
 
         private void button1_Paint(object sender, PaintEventArgs e)
@@ -39,6 +76,11 @@ namespace PhotoViewer
 
             //Set the button's region property to the newly created circle region
             button1.Region = new System.Drawing.Region(buttonPath);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Lancer le diapo
         }
     }
 }
