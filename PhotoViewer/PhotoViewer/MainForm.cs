@@ -14,19 +14,26 @@ namespace PhotoViewer
     {
         AlbumUC AlbumUC2;
         AlbumUC AlbumUC3;
-        List<AlbumUC> albums;
         AlbumUC currentAlbumPrinted = null;
+        XmlAlbums xmlAlbums;
 
         public MainForm()
         {
             InitializeComponent();
 
-            this.AlbumUC2 = new AlbumUC("C:\\Users\\Guillaume\\Pictures");
-            albumsFlowLayoutPanel.Controls.Add(AlbumUC2);
+            xmlAlbums = new XmlAlbums();
 
-            this.AlbumUC3 = new AlbumUC("C:\\Users\\Guillaume\\Pictures");
+            this.AlbumUC2 = new AlbumUC("C:\\Users\\Dev\\Pictures");
+            albumsFlowLayoutPanel.Controls.Add(AlbumUC2);
+            xmlAlbums.WriteAlbum(AlbumUC2);
+            xmlAlbums.Add(AlbumUC2);
+
+            this.AlbumUC3 = new AlbumUC("C:\\Users\\Dev\\Pictures");
             this.AlbumUC3.Click += displayPictures;
             albumsFlowLayoutPanel.Controls.Add(this.AlbumUC3);
+            xmlAlbums.WriteAlbum(AlbumUC3);
+
+            if(xmlAlbums.readAll().Equals(xmlAlbums.albums)) MessageBox.Show("ça marche !");
         }
 
         private void displayPictures(object sender, EventArgs e)
