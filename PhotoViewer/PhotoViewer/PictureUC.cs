@@ -33,6 +33,11 @@ namespace PhotoViewer
             this.titleLabel.Text = this.title;
         }
 
+        public string getTitle()
+        {
+            return this.title;
+        }
+
         public string getPath () {
             return this.path;
         }

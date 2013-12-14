@@ -108,6 +108,11 @@ namespace PhotoViewer
             return this.path;
         }
 
+        public List<PictureUC> getPictures()
+        {
+            return this.pictures;
+        }
+
         // Display picture of the album into the layout in arg
         public void displayPictures()
         {
