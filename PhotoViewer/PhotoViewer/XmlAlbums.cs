@@ -104,6 +104,7 @@ namespace PhotoViewer
                 reader.ReadToFollowing("album");
             }
 
+            this.albums = albums;
             return albums;
         }
 

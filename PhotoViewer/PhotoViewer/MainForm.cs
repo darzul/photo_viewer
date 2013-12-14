@@ -25,15 +25,14 @@ namespace PhotoViewer
 
             this.AlbumUC2 = new AlbumUC("C:\\Users\\Dev\\Pictures");
             albumsFlowLayoutPanel.Controls.Add(AlbumUC2);
-            xmlAlbums.WriteAlbum(AlbumUC2);
             xmlAlbums.Add(AlbumUC2);
 
             this.AlbumUC3 = new AlbumUC("C:\\Users\\Dev\\Pictures");
             this.AlbumUC3.Click += displayPictures;
             albumsFlowLayoutPanel.Controls.Add(this.AlbumUC3);
-            xmlAlbums.WriteAlbum(AlbumUC3);
+            xmlAlbums.Add(AlbumUC3);
 
-            if(xmlAlbums.readAll().Equals(xmlAlbums.albums)) MessageBox.Show("ça marche !");
+            //if(xmlAlbums.readAll().Equals(xmlAlbums.albums)) MessageBox.Show("ça marche !");
         }
 
         private void displayPictures(object sender, EventArgs e)
@@ -88,6 +87,16 @@ namespace PhotoViewer
         private void button1_Click(object sender, EventArgs e)
         {
             // Lancer le diapo
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            xmlAlbums.WriteAll();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            xmlAlbums.readAll();
         }
     }
 }
