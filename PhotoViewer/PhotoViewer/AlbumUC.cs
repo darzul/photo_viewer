@@ -17,6 +17,10 @@ namespace PhotoViewer
         private string title;
         private string path;
 
+        private static int albumDisplayed = -1;
+
+        private static FlowLayoutPanel pictureLayout = null;
+
         public AlbumUC(string path)
         {
             InitializeComponent();
@@ -40,19 +44,42 @@ namespace PhotoViewer
                 if (ext.Contains(System.IO.Path.GetExtension(file).ToLower()))
                 {
                     System.Diagnostics.Debug.WriteLine(file);
-                    pictures.Add (new PictureUC(file));
+                    pictures.Add (new PictureUC(file, this));
 
                     System.Diagnostics.Debug.WriteLine("allo");
                 }
             }
 
             /* Add the four first pictures in pictureBox for the directory */
+            int nb_picture = pictures.Count;
 
+            switch (nb_picture) 
+            {
+                case 3:
+                    pictureBox1.Image = ScaleImage(Image.FromFile(pictures[0].getPath()), 50, 50);
+                    pictureBox2.Image = ScaleImage(Image.FromFile(pictures[1].getPath()), 50, 50);
+                    pictureBox3.Image = ScaleImage(Image.FromFile(pictures[2].getPath()), 50, 50);
+                    break;
 
-            pictureBox1.Image = ScaleImage(Image.FromFile(pictures[0].getPath()), 50, 50);
-            pictureBox2.Image = ScaleImage(Image.FromFile(pictures[1].getPath()), 50, 50);
-            pictureBox3.Image = ScaleImage(Image.FromFile(pictures[2].getPath()), 50, 50);
-            pictureBox4.Image = ScaleImage(Image.FromFile(pictures[3].getPath()), 50, 50);
+                case 2:
+                    pictureBox1.Image = ScaleImage(Image.FromFile(pictures[0].getPath()), 50, 50);
+                    pictureBox2.Image = ScaleImage(Image.FromFile(pictures[1].getPath()), 50, 50);
+                    break;
+
+                case 1:
+                    pictureBox1.Image = ScaleImage(Image.FromFile(pictures[0].getPath()), 50, 50);
+                    break;
+
+                case 0:
+                    break;
+
+                default:
+                    pictureBox1.Image = ScaleImage(Image.FromFile(pictures[0].getPath()), 50, 50);
+                    pictureBox2.Image = ScaleImage(Image.FromFile(pictures[1].getPath()), 50, 50);
+                    pictureBox3.Image = ScaleImage(Image.FromFile(pictures[2].getPath()), 50, 50);
+                    pictureBox4.Image = ScaleImage(Image.FromFile(pictures[3].getPath()), 50, 50);
+                    break;
+            }
         }
 
         static public Bitmap ScaleImage(Image image, int maxWidth, int maxHeight)
@@ -87,13 +114,39 @@ namespace PhotoViewer
         }
 
         // Display picture of the album into the layout in arg
-        public void displayPictures(FlowLayoutPanel layout)
+        public void displayPictures()
         {
-            foreach (PictureUC img in pictures) 
+            if (albumDisplayed >= 0)
             {
 
-                layout.Controls.Add(img);
+                if (MainForm.albums.IndexOf(this) == albumDisplayed)
+                {
+                    return;
+                }
+
+                pictureLayout.Controls.Clear();
             }
+
+            foreach (PictureUC img in pictures)
+            {
+                pictureLayout.Controls.Add(img);
+            }
+
+            // Set the number of the album displayed
+            albumDisplayed = MainForm.albums.IndexOf(this);
+        }
+
+        public static void setAlbumLayout (FlowLayoutPanel layout) 
+        {
+            if (AlbumUC.pictureLayout == null)
+            {
+                AlbumUC.pictureLayout = layout;
+            }
+        }
+
+        private void AlbumUC_Click(object sender, EventArgs e)
+        {
+            this.displayPictures();
         }
     }
 }

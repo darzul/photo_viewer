@@ -52,6 +52,7 @@ namespace PhotoViewer
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.AlbumUC_Click);
             // 
             // pictureBox3
             // 
@@ -62,6 +63,7 @@ namespace PhotoViewer
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox3.TabIndex = 1;
             this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.AlbumUC_Click);
             // 
             // pictureBox2
             // 
@@ -72,6 +74,7 @@ namespace PhotoViewer
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.AlbumUC_Click);
             // 
             // pictureBox4
             // 
@@ -82,6 +85,7 @@ namespace PhotoViewer
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox4.TabIndex = 3;
             this.pictureBox4.TabStop = false;
+            this.pictureBox4.Click += new System.EventHandler(this.AlbumUC_Click);
             // 
             // titleLabel
             // 
@@ -97,6 +101,7 @@ namespace PhotoViewer
             this.titleLabel.TabIndex = 4;
             this.titleLabel.Text = "Title";
             this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.titleLabel.Click += new System.EventHandler(this.AlbumUC_Click);
             // 
             // AlbumUC
             // 
@@ -112,6 +117,7 @@ namespace PhotoViewer
             this.Padding = new System.Windows.Forms.Padding(5);
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Size = new System.Drawing.Size(115, 145);
+            this.Click += new System.EventHandler(this.AlbumUC_Click);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

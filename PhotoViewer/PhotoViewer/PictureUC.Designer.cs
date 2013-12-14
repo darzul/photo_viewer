@@ -38,12 +38,15 @@
             this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox.Location = new System.Drawing.Point(5, 5);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBox.MaximumSize = new System.Drawing.Size(140, 135);
+            this.pictureBox.MinimumSize = new System.Drawing.Size(140, 135);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(140, 135);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
+            this.pictureBox.Click += new System.EventHandler(this.PictureUC_Click);
             // 
             // titleLabel
             // 
@@ -60,6 +63,7 @@
             this.titleLabel.TabIndex = 1;
             this.titleLabel.Text = "Title";
             this.titleLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.titleLabel.Click += new System.EventHandler(this.PictureUC_Click);
             // 
             // PictureUC
             // 
@@ -70,9 +74,12 @@
             this.Controls.Add(this.pictureBox);
             this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximumSize = new System.Drawing.Size(150, 180);
+            this.MinimumSize = new System.Drawing.Size(150, 180);
             this.Name = "PictureUC";
             this.Size = new System.Drawing.Size(150, 180);
+            this.Click += new System.EventHandler(this.PictureUC_Click);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

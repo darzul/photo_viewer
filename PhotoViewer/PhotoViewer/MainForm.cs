@@ -16,6 +16,7 @@ namespace PhotoViewer
         AlbumUC AlbumUC3;
         AlbumUC currentAlbumPrinted = null;
         XmlAlbums xmlAlbums;
+        public static List<AlbumUC> albums = new List<AlbumUC> ();
 
         public MainForm()
         {
@@ -33,24 +34,24 @@ namespace PhotoViewer
             xmlAlbums.Add(AlbumUC3);
 
             //if(xmlAlbums.readAll().Equals(xmlAlbums.albums)) MessageBox.Show("ça marche !");
+
+            // Set the minimal size for the detailLayout
+            this.secondarySplitContainer.SplitterDistance = this.Height;
+
+            PictureUC.setDetailLayout(this.detailFlowLayoutPanel);
+
+            AlbumUC.setAlbumLayout(picturesFlowLayoutPanel);
         }
 
-        private void displayPictures(object sender, EventArgs e)
+        private void createAlbumToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (sender.ToString().Contains("AlbumUC"))
+            var dialog = new System.Windows.Forms.FolderBrowserDialog();
+            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
             {
-                if (sender.Equals(this.AlbumUC2))
-                {
-                    this.AlbumUC2.displayPictures(picturesFlowLayoutPanel);
-                    currentAlbumPrinted = AlbumUC2;
-                }
-                else if (sender.Equals(this.AlbumUC3))
-                {
-                    this.AlbumUC3.displayPictures(picturesFlowLayoutPanel);
-                    currentAlbumPrinted = AlbumUC3;
-                }
-
-                
+                var album = new AlbumUC(dialog.SelectedPath.ToString());
+                albums.Add(album);
+                albumsFlowLayoutPanel.Controls.Add(album);
             }
         }
 
@@ -98,5 +99,5 @@ namespace PhotoViewer
         {
             xmlAlbums.readAll();
         }
-    }
+	}
 }
