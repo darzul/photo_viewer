@@ -37,6 +37,8 @@
             this.albumsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createAlbumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeAlbumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.picturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
@@ -106,6 +108,7 @@
             this.picturesFlowLayoutPanel.Name = "picturesFlowLayoutPanel";
             this.picturesFlowLayoutPanel.Size = new System.Drawing.Size(511, 435);
             this.picturesFlowLayoutPanel.TabIndex = 0;
+            this.picturesFlowLayoutPanel.Click += new System.EventHandler(this.picturesFlowLayoutPanel_Click);
             // 
             // detailFlowLayoutPanel
             // 
@@ -120,7 +123,8 @@
             // menuStrip
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.albumsToolStripMenuItem});
+            this.albumsToolStripMenuItem,
+            this.picturesToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(784, 24);
@@ -139,15 +143,32 @@
             // createAlbumToolStripMenuItem
             // 
             this.createAlbumToolStripMenuItem.Name = "createAlbumToolStripMenuItem";
-            this.createAlbumToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.createAlbumToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.createAlbumToolStripMenuItem.Text = "Create";
             this.createAlbumToolStripMenuItem.Click += new System.EventHandler(this.createAlbumToolStripMenuItem_Click);
             // 
             // removeAlbumToolStripMenuItem
             // 
             this.removeAlbumToolStripMenuItem.Name = "removeAlbumToolStripMenuItem";
-            this.removeAlbumToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removeAlbumToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.removeAlbumToolStripMenuItem.Text = "Remove";
+            // 
+            // picturesToolStripMenuItem
+            // 
+            this.picturesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectAllToolStripMenuItem});
+            this.picturesToolStripMenuItem.Name = "picturesToolStripMenuItem";
+            this.picturesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.picturesToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.picturesToolStripMenuItem.Text = "Pictures";
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.selectAllToolStripMenuItem.Text = "Select all";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -158,11 +179,10 @@
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MainForm";
-
             this.Text = "iViewer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.mainSplitContainer.Panel1.ResumeLayout(false);
             this.mainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
@@ -189,6 +209,8 @@
         private System.Windows.Forms.ToolStripMenuItem createAlbumToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeAlbumToolStripMenuItem;
         private System.Windows.Forms.FlowLayoutPanel detailFlowLayoutPanel;
+        private System.Windows.Forms.ToolStripMenuItem picturesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
     }
 }
 

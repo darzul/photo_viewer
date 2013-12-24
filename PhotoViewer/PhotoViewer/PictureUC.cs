@@ -19,6 +19,7 @@ namespace PhotoViewer
         public AlbumUC album;
 
         private static FlowLayoutPanel detailLayout = null;
+        public static List<PictureUC> picturesSelected = new List<PictureUC> ();
         
         public PictureUC(string path, AlbumUC album)
         {
@@ -49,9 +50,27 @@ namespace PhotoViewer
 
         private void PictureUC_Click(object sender, EventArgs e)
         {
-            this.BackColor = Color.AliceBlue;
+            if (Control.ModifierKeys == Keys.Shift)
+            {
+                PictureUC picStart = picturesSelected.Last();
+                album.multiSelectPic(picStart, this);
 
-            
+            }
+            else if (Control.ModifierKeys == Keys.Control)
+            {
+                picturesSelected.Add(this);
+                this.BackColor = Color.AliceBlue;
+            }
+            else
+            {
+                foreach (PictureUC p in picturesSelected)
+                {
+                    p.BackColor = Color.Gray;
+                }
+                picturesSelected.Clear();
+                picturesSelected.Add(this);
+                this.BackColor = Color.AliceBlue;
+            }
         }
     }
 }

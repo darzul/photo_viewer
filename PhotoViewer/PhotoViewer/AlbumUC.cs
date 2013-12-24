@@ -45,8 +45,6 @@ namespace PhotoViewer
                 {
                     System.Diagnostics.Debug.WriteLine(file);
                     pictures.Add (new PictureUC(file, this));
-
-                    System.Diagnostics.Debug.WriteLine("allo");
                 }
             }
 
@@ -144,9 +142,47 @@ namespace PhotoViewer
             }
         }
 
+        public static int getAlbumSelected () 
+        {
+            return albumDisplayed;
+        }
+
         private void AlbumUC_Click(object sender, EventArgs e)
         {
             this.displayPictures();
+        }
+
+        public void multiSelectPic(PictureUC picStart, PictureUC picEnd)
+        {
+                
+            int indexStart = this.pictures.IndexOf(picStart);
+            int indexEnd = this.pictures.IndexOf(picEnd);
+
+            if (indexStart > indexEnd)
+            {
+                int tmp = indexStart;
+                indexStart = indexEnd;
+                indexEnd = tmp;
+            }
+            PictureUC p;
+
+            for (; indexStart <= indexEnd; indexStart++)
+            {
+                p = this.pictures.ElementAt(indexStart);
+                p.BackColor = Color.AliceBlue;
+                PictureUC.picturesSelected.Add(p);
+            }
+        }
+
+        public void selectAll()
+        {
+            PictureUC.picturesSelected.Clear();
+            Console.WriteLine("OOOOOK!");
+            foreach (PictureUC p in pictures)
+            {
+                PictureUC.picturesSelected.Add(p);
+                p.BackColor = Color.AliceBlue;
+            }
         }
     }
 }
