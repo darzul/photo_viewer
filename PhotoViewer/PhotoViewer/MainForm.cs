@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -83,11 +84,61 @@ namespace PhotoViewer
         {
             PictureUC.picturesSelected.Clear();
             int idAlbum = AlbumUC.getAlbumSelected();
-            System.Diagnostics.Debug.WriteLine(idAlbum);
             
             if (idAlbum >= 0 && idAlbum <= albums.Count)
             {
                 albums.ElementAt(idAlbum).selectAll();
+            }
+        }
+
+        private void displayOnWebToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int idAlbum = AlbumUC.getAlbumSelected();
+
+            if (idAlbum == -1) {
+                return;
+            }
+            AlbumUC album = albums.ElementAt(idAlbum);
+
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "HTML files (*.html)|*.html";
+            dialog.Title = "Select the HTML";
+            
+            if (dialog.ShowDialog() == DialogResult.OK) 
+            {
+                String fileTitle = dialog.FileName;
+
+                String htmlText = @"
+                    <!DOCTYPE HTML>
+                    <html>
+                        <head>
+                            <title>"+ album.getTitle() + @"</title>
+                        <head>
+                        <body>
+                            <script>
+                                " + Properties.Resources.jquery_1_10_2_min + @"
+                                " + Properties.Resources.lightbox_2_6_min + @"
+                            </script>
+                            <style>
+                                " + Properties.Resources.lightbox + @"
+                                " + Properties.Resources.style + @"
+                            </style>
+                            <h1>" + album.getTitle() + @"</h1>
+                ";
+
+                foreach (PictureUC p in album.getPictures()) 
+                {
+                    htmlText += @"
+                        <a class='container' href=" + p.getPath() + " data-lightbox=" + p.getTitle() + @">
+                            <img class='cadre' src=" + p.getPath() + @">
+                        </a>";
+                }
+
+                htmlText += @"
+                        <body>
+                    <html>
+                ";
+                File.WriteAllText(fileTitle, htmlText);
             }
         }
 	}

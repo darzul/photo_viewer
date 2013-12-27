@@ -39,6 +39,7 @@
             this.removeAlbumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.picturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayOnWebToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
@@ -135,7 +136,8 @@
             // 
             this.albumsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createAlbumToolStripMenuItem,
-            this.removeAlbumToolStripMenuItem});
+            this.removeAlbumToolStripMenuItem,
+            this.displayOnWebToolStripMenuItem});
             this.albumsToolStripMenuItem.Name = "albumsToolStripMenuItem";
             this.albumsToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.albumsToolStripMenuItem.Text = "Albums";
@@ -169,6 +171,13 @@
             this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.selectAllToolStripMenuItem.Text = "Select all";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
+            // 
+            // displayOnWebToolStripMenuItem
+            // 
+            this.displayOnWebToolStripMenuItem.Name = "displayOnWebToolStripMenuItem";
+            this.displayOnWebToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.displayOnWebToolStripMenuItem.Text = "Display on web";
+            this.displayOnWebToolStripMenuItem.Click += new System.EventHandler(this.displayOnWebToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -211,6 +220,7 @@
         private System.Windows.Forms.FlowLayoutPanel detailFlowLayoutPanel;
         private System.Windows.Forms.ToolStripMenuItem picturesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem displayOnWebToolStripMenuItem;
     }
 }
 
