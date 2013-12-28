@@ -147,6 +147,7 @@
             // 
             this.createAlbumToolStripMenuItem.Name = "createAlbumToolStripMenuItem";
             this.createAlbumToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+
             this.createAlbumToolStripMenuItem.Text = "Create";
             this.createAlbumToolStripMenuItem.Click += new System.EventHandler(this.createAlbumToolStripMenuItem_Click);
             // 

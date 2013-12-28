@@ -28,12 +28,6 @@ namespace PhotoViewer
             PictureUC.setDetailLayout(this.detailFlowLayoutPanel);
 
             AlbumUC.setAlbumLayout(picturesFlowLayoutPanel);
-
-            /* A supprimer */
-            AlbumUC tmp = new AlbumUC("C:\\Users\\Guillaume\\Pictures");
-            albums.Add(tmp);
-            albumsFlowLayoutPanel.Controls.Add(tmp);
-            /***************/
         }
 
         private void createAlbumToolStripMenuItem_Click(object sender, EventArgs e)
@@ -44,6 +38,7 @@ namespace PhotoViewer
             {
                 var album = new AlbumUC(dialog.SelectedPath.ToString());
                 albums.Add(album);
+                xmlAlbums.Add(album);
                 albumsFlowLayoutPanel.Controls.Add(album);
             }
         }
@@ -53,11 +48,16 @@ namespace PhotoViewer
             xmlAlbums.WriteAll();
         }
 
+
         private void MainForm_Load(object sender, EventArgs e)
-        {
+        {   
             if (System.IO.File.Exists("albums.xml"))
             {
-                xmlAlbums.readAll();
+                xmlAlbums.ReadAll();
+
+                if (xmlAlbums.albums.Count > 0)
+                    foreach (AlbumUC album in xmlAlbums.albums)
+                        albumsFlowLayoutPanel.Controls.Add(album);
             }
         }
 
