@@ -37,9 +37,10 @@
             this.albumsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createAlbumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeAlbumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayOnWebToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.picturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.displayOnWebToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
@@ -145,20 +146,28 @@
             // createAlbumToolStripMenuItem
             // 
             this.createAlbumToolStripMenuItem.Name = "createAlbumToolStripMenuItem";
-            this.createAlbumToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.createAlbumToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.createAlbumToolStripMenuItem.Text = "Create";
             this.createAlbumToolStripMenuItem.Click += new System.EventHandler(this.createAlbumToolStripMenuItem_Click);
             // 
             // removeAlbumToolStripMenuItem
             // 
             this.removeAlbumToolStripMenuItem.Name = "removeAlbumToolStripMenuItem";
-            this.removeAlbumToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.removeAlbumToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.removeAlbumToolStripMenuItem.Text = "Remove";
+            // 
+            // displayOnWebToolStripMenuItem
+            // 
+            this.displayOnWebToolStripMenuItem.Name = "displayOnWebToolStripMenuItem";
+            this.displayOnWebToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.displayOnWebToolStripMenuItem.Text = "Display on web";
+            this.displayOnWebToolStripMenuItem.Click += new System.EventHandler(this.displayOnWebToolStripMenuItem_Click);
             // 
             // picturesToolStripMenuItem
             // 
             this.picturesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.selectAllToolStripMenuItem});
+            this.selectAllToolStripMenuItem,
+            this.deleteToolStripMenuItem});
             this.picturesToolStripMenuItem.Name = "picturesToolStripMenuItem";
             this.picturesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
             this.picturesToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -172,12 +181,13 @@
             this.selectAllToolStripMenuItem.Text = "Select all";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
-            // displayOnWebToolStripMenuItem
+            // deleteToolStripMenuItem
             // 
-            this.displayOnWebToolStripMenuItem.Name = "displayOnWebToolStripMenuItem";
-            this.displayOnWebToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.displayOnWebToolStripMenuItem.Text = "Display on web";
-            this.displayOnWebToolStripMenuItem.Click += new System.EventHandler(this.displayOnWebToolStripMenuItem_Click);
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -221,6 +231,7 @@
         private System.Windows.Forms.ToolStripMenuItem picturesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem displayOnWebToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
     }
 }
 

@@ -129,9 +129,11 @@ namespace PhotoViewer
                 foreach (PictureUC p in album.getPictures()) 
                 {
                     htmlText += @"
-                        <a class='container' href=" + p.getPath() + " data-lightbox=" + p.getTitle() + @">
+                        <div class='container'>
+                        <a href=" + p.getPath() + " data-lightbox=" + p.getTitle() + @">
                             <img class='cadre' src=" + p.getPath() + @">
-                        </a>";
+                        </a>
+                        </div>";
                 }
 
                 htmlText += @"
@@ -139,7 +141,14 @@ namespace PhotoViewer
                     <html>
                 ";
                 File.WriteAllText(fileTitle, htmlText);
+
+                System.Diagnostics.Process.Start(fileTitle);
             }
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("test !");
         }
 	}
 }
