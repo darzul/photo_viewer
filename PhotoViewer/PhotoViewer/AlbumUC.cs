@@ -184,5 +184,13 @@ namespace PhotoViewer
                 p.BackColor = Color.AliceBlue;
             }
         }
+
+        public void deletePictures (List <PictureUC> list) 
+        {
+            foreach (PictureUC p in list)
+            {
+                pictures.Remove(p);
+            }
+        }
     }
 }

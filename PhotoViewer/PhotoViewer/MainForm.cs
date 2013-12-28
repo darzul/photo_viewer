@@ -57,7 +57,10 @@ namespace PhotoViewer
 
                 if (xmlAlbums.albums.Count > 0)
                     foreach (AlbumUC album in xmlAlbums.albums)
+                    {
                         albumsFlowLayoutPanel.Controls.Add(album);
+                        albums.Add(album);
+                    }
             }
         }
 
@@ -68,16 +71,6 @@ namespace PhotoViewer
                 p.BackColor = Color.Gray;
             }
             PictureUC.picturesSelected.Clear();
-        }
-
-        private void MainForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("Key down");
-
-            if (e.Control && e.KeyCode == Keys.A) {
-
-
-            }
         }
 
         private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
@@ -148,7 +141,20 @@ namespace PhotoViewer
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("test !");
+            int idAlbum = AlbumUC.getAlbumSelected();
+
+            System.Diagnostics.Debug.WriteLine(idAlbum);
+            if (idAlbum < 0) 
+            {
+                return;
+            }
+
+            AlbumUC album = albums.ElementAt(idAlbum);
+            album.deletePictures(PictureUC.picturesSelected);
+
+            picturesFlowLayoutPanel.Refresh();
+
+            System.Diagnostics.Debug.WriteLine("OK");
         }
 	}
 }
