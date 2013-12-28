@@ -75,6 +75,14 @@ namespace PhotoViewer
                 picturesSelected.Add(this);
                 this.BackColor = Color.AliceBlue;
             }
+
+            //Permet d'afficher les données EXIF de l'image une par une
+            /*foreach (PropertyItem current_prop in pictureProperties)
+            {
+                ASCIIEncoding prop = new ASCIIEncoding();
+
+                MessageBox.Show(prop.GetString(current_prop.Value));
+            }*/
         }
 
         public PropertyItem[] GetPictureMetaData()
