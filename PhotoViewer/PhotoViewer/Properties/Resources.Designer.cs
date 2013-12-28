@@ -61,16 +61,6 @@ namespace PhotoViewer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap close {
-            get {
-                object obj = ResourceManager.GetObject("close", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
         /////@ sourceMappingURL=jquery-1.10.2.min.map
         ///*/
@@ -85,7 +75,6 @@ namespace PhotoViewer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to /* line 7, ../sass/lightbox.sass */
         ///body:after {
-        ///  content: url(../img/close.png) url(../img/loading.gif) url(../img/prev.png) url(../img/next.png);
         ///  display: none;
         ///}
         ///
@@ -106,7 +95,12 @@ namespace PhotoViewer.Properties {
         ///  position: absolute;
         ///  left: 0;
         ///  width: 100%;
-        ///  z- [rest of string was truncated]&quot;;.
+        ///  z-index: 10000;
+        ///  text-align: center;
+        ///  line-height: 0;
+        ///  font-weight: normal;
+        ///}
+        ////* line 28, ../sass/l [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string lightbox {
             get {
@@ -120,36 +114,6 @@ namespace PhotoViewer.Properties {
         internal static string lightbox_2_6_min {
             get {
                 return ResourceManager.GetString("lightbox_2_6_min", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap loading {
-            get {
-                object obj = ResourceManager.GetObject("loading", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap next {
-            get {
-                object obj = ResourceManager.GetObject("next", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap prev {
-            get {
-                object obj = ResourceManager.GetObject("prev", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -171,7 +135,7 @@ namespace PhotoViewer.Properties {
         ///    vertical-align: middle;
         ///}
         ///
-        ///img {
+        ///.cadre {
         ///    max-width:200px;
         ///    max-height:200px;
         ///
