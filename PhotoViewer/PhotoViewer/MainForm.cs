@@ -66,16 +66,12 @@ namespace PhotoViewer
 
         private void picturesFlowLayoutPanel_Click(object sender, EventArgs e)
         {
-            foreach (PictureUC p in PictureUC.picturesSelected)
-            {
-                p.BackColor = Color.Gray;
-            }
-            PictureUC.picturesSelected.Clear();
+            PictureUC.clearSelection();
         }
 
         private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PictureUC.picturesSelected.Clear();
+            PictureUC.clearSelection();
             int idAlbum = AlbumUC.getAlbumSelected();
             
             if (idAlbum >= 0 && idAlbum <= albums.Count)
@@ -143,18 +139,35 @@ namespace PhotoViewer
         {
             int idAlbum = AlbumUC.getAlbumSelected();
 
-            System.Diagnostics.Debug.WriteLine(idAlbum);
             if (idAlbum < 0) 
             {
                 return;
             }
 
             AlbumUC album = albums.ElementAt(idAlbum);
-            album.deletePictures(PictureUC.picturesSelected);
+            album.deletePictures(PictureUC.getPicturesSelected());
 
-            picturesFlowLayoutPanel.Refresh();
+            PictureUC.clearSelection();
+        }
 
-            System.Diagnostics.Debug.WriteLine("OK");
+        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dialog = new System.Windows.Forms.OpenFileDialog();
+            dialog.Multiselect = true;
+            dialog.Filter = "Images (*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG";
+
+            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                foreach (String file in dialog.FileNames)
+                {
+                    AlbumUC album = albums.ElementAt(AlbumUC.getAlbumSelected());
+                    album.addPicture(file);
+                }
+
+                picturesFlowLayoutPanel.Controls.Clear();
+                AlbumUC.refreshDisplay();
+            }
         }
 	}
 }

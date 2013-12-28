@@ -21,7 +21,7 @@ namespace PhotoViewer
         public AlbumUC album;
 
         private static FlowLayoutPanel detailLayout = null;
-        public static List<PictureUC> picturesSelected = new List<PictureUC> ();
+        private static List<PictureUC> picturesSelected = new List<PictureUC> ();
         
         public PictureUC(string path, AlbumUC album)
         {
@@ -80,6 +80,27 @@ namespace PhotoViewer
         public PropertyItem[] GetPictureMetaData()
         {
             return pictureProperties;
+        }
+
+        public static List<PictureUC> getPicturesSelected () 
+        {
+            return PictureUC.picturesSelected;
+        }
+
+        public static void selectPicture(PictureUC p)
+        {
+            picturesSelected.Add(p);
+            p.BackColor = Color.AliceBlue;
+        }
+
+        public static void clearSelection() 
+        {
+            foreach (PictureUC p in picturesSelected)
+            {
+                p.BackColor = Color.Gray;
+            }
+
+            PictureUC.picturesSelected.Clear();
         }
     }
 }

@@ -43,7 +43,6 @@ namespace PhotoViewer
             {
                 if (ext.Contains(System.IO.Path.GetExtension(file).ToLower()))
                 {
-                    System.Diagnostics.Debug.WriteLine(file);
                     pictures.Add (new PictureUC(file, this));
                 }
             }
@@ -134,6 +133,18 @@ namespace PhotoViewer
             albumDisplayed = MainForm.albums.IndexOf(this);
         }
 
+        public static void refreshDisplay()
+        {
+            pictureLayout.Controls.Clear();
+            AlbumUC album = MainForm.albums.ElementAt(albumDisplayed);
+            List <PictureUC> pictures = album.pictures;
+
+            foreach (PictureUC img in pictures)
+            {
+                pictureLayout.Controls.Add(img);
+            }
+        }
+
         public static void setAlbumLayout (FlowLayoutPanel layout) 
         {
             if (AlbumUC.pictureLayout == null)
@@ -169,28 +180,36 @@ namespace PhotoViewer
             for (; indexStart <= indexEnd; indexStart++)
             {
                 p = this.pictures.ElementAt(indexStart);
-                p.BackColor = Color.AliceBlue;
-                PictureUC.picturesSelected.Add(p);
+                PictureUC.selectPicture(p);
             }
         }
 
         public void selectAll()
         {
-            PictureUC.picturesSelected.Clear();
-            Console.WriteLine("OOOOOK!");
+            PictureUC.clearSelection();
+
             foreach (PictureUC p in pictures)
             {
-                PictureUC.picturesSelected.Add(p);
+                PictureUC.selectPicture(p);
                 p.BackColor = Color.AliceBlue;
             }
+        }
+
+        public void addPicture(String file)
+        {
+            pictures.Add(new PictureUC (file, this));
         }
 
         public void deletePictures (List <PictureUC> list) 
         {
             foreach (PictureUC p in list)
             {
-                pictures.Remove(p);
+                this.pictures.Remove(p);
             }
+
+            pictureLayout.Controls.Clear();
+
+            refreshDisplay();
         }
     }
 }
