@@ -138,6 +138,11 @@ namespace PhotoViewer
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (PictureUC.getPicturesSelected().Count <= 0)
+            {
+                return;
+            }
+
             int idAlbum = AlbumUC.getAlbumSelected();
 
             if (idAlbum < 0) 
@@ -169,6 +174,32 @@ namespace PhotoViewer
                 picturesFlowLayoutPanel.Controls.Clear();
                 AlbumUC.refreshDisplay();
             }
+        }
+
+        public void refreshAlbums()
+        {
+            albumsFlowLayoutPanel.Controls.Clear();
+
+            foreach (AlbumUC album in albums) 
+            {
+                albumsFlowLayoutPanel.Controls.Add(album);
+            }
+        }
+
+        private void removeAlbumToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int albumId = AlbumUC.getAlbumSelected();
+
+            if (albumId < 0)
+            {
+                return;
+            }
+
+            AlbumUC.resetSelectedAlbum();            
+            albums.RemoveAt(albumId);
+
+            refreshAlbums();
+            picturesFlowLayoutPanel.Controls.Clear();
         }
 	}
 }

@@ -57,6 +57,7 @@
             this.titleLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.titleLabel.Location = new System.Drawing.Point(5, 145);
             this.titleLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.titleLabel.MaximumSize = new System.Drawing.Size(140, 30);
             this.titleLabel.MinimumSize = new System.Drawing.Size(140, 30);
             this.titleLabel.Name = "titleLabel";
             this.titleLabel.Size = new System.Drawing.Size(140, 30);

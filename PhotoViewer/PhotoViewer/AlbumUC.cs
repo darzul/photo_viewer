@@ -121,6 +121,10 @@ namespace PhotoViewer
                     return;
                 }
 
+                AlbumUC old = MainForm.albums.ElementAt(albumDisplayed);
+                old.BackColor = System.Drawing.SystemColors.ControlLight;
+
+                PictureUC.clearSelection();
                 pictureLayout.Controls.Clear();
             }
 
@@ -131,6 +135,8 @@ namespace PhotoViewer
 
             // Set the number of the album displayed
             albumDisplayed = MainForm.albums.IndexOf(this);
+
+            this.BackColor = Color.FromArgb(119, 181, 254);
         }
 
         public static void refreshDisplay()
@@ -161,6 +167,7 @@ namespace PhotoViewer
         private void AlbumUC_Click(object sender, EventArgs e)
         {
             this.displayPictures();
+            pictureLayout.Focus();
         }
 
         public void multiSelectPic(PictureUC picStart, PictureUC picEnd)
@@ -191,7 +198,6 @@ namespace PhotoViewer
             foreach (PictureUC p in pictures)
             {
                 PictureUC.selectPicture(p);
-                p.BackColor = Color.AliceBlue;
             }
         }
 
@@ -210,6 +216,11 @@ namespace PhotoViewer
             pictureLayout.Controls.Clear();
 
             refreshDisplay();
+        }
+
+        public static void resetSelectedAlbum()
+        {
+            albumDisplayed = -1;
         }
     }
 }

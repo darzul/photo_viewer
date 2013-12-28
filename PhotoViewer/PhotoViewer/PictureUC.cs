@@ -62,18 +62,14 @@ namespace PhotoViewer
             }
             else if (Control.ModifierKeys == Keys.Control)
             {
-                picturesSelected.Add(this);
-                this.BackColor = Color.AliceBlue;
+                selectPicture(this);
             }
             else
             {
-                foreach (PictureUC p in picturesSelected)
-                {
-                    p.BackColor = Color.Gray;
-                }
+                clearSelection();
+
                 picturesSelected.Clear();
-                picturesSelected.Add(this);
-                this.BackColor = Color.AliceBlue;
+                selectPicture(this);
             }
 
             //Permet d'afficher les données EXIF de l'image une par une
@@ -98,17 +94,16 @@ namespace PhotoViewer
         public static void selectPicture(PictureUC p)
         {
             picturesSelected.Add(p);
-            p.BackColor = Color.AliceBlue;
+            p.BackColor = Color.FromArgb(119,181,254);
         }
 
         public static void clearSelection() 
         {
             foreach (PictureUC p in picturesSelected)
             {
-                p.BackColor = Color.Gray;
+                p.BackColor = System.Drawing.SystemColors.ControlLight;
             }
-
-            PictureUC.picturesSelected.Clear();
+            picturesSelected.Clear();
         }
     }
 }
