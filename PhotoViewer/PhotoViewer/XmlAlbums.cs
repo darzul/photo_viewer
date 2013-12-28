@@ -63,45 +63,63 @@ namespace PhotoViewer
 
         public void WriteAll()
         {
-            foreach (AlbumUC album in albums)
+
+            XmlWriter writer = XmlWriter.Create("albums.xml", writer_settings);
+
+            using(writer)
             {
-                XmlWriter writer = XmlWriter.Create(album.getTitle() + ".xml", writer_settings);
-
-                using (writer)
+                try
                 {
-                    writer.WriteStartElement("album");
-                    writer.WriteElementString("title", album.getTitle());
-                    writer.WriteElementString("path", album.getPath());
+                    writer.WriteStartElement("xmlAlbums");
 
-                    foreach (PictureUC picture in album.getPictures())
+                    foreach (AlbumUC album in albums)
                     {
-                        writer.WriteStartElement("picture");
-                        writer.WriteElementString("title", picture.getTitle());
-                        writer.WriteElementString("path", picture.getPath());
+                        writer.WriteStartElement("album");
+                        writer.WriteElementString("title", album.getTitle());
+                        writer.WriteElementString("path", album.getPath());
+
+                        foreach (PictureUC picture in album.getPictures())
+                        {
+                            writer.WriteStartElement("picture");
+                            writer.WriteElementString("title", picture.getTitle());
+                            writer.WriteElementString("path", picture.getPath());
+                            writer.WriteEndElement();
+                        }
+
                         writer.WriteEndElement();
                     }
-
-                    writer.WriteEndElement();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString());
+                    return;
                 }
 
-                writer.Flush();
-                writer.Close();
+                writer.WriteEndElement();
             }
+
+            writer.Flush();
+            writer.Close();
         }
 
-        public List<AlbumUC> readAll()
+        public List<AlbumUC> ReadAll()
         {
             List<AlbumUC> albums = new List<AlbumUC>();
 
-            XmlReader reader = XmlReader.Create("albums.xml", reader_settings);
-
-            while (reader.Read() == true)
+            if(System.IO.File.Exists("albums.xml"))
             {
-                reader.ReadToFollowing("path");
+                XmlReader reader = XmlReader.Create("albums.xml", reader_settings);
 
-                albums.Add(new AlbumUC(reader.ReadElementContentAsString()));
+                while (reader.Read() == true)
+                {
+                    reader.ReadToFollowing("path");
 
-                reader.ReadToFollowing("album");
+                    albums.Add(new AlbumUC(reader.ReadElementContentAsString()));
+
+                    reader.ReadToFollowing("album");
+                }
+
+                reader.Close();
             }
 
             this.albums = albums;

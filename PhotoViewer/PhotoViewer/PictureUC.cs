@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Imaging;
 
 namespace PhotoViewer
 {
@@ -14,11 +15,13 @@ namespace PhotoViewer
     {
         private string title;
         private string path;
+        private PropertyItem[] pictureProperties;
         public static int widthPictureUC = 150;
         public static int heightPictureUC = 180;
         public AlbumUC album;
 
         private static FlowLayoutPanel detailLayout = null;
+        public static List<PictureUC> picturesSelected = new List<PictureUC> ();
         
         public PictureUC(string path, AlbumUC album)
         {
@@ -31,6 +34,8 @@ namespace PhotoViewer
 
             this.title = System.IO.Path.GetFileNameWithoutExtension(path);
             this.titleLabel.Text = this.title;
+
+            this.pictureProperties = Image.FromFile(path).PropertyItems;
         }
 
         public string getTitle()
@@ -49,9 +54,32 @@ namespace PhotoViewer
 
         private void PictureUC_Click(object sender, EventArgs e)
         {
-            this.BackColor = Color.AliceBlue;
+            if (Control.ModifierKeys == Keys.Shift)
+            {
+                PictureUC picStart = picturesSelected.Last();
+                album.multiSelectPic(picStart, this);
 
-            
+            }
+            else if (Control.ModifierKeys == Keys.Control)
+            {
+                picturesSelected.Add(this);
+                this.BackColor = Color.AliceBlue;
+            }
+            else
+            {
+                foreach (PictureUC p in picturesSelected)
+                {
+                    p.BackColor = Color.Gray;
+                }
+                picturesSelected.Clear();
+                picturesSelected.Add(this);
+                this.BackColor = Color.AliceBlue;
+            }
+        }
+
+        public PropertyItem[] GetPictureMetaData()
+        {
+            return pictureProperties;
         }
     }
 }

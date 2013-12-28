@@ -12,9 +12,6 @@ namespace PhotoViewer
 {
     public partial class MainForm : Form
     {
-        AlbumUC AlbumUC2;
-        AlbumUC AlbumUC3;
-        AlbumUC currentAlbumPrinted = null;
         XmlAlbums xmlAlbums;
         public static List<AlbumUC> albums = new List<AlbumUC> ();
 
@@ -23,17 +20,6 @@ namespace PhotoViewer
             InitializeComponent();
 
             xmlAlbums = new XmlAlbums();
-
-            this.AlbumUC2 = new AlbumUC("C:\\Users\\Dev\\Pictures");
-            albumsFlowLayoutPanel.Controls.Add(AlbumUC2);
-            xmlAlbums.Add(AlbumUC2);
-
-            this.AlbumUC3 = new AlbumUC("C:\\Users\\Dev\\Pictures");
-            //this.AlbumUC3.Click += displayPictures;
-            albumsFlowLayoutPanel.Controls.Add(this.AlbumUC3);
-            xmlAlbums.Add(AlbumUC3);
-
-            //if(xmlAlbums.readAll().Equals(xmlAlbums.albums)) MessageBox.Show("ça marche !");
 
             // Set the minimal size for the detailLayout
             this.secondarySplitContainer.SplitterDistance = this.Height;
@@ -51,20 +37,9 @@ namespace PhotoViewer
             {
                 var album = new AlbumUC(dialog.SelectedPath.ToString());
                 albums.Add(album);
+                xmlAlbums.Add(album);
                 albumsFlowLayoutPanel.Controls.Add(album);
             }
-        }
-
-        private bool needDisplayvScrollBar ()
-        {
-            //picturesFlowLayoutPanel.get
-            return true;
-        }
-
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            // Lancer le diapo
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -72,9 +47,48 @@ namespace PhotoViewer
             xmlAlbums.WriteAll();
         }
 
+
         private void MainForm_Load(object sender, EventArgs e)
+        {   
+            if (System.IO.File.Exists("albums.xml"))
+            {
+                xmlAlbums.ReadAll();
+
+                if (xmlAlbums.albums.Count > 0)
+                    foreach (AlbumUC album in xmlAlbums.albums)
+                        albumsFlowLayoutPanel.Controls.Add(album);
+            }
+        }
+
+        private void picturesFlowLayoutPanel_Click(object sender, EventArgs e)
         {
-            xmlAlbums.readAll();
+            foreach (PictureUC p in PictureUC.picturesSelected)
+            {
+                p.BackColor = Color.Gray;
+            }
+            PictureUC.picturesSelected.Clear();
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("Key down");
+
+            if (e.Control && e.KeyCode == Keys.A) {
+
+
+            }
+        }
+
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PictureUC.picturesSelected.Clear();
+            int idAlbum = AlbumUC.getAlbumSelected();
+            System.Diagnostics.Debug.WriteLine(idAlbum);
+            
+            if (idAlbum >= 0 && idAlbum <= albums.Count)
+            {
+                albums.ElementAt(idAlbum).selectAll();
+            }
         }
 	}
 }
