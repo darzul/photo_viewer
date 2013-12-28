@@ -96,6 +96,7 @@ namespace PhotoViewer
             int idAlbum = AlbumUC.getAlbumSelected();
 
             if (idAlbum == -1) {
+                MessageBox.Show("No album selected");
                 return;
             }
             AlbumUC album = albums.ElementAt(idAlbum);
