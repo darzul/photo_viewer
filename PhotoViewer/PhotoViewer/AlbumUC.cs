@@ -13,14 +13,74 @@ namespace PhotoViewer
 {
     public partial class AlbumUC : UserControl
     {
+        #region Static Methods/Attributes
+        private static int albumDisplayed = -1;
+        private static MainForm mainForm = null;
+        private static FlowLayoutPanel pictureLayout = null;
+
+        public static void setMainForm(MainForm mainForm)
+        {
+            AlbumUC.mainForm = mainForm;
+        }
+
+        public static void setAlbumLayout(FlowLayoutPanel layout)
+        {
+            if (AlbumUC.pictureLayout == null)
+            {
+                AlbumUC.pictureLayout = layout;
+            }
+        }
+
+        public static int getIdDisplayedAlbum()
+        {
+            if (albumDisplayed < 0 || albumDisplayed > mainForm.albums.Count)
+                return -1;
+
+            return albumDisplayed;
+        }
+
+        public static AlbumUC getDisplayedAlbum()
+        {
+            if (albumDisplayed < 0 || albumDisplayed > mainForm.albums.Count)
+            {
+                MessageBox.Show("No album displayed");
+                return null;
+            }
+
+            return mainForm.albums.ElementAt(albumDisplayed);
+        }
+
+        static public Bitmap ScaleImage(Image image, int maxWidth, int maxHeight)
+        {
+            var ratioX = (double)maxWidth / image.Width;
+            var ratioY = (double)maxHeight / image.Height;
+            var ratio = Math.Min(ratioX, ratioY);
+
+            var newWidth = (int)(image.Width * ratio);
+            var newHeight = (int)(image.Height * ratio);
+
+            var newImage = new Bitmap(newWidth, newHeight);
+            Graphics.FromImage(newImage).DrawImage(image, 0, 0, newWidth, newHeight);
+            Bitmap bmp = new Bitmap(newImage);
+
+            return bmp;
+        }
+
+        public static void resetDisplayedAlbum()
+        {
+            albumDisplayed = -1;
+        }
+
+        public static void focusPictureLayout()
+        {
+            pictureLayout.Focus();
+        }
+        #endregion
+
+        #region Constructor
         private List<PictureUC> pictures = new List<PictureUC>();
         private string title;
         private string path;
-
-        private static int albumDisplayed = -1;
-        private static MainForm mainForm = null;
-
-        private static FlowLayoutPanel pictureLayout = null;
 
         public AlbumUC(string path)
         {
@@ -46,6 +106,132 @@ namespace PhotoViewer
             }
 
         }
+        #endregion
+
+        #region Getter/Setter
+        private void setTitle(string newTitle)
+        {
+            this.title = newTitle;
+            this.titleLabel.Text = this.title;
+        }
+
+        public string getTitle()
+        {
+            return this.title;
+        }
+
+        public string getPath()
+        {
+            return this.path;
+        }
+
+        public List<PictureUC> getPictures()
+        {
+            return this.pictures;
+        }
+
+        public MainForm getMainForm()
+        {
+            return mainForm;
+        }
+        #endregion
+
+        #region Events
+        private void AlbumUC_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                if (mainForm.isSelected(this) == false)
+                {
+                    mainForm.clearAlbumSelection();
+                    mainForm.selectAlbum(this);
+
+                    this.displayPictures();
+                    pictureLayout.Focus();
+                }
+                rightClickContextMenuStrip.Show(Cursor.Position);
+            }
+
+            else if (e.Button == System.Windows.Forms.MouseButtons.Left) 
+            {
+                if (Form.ModifierKeys == Keys.Control) 
+                {
+                    mainForm.selectAlbum(this);
+                }
+                else if (Form.ModifierKeys == Keys.Shift) 
+                {
+                    AlbumUC start = mainForm.getLastSelectedAlbum();
+                    if (start == null)
+                    {
+                        mainForm.selectAlbum(this);
+                    }
+
+                    mainForm.multiSelectAlbums(start ,this);
+                }
+                else 
+                {
+                    mainForm.clearAlbumSelection();
+                    mainForm.selectAlbum(this);
+
+                    this.displayPictures();
+                    pictureLayout.Focus();
+                }
+            }
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mainForm.removeSelectedAlbums();
+        }
+
+        private void renameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String newTitle = MainForm.ShowDialog("Enter the new album title", this.title);
+            this.setTitle(newTitle);
+        }
+        #endregion
+
+        #region Control pictures
+        public void addPicture(String file)
+        {
+            PictureUC picture = new PictureUC(file, this);
+
+            pictures.Add(picture);
+            pictureLayout.Controls.Add(picture);
+        }
+
+        public void deletePictures(List<PictureUC> list)
+        {
+            foreach (PictureUC p in list)
+            {
+                this.pictures.Remove(p);
+                pictureLayout.Controls.Remove(p);
+            }
+        }
+
+        // Display picture of the album into the layout in arg
+        public void displayPictures()
+        {
+            if (albumDisplayed >= 0)
+            {
+
+                if (mainForm.albums.IndexOf(this) == albumDisplayed)
+                {
+                    return;
+                }
+
+                PictureUC.clearSelection();
+                pictureLayout.Controls.Clear();
+            }
+
+            foreach (PictureUC img in pictures)
+            {
+                pictureLayout.Controls.Add(img);
+            }
+
+            // Set the number of the album displayed
+            albumDisplayed = mainForm.albums.IndexOf(this);
+        }
 
         public void importPicturesFromAlbum()
         {
@@ -56,14 +242,14 @@ namespace PhotoViewer
             {
                 if (mainForm.isPicture(file))
                 {
-                    pictures.Add (new PictureUC(file, this));
+                    pictures.Add(new PictureUC(file, this));
                 }
             }
 
             /* Add the four first pictures in pictureBox for the directory */
             int nb_picture = pictures.Count;
 
-            switch (nb_picture) 
+            switch (nb_picture)
             {
                 case 3:
                     pictureBox1.Image = ScaleImage(Image.FromFile(pictures[0].getPath()), 50, 50);
@@ -91,121 +277,12 @@ namespace PhotoViewer
                     break;
             }
         }
+        #endregion
 
-        static public Bitmap ScaleImage(Image image, int maxWidth, int maxHeight)
-        {
-            var ratioX = (double)maxWidth / image.Width;
-            var ratioY = (double)maxHeight / image.Height;
-            var ratio = Math.Min(ratioX, ratioY);
-
-            var newWidth = (int)(image.Width * ratio);
-            var newHeight = (int)(image.Height * ratio);
-
-            var newImage = new Bitmap(newWidth, newHeight);
-            Graphics.FromImage(newImage).DrawImage(image, 0, 0, newWidth, newHeight);
-            Bitmap bmp = new Bitmap(newImage);
-
-            return bmp;
-        }
-
-        public MainForm getMainForm()
-        {
-            return mainForm;
-        }
-
-        private void setTitle(string newTitle)
-        {
-            this.title = newTitle;
-            this.titleLabel.Text = this.title;
-        }
-
-        public string getTitle()
-        {
-            return this.title;
-        }
-
-        public string getPath()
-        {
-            return this.path;
-        }
-
-        public List<PictureUC> getPictures()
-        {
-            return this.pictures;
-        }
-
-        // Display picture of the album into the layout in arg
-        public void displayPictures()
-        {
-            if (albumDisplayed >= 0)
-            {
-
-                if (MainForm.albums.IndexOf(this) == albumDisplayed)
-                {
-                    return;
-                }
-
-                AlbumUC old = MainForm.albums.ElementAt(albumDisplayed);
-                old.BackColor = System.Drawing.SystemColors.ControlLight;
-
-                PictureUC.clearSelection();
-                pictureLayout.Controls.Clear();
-            }
-
-            foreach (PictureUC img in pictures)
-            {
-                pictureLayout.Controls.Add(img);
-            }
-
-            // Set the number of the album displayed
-            albumDisplayed = MainForm.albums.IndexOf(this);
-
-            this.BackColor = Color.FromArgb(119, 181, 254);
-        }
-
-        public static void refreshDisplay()
-        {
-            pictureLayout.Controls.Clear();
-            AlbumUC album = MainForm.albums.ElementAt(albumDisplayed);
-            List <PictureUC> pictures = album.pictures;
-
-            foreach (PictureUC img in pictures)
-            {
-                pictureLayout.Controls.Add(img);
-            }
-        }
-
-        public static void setMainForm(MainForm mainForm)
-        {
-            AlbumUC.mainForm = mainForm;
-        }
-
-        public static void setAlbumLayout (FlowLayoutPanel layout) 
-        {
-            if (AlbumUC.pictureLayout == null)
-            {
-                AlbumUC.pictureLayout = layout;
-            }
-        }
-
-        public static int getIdAlbumSelected () 
-        {
-            return albumDisplayed;
-        }
-
-        private void AlbumUC_Click(object sender, MouseEventArgs e)
-        {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
-            {
-                rightClickContextMenuStrip.Show(Cursor.Position);
-            }
-            this.displayPictures();
-            pictureLayout.Focus();
-        }
-
+        #region Selection methods
         public void multiSelectPic(PictureUC picStart, PictureUC picEnd)
         {
-                
+
             int indexStart = this.pictures.IndexOf(picStart);
             int indexEnd = this.pictures.IndexOf(picEnd);
 
@@ -224,7 +301,7 @@ namespace PhotoViewer
             }
         }
 
-        public void selectAll()
+        public void selectAllPictures()
         {
             PictureUC.clearSelection();
 
@@ -234,42 +311,42 @@ namespace PhotoViewer
             }
         }
 
-        public void addPicture(String file)
+        public void refreshPicturesDisplay () 
         {
-            pictures.Add(new PictureUC (file, this));
-        }
-
-        public void deletePictures (List <PictureUC> list) 
-        {
-            foreach (PictureUC p in list)
-            {
-                this.pictures.Remove(p);
-            }
-
             pictureLayout.Controls.Clear();
-
-            refreshDisplay();
+            foreach (PictureUC picture in pictures)
+            {
+                pictureLayout.Controls.Add(picture);
+            }
         }
+        #endregion
 
-        public static void resetSelectedAlbum()
+        #region Sort methods
+        public void sortByTitle()
         {
-            albumDisplayed = -1;
+            pictures.Sort(delegate(PictureUC p1, PictureUC p2)
+            {
+                return p1.getTitle().CompareTo(p2.getTitle());
+            }
+            );
+
+            refreshPicturesDisplay();
         }
 
-        public static void focusPictureLayout ()
+        public void sortByRate()
         {
-            pictureLayout.Focus();
+            pictures.Sort(delegate(PictureUC p1, PictureUC p2)
+            {
+                return p1.getRate() - p2.getRate();
+            }
+            );
+
+            refreshPicturesDisplay();
         }
 
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        public void sortByDate()
         {
-            mainForm.removeSelectedAlbum();
         }
-
-        private void renameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            String newTitle = MainForm.ShowDialog("Enter the new album title", this.title);
-            this.setTitle(newTitle);
-        }
+        #endregion
     }
 }
