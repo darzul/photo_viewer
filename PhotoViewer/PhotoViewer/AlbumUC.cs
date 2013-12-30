@@ -18,6 +18,7 @@ namespace PhotoViewer
         private string path;
 
         private static int albumDisplayed = -1;
+        private static MainForm mainForm = null;
 
         private static FlowLayoutPanel pictureLayout = null;
 
@@ -25,23 +26,35 @@ namespace PhotoViewer
         {
             InitializeComponent();
 
-            this.path = path;
-            this.titleLabel.ResetText();
-            this.title = path.Split('\\').Last();
-            this.titleLabel.Text = this.title;
+            if (Directory.Exists(path))
+            {
+                this.path = path;
+                this.titleLabel.ResetText();
+                this.title = path.Split('\\').Last();
+                this.titleLabel.Text = this.title;
 
-            importPicturesFromAlbum();
+                importPicturesFromAlbum();
+            }
+
+            // Album fictif, le path est en fait le titre
+            else
+            {
+                this.path = null;
+                this.titleLabel.ResetText();
+                this.title = path;
+                this.titleLabel.Text = this.title;
+            }
+
         }
 
         public void importPicturesFromAlbum()
         {
             /* Search picture in directory and sub-directory */
-            var ext = new List<string> { ".jpg", ".gif", ".png" };
             string[] files = Directory.GetFiles(this.path, "*.*", SearchOption.AllDirectories);
 
             foreach (string file in files)
             {
-                if (ext.Contains(System.IO.Path.GetExtension(file).ToLower()))
+                if (mainForm.isPicture(file))
                 {
                     pictures.Add (new PictureUC(file, this));
                 }
@@ -93,6 +106,17 @@ namespace PhotoViewer
             Bitmap bmp = new Bitmap(newImage);
 
             return bmp;
+        }
+
+        public MainForm getMainForm()
+        {
+            return mainForm;
+        }
+
+        private void setTitle(string newTitle)
+        {
+            this.title = newTitle;
+            this.titleLabel.Text = this.title;
         }
 
         public string getTitle()
@@ -151,6 +175,11 @@ namespace PhotoViewer
             }
         }
 
+        public static void setMainForm(MainForm mainForm)
+        {
+            AlbumUC.mainForm = mainForm;
+        }
+
         public static void setAlbumLayout (FlowLayoutPanel layout) 
         {
             if (AlbumUC.pictureLayout == null)
@@ -159,13 +188,17 @@ namespace PhotoViewer
             }
         }
 
-        public static int getAlbumSelected () 
+        public static int getIdAlbumSelected () 
         {
             return albumDisplayed;
         }
 
-        private void AlbumUC_Click(object sender, EventArgs e)
+        private void AlbumUC_Click(object sender, MouseEventArgs e)
         {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                rightClickContextMenuStrip.Show(Cursor.Position);
+            }
             this.displayPictures();
             pictureLayout.Focus();
         }
@@ -221,6 +254,22 @@ namespace PhotoViewer
         public static void resetSelectedAlbum()
         {
             albumDisplayed = -1;
+        }
+
+        public static void focusPictureLayout ()
+        {
+            pictureLayout.Focus();
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mainForm.removeSelectedAlbum();
+        }
+
+        private void renameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String newTitle = MainForm.ShowDialog("Enter the new album title", this.title);
+            this.setTitle(newTitle);
         }
     }
 }

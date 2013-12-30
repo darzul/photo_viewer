@@ -28,9 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.titleLabel = new System.Windows.Forms.Label();
+            this.rightClickContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            this.rightClickContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -47,6 +52,7 @@
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             this.pictureBox.Click += new System.EventHandler(this.PictureUC_Click);
+            this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureUC_MouseClick);
             // 
             // titleLabel
             // 
@@ -65,6 +71,29 @@
             this.titleLabel.Text = "Title";
             this.titleLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.titleLabel.Click += new System.EventHandler(this.PictureUC_Click);
+            this.titleLabel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureUC_MouseClick);
+            // 
+            // rightClickContextMenuStrip
+            // 
+            this.rightClickContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.renameToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+            this.rightClickContextMenuStrip.Name = "rightClickContextMenuStrip";
+            this.rightClickContextMenuStrip.Size = new System.Drawing.Size(118, 48);
+            // 
+            // renameToolStripMenuItem
+            // 
+            this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.renameToolStripMenuItem.Text = "Rename";
+            this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // PictureUC
             // 
@@ -81,7 +110,9 @@
             this.Name = "PictureUC";
             this.Size = new System.Drawing.Size(150, 180);
             this.Click += new System.EventHandler(this.PictureUC_Click);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureUC_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            this.rightClickContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -91,5 +122,8 @@
 
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Label titleLabel;
+        private System.Windows.Forms.ContextMenuStrip rightClickContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
     }
 }

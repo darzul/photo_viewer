@@ -35,9 +35,14 @@ namespace PhotoViewer
             this.title = System.IO.Path.GetFileNameWithoutExtension(path);
             this.titleLabel.Text = this.title;
 
-            this.pictureProperties = Image.FromFile(path).PropertyItems;
+            //this.pictureProperties = Image.FromFile(path).PropertyItems;
         }
 
+        private void setTitle(String newTitle) 
+        {
+            this.title = newTitle;
+            this.titleLabel.Text = newTitle;
+        }
         public string getTitle()
         {
             return this.title;
@@ -50,6 +55,14 @@ namespace PhotoViewer
         public static void setDetailLayout(FlowLayoutPanel layout)
         {
             PictureUC.detailLayout = layout;
+        }
+
+        private void PictureUC_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                rightClickContextMenuStrip.Show(Cursor.Position);
+            }
         }
 
         private void PictureUC_Click(object sender, EventArgs e)
@@ -71,6 +84,8 @@ namespace PhotoViewer
                 picturesSelected.Clear();
                 selectPicture(this);
             }
+
+            AlbumUC.focusPictureLayout();
 
             //Permet d'afficher les données EXIF de l'image une par une
             /*foreach (PropertyItem current_prop in pictureProperties)
@@ -104,6 +119,18 @@ namespace PhotoViewer
                 p.BackColor = System.Drawing.SystemColors.ControlLight;
             }
             picturesSelected.Clear();
+        }
+
+        private void renameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String newTitle = MainForm.ShowDialog("Rename your picture", this.title);
+            setTitle(newTitle);
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MainForm mainForm = album.getMainForm();
+            mainForm.removePictureSelected();
         }
     }
 }
