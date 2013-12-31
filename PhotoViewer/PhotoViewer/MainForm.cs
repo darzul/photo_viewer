@@ -13,8 +13,11 @@ namespace PhotoViewer
 {
     public partial class MainForm : Form
     {
+        #region Constructor
         XmlAlbums xmlAlbums;
-        public static List<AlbumUC> albums = new List<AlbumUC> ();
+        private List<AlbumUC> albumsSelected = new List<AlbumUC>();
+        public List<AlbumUC> albums = new List<AlbumUC>();
+        public List<String> extensions = new List<string> { "png", "jpg", "gif" };
 
         public MainForm()
         {
@@ -28,9 +31,12 @@ namespace PhotoViewer
             PictureUC.setDetailLayout(this.detailFlowLayoutPanel);
 
             AlbumUC.setAlbumLayout(picturesFlowLayoutPanel);
+            AlbumUC.setMainForm(this);
         }
+        #endregion
 
-        private void createAlbumToolStripMenuItem_Click(object sender, EventArgs e)
+        #region Albums management
+        public void createAlbumFromFolder()
         {
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
             System.Windows.Forms.DialogResult result = dialog.ShowDialog();
@@ -42,15 +48,162 @@ namespace PhotoViewer
             }
         }
 
+        public void createAlbumFromFolder(String folder)
+        {
+            var album = new AlbumUC(folder);
+            albums.Add(album);
+            xmlAlbums.Add(album);
+            albumsFlowLayoutPanel.Controls.Add(album);
+        }
+
+        private void createEmptyAlbum()
+        {
+            createAlbumFromFolder(ShowDialog("Tape the album's title", ""));
+        }
+
+        public void refreshAlbums()
+        {
+            albumsFlowLayoutPanel.Controls.Clear();
+
+            foreach (AlbumUC album in albums)
+            {
+                albumsFlowLayoutPanel.Controls.Add(album);
+            }
+        }
+
+        public AlbumUC getLastSelectedAlbum()
+        {
+            if (albumsSelected.Count == 0) 
+            {
+                return null;
+            }
+
+            return albumsSelected.Last();
+        }
+
+        public void selectAlbum(AlbumUC album)
+        {
+            album.BackColor = Color.FromArgb(119, 181, 254);
+            albumsSelected.Add(album);
+        }
+
+        public void multiSelectAlbums(AlbumUC start, AlbumUC end)
+        {
+            int startId = albums.IndexOf(start);
+            int endId = albums.IndexOf(end);
+
+            if (startId > endId)
+            {
+                int tmp = startId;
+                startId = endId;
+                endId = tmp;
+            }
+
+            for (; startId <= endId; startId++)
+            {
+                selectAlbum(albums.ElementAt(startId));
+            }
+        }
+
+        public void selectAllAlbums()
+        {
+            foreach (AlbumUC album in albums)
+                selectAlbum(album);
+        }
+
+        public bool isSelected(AlbumUC album)
+        {
+            if (albumsSelected.Contains(album))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void clearAlbumSelection() 
+        {
+            if (albumsSelected.Count == 0)
+            {
+                return;
+            }
+
+            foreach (AlbumUC album in albumsSelected)
+            {
+                album.BackColor = System.Drawing.SystemColors.ControlLight;
+            }
+
+            albumsSelected.Clear();
+        }
+
+        public void removeSelectedAlbums()
+        {
+            if (albumsSelected.Count == 0)
+            {
+                System.Windows.Forms.MessageBox.Show("No album selected");
+                return;
+            }
+
+            AlbumUC.resetDisplayedAlbum();
+
+            foreach (AlbumUC album in albumsSelected)
+            {
+                albums.Remove(album);
+                albumsFlowLayoutPanel.Controls.Remove(album);
+            }
+        }
+
+        public void removeSelectedPictures()
+        {
+            if (PictureUC.getPicturesSelected().Count <= 0)
+            {
+                return;
+            }
+
+            AlbumUC album = AlbumUC.getDisplayedAlbum();
+            if (album == null)
+                return;
+
+            album.deletePictures(PictureUC.getPicturesSelected());
+
+            PictureUC.clearSelection();
+        }
+
+        public bool isPicture(String file)
+        {
+            String extension = file.Split('.').Last().ToLower();
+
+            if (extensions.Contains(extension))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        #endregion
+
+        #region Event
+        private void emptyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            createEmptyAlbum();
+        }
+
+        private void fromFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            createAlbumFromFolder();
+        }
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             xmlAlbums.albums = albums;
             xmlAlbums.WriteAll();
         }
 
-
         private void MainForm_Load(object sender, EventArgs e)
-        {   
+        {
             if (System.IO.File.Exists("albums.xml"))
             {
                 xmlAlbums.ReadAll();
@@ -72,29 +225,25 @@ namespace PhotoViewer
         private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PictureUC.clearSelection();
-            int idAlbum = AlbumUC.getAlbumSelected();
-            
-            if (idAlbum >= 0 && idAlbum <= albums.Count)
-            {
-                albums.ElementAt(idAlbum).selectAll();
-            }
+
+            AlbumUC album = AlbumUC.getDisplayedAlbum();
+            if (album == null)
+                return;
+
+            album.selectAllPictures();
         }
 
         private void displayOnWebToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int idAlbum = AlbumUC.getAlbumSelected();
-
-            if (idAlbum == -1) {
-                MessageBox.Show("No album selected");
+            AlbumUC album = AlbumUC.getDisplayedAlbum();
+            if (album == null)
                 return;
-            }
-            AlbumUC album = albums.ElementAt(idAlbum);
 
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "HTML files (*.html)|*.html";
             dialog.Title = "Select the HTML";
-            
-            if (dialog.ShowDialog() == DialogResult.OK) 
+
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
                 String fileTitle = dialog.FileName;
 
@@ -102,7 +251,7 @@ namespace PhotoViewer
                     <!DOCTYPE HTML>
                     <html>
                         <head>
-                            <title>"+ album.getTitle() + @"</title>
+                            <title>" + album.getTitle() + @"</title>
                         <head>
                         <body>
                             <script>
@@ -116,7 +265,7 @@ namespace PhotoViewer
                             <h1>" + album.getTitle() + @"</h1>
                 ";
 
-                foreach (PictureUC p in album.getPictures()) 
+                foreach (PictureUC p in album.getPictures())
                 {
                     htmlText += @"
                         <div class='container'>
@@ -136,24 +285,18 @@ namespace PhotoViewer
             }
         }
 
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void nameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (PictureUC.getPicturesSelected().Count <= 0)
-            {
+            AlbumUC album = AlbumUC.getDisplayedAlbum();
+            if (album == null)
                 return;
-            }
 
-            int idAlbum = AlbumUC.getAlbumSelected();
+            album.sortByTitle();
+        }
 
-            if (idAlbum < 0) 
-            {
-                return;
-            }
-
-            AlbumUC album = albums.ElementAt(idAlbum);
-            album.deletePictures(PictureUC.getPicturesSelected());
-
-            PictureUC.clearSelection();
+        private void removePictureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            removeSelectedPictures();
         }
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
@@ -167,39 +310,110 @@ namespace PhotoViewer
             {
                 foreach (String file in dialog.FileNames)
                 {
-                    AlbumUC album = albums.ElementAt(AlbumUC.getAlbumSelected());
+                    AlbumUC album = AlbumUC.getDisplayedAlbum();
+                    if (album == null)
+                        return;
+
                     album.addPicture(file);
                 }
-
-                picturesFlowLayoutPanel.Controls.Clear();
-                AlbumUC.refreshDisplay();
             }
         }
 
-        public void refreshAlbums()
+        private void picturesFlowLayoutPanel_MouseClick(object sender, MouseEventArgs e)
         {
-            albumsFlowLayoutPanel.Controls.Clear();
-
-            foreach (AlbumUC album in albums) 
-            {
-                albumsFlowLayoutPanel.Controls.Add(album);
-            }
+            picturesFlowLayoutPanel.Focus();
         }
+
 
         private void removeAlbumToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int albumId = AlbumUC.getAlbumSelected();
-
-            if (albumId < 0)
-            {
-                return;
-            }
-
-            AlbumUC.resetSelectedAlbum();            
-            albums.RemoveAt(albumId);
-
-            refreshAlbums();
-            picturesFlowLayoutPanel.Controls.Clear();
+            this.removeSelectedAlbums();
         }
+
+        private void albumsFlowLayoutPanel_MouseClick(object sender, MouseEventArgs e)
+        {
+            clearAlbumSelection();
+        }
+        #endregion
+
+        #region Static Methods
+        public static string ShowDialog(string text, string caption)
+        {
+            Form prompt = new Form();
+            prompt.Width = 500;
+            prompt.Height = 150;
+            prompt.Text = caption;
+            Label textLabel = new Label() { Left = 50, Top = 20, Text = text, AutoSize = true };
+            TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 400, Text = caption };
+            Button confirmation = new Button() { Text = "Ok", Left = 200, Width = 100, Top = 80 };
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+            textBox.KeyDown += (sender, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    prompt.Close();
+                }
+            };
+
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.Controls.Add(textBox);
+
+            prompt.ActiveControl = textBox;
+            textBox.SelectAll();
+
+            prompt.ShowDialog();
+
+            return textBox.Text;
+        }
+        #endregion
+
+        #region Drag and Drop
+        private void picturesFlowLayoutPanel_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                AlbumUC album = AlbumUC.getDisplayedAlbum();
+                if (album == null)
+                    return;
+
+                string[] filePaths = (string[])(e.Data.GetData(DataFormats.FileDrop));
+                foreach (string file in filePaths)
+                {
+                    if (File.Exists(file) && isPicture (file))
+                    {
+                        album.addPicture(file);
+                    }
+                }
+            }
+        }
+
+        private void flowLayoutPanel_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void albumsFlowLayoutPanel_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] folderPaths = (string[])(e.Data.GetData(DataFormats.FileDrop));
+                foreach (string folder in folderPaths)
+                {
+                    if (Directory.Exists(folder))
+                    {
+                        createAlbumFromFolder(folder);
+                    }
+                }
+            }
+        }
+        #endregion
 	}
 }

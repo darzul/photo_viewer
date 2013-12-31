@@ -32,15 +32,20 @@ namespace PhotoViewer
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.titleLabel = new System.Windows.Forms.Label();
+            this.rightClickContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            this.rightClickContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -52,7 +57,7 @@ namespace PhotoViewer
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.AlbumUC_Click);
+            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseClick);
             // 
             // pictureBox3
             // 
@@ -63,7 +68,7 @@ namespace PhotoViewer
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox3.TabIndex = 1;
             this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.AlbumUC_Click);
+            this.pictureBox3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseClick);
             // 
             // pictureBox2
             // 
@@ -74,7 +79,7 @@ namespace PhotoViewer
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.AlbumUC_Click);
+            this.pictureBox2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseClick);
             // 
             // pictureBox4
             // 
@@ -85,7 +90,7 @@ namespace PhotoViewer
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox4.TabIndex = 3;
             this.pictureBox4.TabStop = false;
-            this.pictureBox4.Click += new System.EventHandler(this.AlbumUC_Click);
+            this.pictureBox4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseClick);
             // 
             // titleLabel
             // 
@@ -101,7 +106,30 @@ namespace PhotoViewer
             this.titleLabel.TabIndex = 4;
             this.titleLabel.Text = "Title";
             this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.titleLabel.Click += new System.EventHandler(this.AlbumUC_Click);
+            this.titleLabel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseClick);
+            // 
+            // rightClickContextMenuStrip
+            // 
+            this.rightClickContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.renameToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+            this.rightClickContextMenuStrip.Name = "rightClickContextMenuStrip";
+            this.rightClickContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.rightClickContextMenuStrip.Size = new System.Drawing.Size(118, 48);
+            // 
+            // renameToolStripMenuItem
+            // 
+            this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.renameToolStripMenuItem.Text = "Rename";
+            this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // AlbumUC
             // 
@@ -117,11 +145,12 @@ namespace PhotoViewer
             this.Padding = new System.Windows.Forms.Padding(5);
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Size = new System.Drawing.Size(115, 145);
-            this.Click += new System.EventHandler(this.AlbumUC_Click);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            this.rightClickContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -134,5 +163,8 @@ namespace PhotoViewer
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.Label titleLabel;
+        private System.Windows.Forms.ContextMenuStrip rightClickContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
     }
 }
