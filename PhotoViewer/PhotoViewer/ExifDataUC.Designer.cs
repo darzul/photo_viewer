@@ -34,9 +34,8 @@
             // 
             // propertyLabel
             // 
-            this.propertyLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.propertyLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.propertyLabel.AutoEllipsis = true;
             this.propertyLabel.AutoSize = true;
             this.propertyLabel.Location = new System.Drawing.Point(0, 0);
             this.propertyLabel.Name = "propertyLabel";
@@ -49,7 +48,7 @@
             this.propertyMaskedTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.propertyMaskedTextBox.Location = new System.Drawing.Point(42, 0);
+            this.propertyMaskedTextBox.Location = new System.Drawing.Point(103, 0);
             this.propertyMaskedTextBox.Name = "propertyMaskedTextBox";
             this.propertyMaskedTextBox.Size = new System.Drawing.Size(100, 20);
             this.propertyMaskedTextBox.TabIndex = 1;
@@ -61,7 +60,7 @@
             this.Controls.Add(this.propertyMaskedTextBox);
             this.Controls.Add(this.propertyLabel);
             this.Name = "ExifDataUC";
-            this.Size = new System.Drawing.Size(157, 25);
+            this.Size = new System.Drawing.Size(292, 25);
             this.ResumeLayout(false);
             this.PerformLayout();
 

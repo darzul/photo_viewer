@@ -110,7 +110,7 @@ namespace PhotoViewer
             // Album fictif, le path est en fait le titre
             else
             {
-                this.path = null;
+                this.path = "undefined";
                 this.titleLabel.ResetText();
                 this.title = path;
                 this.titleLabel.Text = this.title;

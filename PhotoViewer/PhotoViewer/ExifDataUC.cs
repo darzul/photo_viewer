@@ -45,14 +45,14 @@ namespace PhotoViewer
             }
             else if (property.Id == 271)
             {
-                this.labelText = "Camera manufacturer";
+                this.labelText = "Camera";
                 ASCIIEncoding prop = new ASCIIEncoding();
 
                 this.propertyText = prop.GetString(property.Value);
             }
             else if (property.Id == 272)
             {
-                this.labelText = "Cameda model";
+                this.labelText = "Model";
                 ASCIIEncoding prop = new ASCIIEncoding();
 
                 this.propertyText = prop.GetString(property.Value);

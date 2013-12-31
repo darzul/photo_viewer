@@ -107,12 +107,12 @@ namespace PhotoViewer
             }
 
             //Permet d'afficher les données EXIF de l'image une par une
-            foreach (PropertyItem current_prop in pictureProperties)
+            /*foreach (PropertyItem current_prop in pictureProperties)
             {
                 ASCIIEncoding prop = new ASCIIEncoding();
 
                 MessageBox.Show(prop.GetString(current_prop.Value));
-            }
+            }*/
 
             if (this.rate < 0 || this.rate > 5)
                 return 0;
@@ -162,14 +162,15 @@ namespace PhotoViewer
                 }
 
                 AlbumUC.focusPictureLayout();
-
+                detailLayout.Controls.Clear();
                 //Permet d'afficher les données EXIF de l'image une par une
-                /*foreach (PropertyItem current_prop in pictureProperties)
+                foreach (PropertyItem current_prop in pictureProperties)
                 {
-                    ASCIIEncoding prop = new ASCIIEncoding();
+                    ExifDataUC data = new ExifDataUC(current_prop);
 
-                    MessageBox.Show(prop.GetString(current_prop.Value));
-                }*/
+                    detailLayout.Controls.Add(data);
+                }
+                
             }
         }
 
