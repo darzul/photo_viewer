@@ -65,7 +65,7 @@ namespace PhotoViewer
             this.title = System.IO.Path.GetFileNameWithoutExtension(path);
             this.titleLabel.Text = this.title;
 
-            //this.pictureProperties = Image.FromFile(path).PropertyItems;
+            this.pictureProperties = Image.FromFile(path).PropertyItems;
         }
         #endregion
 
@@ -88,6 +88,32 @@ namespace PhotoViewer
 
         public int getRate()
         {
+            if (Control.ModifierKeys == Keys.Shift)
+            {
+                PictureUC picStart = picturesSelected.Last();
+                album.multiSelectPic(picStart, this);
+
+            }
+            else if (Control.ModifierKeys == Keys.Control)
+            {
+                selectPicture(this);
+            }
+            else
+            {
+                clearSelection();
+
+                picturesSelected.Clear();
+                selectPicture(this);
+            }
+
+            //Permet d'afficher les données EXIF de l'image une par une
+            /*foreach (PropertyItem current_prop in pictureProperties)
+            {
+                ASCIIEncoding prop = new ASCIIEncoding();
+
+                MessageBox.Show(prop.GetString(current_prop.Value));
+            }*/
+
             if (this.rate < 0 || this.rate > 5)
                 return 0;
 
@@ -136,14 +162,15 @@ namespace PhotoViewer
                 }
 
                 AlbumUC.focusPictureLayout();
-
+                detailLayout.Controls.Clear();
                 //Permet d'afficher les données EXIF de l'image une par une
-                /*foreach (PropertyItem current_prop in pictureProperties)
+                foreach (PropertyItem current_prop in pictureProperties)
                 {
-                    ASCIIEncoding prop = new ASCIIEncoding();
+                    ExifDataUC data = new ExifDataUC(current_prop);
 
-                    MessageBox.Show(prop.GetString(current_prop.Value));
-                }*/
+                    detailLayout.Controls.Add(data);
+                }
+                
             }
         }
 

@@ -133,6 +133,7 @@
             this.detailFlowLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.detailFlowLayoutPanel.AutoScroll = true;
             this.detailFlowLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.detailFlowLayoutPanel.Name = "detailFlowLayoutPanel";
             this.detailFlowLayoutPanel.Size = new System.Drawing.Size(511, 135);
@@ -165,7 +166,7 @@
             this.emptyToolStripMenuItem,
             this.fromFolderToolStripMenuItem});
             this.createAlbumToolStripMenuItem.Name = "createAlbumToolStripMenuItem";
-            this.createAlbumToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.createAlbumToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.createAlbumToolStripMenuItem.Text = "New album";
             // 
             // emptyToolStripMenuItem
@@ -185,15 +186,15 @@
             // removeAlbumToolStripMenuItem
             // 
             this.removeAlbumToolStripMenuItem.Name = "removeAlbumToolStripMenuItem";
-            this.removeAlbumToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.Delete)));
-            this.removeAlbumToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.removeAlbumToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Delete)));
+            this.removeAlbumToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.removeAlbumToolStripMenuItem.Text = "Remove";
             this.removeAlbumToolStripMenuItem.Click += new System.EventHandler(this.removeAlbum);
             // 
             // displayOnWebToolStripMenuItem
             // 
             this.displayOnWebToolStripMenuItem.Name = "displayOnWebToolStripMenuItem";
-            this.displayOnWebToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.displayOnWebToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.displayOnWebToolStripMenuItem.Text = "Display on web";
             this.displayOnWebToolStripMenuItem.Click += new System.EventHandler(this.displayOnWeb);
             // 

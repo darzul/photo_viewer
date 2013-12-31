@@ -63,6 +63,8 @@ namespace PhotoViewer
 
         public void WriteAll()
         {
+            if (this.albums.Count == 0)
+                return;
 
             XmlWriter writer = XmlWriter.Create("albums.xml", writer_settings);
 
@@ -105,6 +107,7 @@ namespace PhotoViewer
         public List<AlbumUC> ReadAll()
         {
             List<AlbumUC> albums = new List<AlbumUC>();
+            int i = -1;
 
             if(System.IO.File.Exists("albums.xml"))
             {
@@ -112,15 +115,43 @@ namespace PhotoViewer
 
                 while (reader.Read() == true)
                 {
-                    reader.ReadToFollowing("path");
 
-                    albums.Add(new AlbumUC(reader.ReadElementContentAsString()));
+                    if (reader.Name.Equals("album"))
+                    {
+                        //MessageBox.Show(reader.Name);
+                        reader.ReadToFollowing("title");
+                        string title = reader.ReadElementContentAsString();
 
-                    reader.ReadToFollowing("album");
+
+                        reader.Read();
+                        //MessageBox.Show(reader.Name);
+                        string path = reader.Value.ToString();
+                        //MessageBox.Show("Album path shows " + path);
+
+                        albums.Add(new AlbumUC(path, title));
+                        i++;
+                        reader.Read();
+                        reader.Read();
+
+                        while (reader.Name.Equals("picture"))
+                        {
+                            //MessageBox.Show(reader.Name);
+                            reader.ReadToFollowing("path");
+                            albums.ElementAt(i).addPicture(reader.ReadElementContentAsString());
+                            reader.Read();
+                        }
+                    }
                 }
 
                 reader.Close();
             }
+
+            /*foreach (AlbumUC album in albums)
+            {
+                MessageBox.Show(album.getTitle() + " " + album.getPath());
+                foreach (PictureUC picture in album.getPictures())
+                    MessageBox.Show(picture.getTitle() + " " + picture.getPath());
+            }*/
 
             this.albums = albums;
             return albums;

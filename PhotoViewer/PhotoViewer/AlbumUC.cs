@@ -17,7 +17,18 @@ namespace PhotoViewer
         private static int albumDisplayed = -1;
         private static MainForm mainForm = null;
         private static FlowLayoutPanel pictureLayout = null;
+        
+        public AlbumUC(string path, string title)
+        {
+            InitializeComponent();
 
+            this.path = path;
+            this.titleLabel.ResetText();
+            this.title = title;
+            this.titleLabel.Text = this.title;
+        }
+
+        
         public static void setMainForm(MainForm mainForm)
         {
             AlbumUC.mainForm = mainForm;
@@ -99,7 +110,7 @@ namespace PhotoViewer
             // Album fictif, le path est en fait le titre
             else
             {
-                this.path = null;
+                this.path = "undefined";
                 this.titleLabel.ResetText();
                 this.title = path;
                 this.titleLabel.Text = this.title;
