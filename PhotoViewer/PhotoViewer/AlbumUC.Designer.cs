@@ -41,6 +41,7 @@ namespace PhotoViewer
             this.rightClickContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.webViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -112,24 +113,32 @@ namespace PhotoViewer
             // 
             this.rightClickContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.renameToolStripMenuItem,
-            this.deleteToolStripMenuItem});
+            this.deleteToolStripMenuItem,
+            this.webViewToolStripMenuItem});
             this.rightClickContextMenuStrip.Name = "rightClickContextMenuStrip";
             this.rightClickContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.rightClickContextMenuStrip.Size = new System.Drawing.Size(118, 48);
+            this.rightClickContextMenuStrip.Size = new System.Drawing.Size(153, 92);
             // 
             // renameToolStripMenuItem
             // 
             this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.renameToolStripMenuItem.Text = "Rename";
-            this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
+            this.renameToolStripMenuItem.Click += new System.EventHandler(this.rename);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.delete);
+            // 
+            // webViewToolStripMenuItem
+            // 
+            this.webViewToolStripMenuItem.Name = "webViewToolStripMenuItem";
+            this.webViewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.webViewToolStripMenuItem.Text = "Web view";
+            this.webViewToolStripMenuItem.Click += new System.EventHandler(this.webView);
             // 
             // AlbumUC
             // 
@@ -166,5 +175,6 @@ namespace PhotoViewer
         private System.Windows.Forms.ContextMenuStrip rightClickContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem webViewToolStripMenuItem;
     }
 }

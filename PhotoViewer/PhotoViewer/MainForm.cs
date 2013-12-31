@@ -30,7 +30,7 @@ namespace PhotoViewer
 
             PictureUC.setDetailLayout(this.detailFlowLayoutPanel);
 
-            AlbumUC.setAlbumLayout(picturesFlowLayoutPanel);
+            AlbumUC.setPicturesLayout(picturesFlowLayoutPanel);
             AlbumUC.setMainForm(this);
         }
         #endregion
@@ -184,15 +184,20 @@ namespace PhotoViewer
             }
 
         }
+
+        public void focusAlbumLayout()
+        {
+            albumsFlowLayoutPanel.Focus();
+        }
         #endregion
 
         #region Event
-        private void emptyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void createEmptyAlbum(object sender, EventArgs e)
         {
             createEmptyAlbum();
         }
 
-        private void fromFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        private void createAlbumFromFolder(object sender, EventArgs e)
         {
             createAlbumFromFolder();
         }
@@ -222,7 +227,7 @@ namespace PhotoViewer
             PictureUC.clearSelection();
         }
 
-        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        private void selectAllPictures(object sender, EventArgs e)
         {
             PictureUC.clearSelection();
 
@@ -233,7 +238,7 @@ namespace PhotoViewer
             album.selectAllPictures();
         }
 
-        private void displayOnWebToolStripMenuItem_Click(object sender, EventArgs e)
+        public void displayOnWeb(object sender, EventArgs e)
         {
             AlbumUC album = AlbumUC.getDisplayedAlbum();
             if (album == null)
@@ -285,7 +290,7 @@ namespace PhotoViewer
             }
         }
 
-        private void nameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void sortByTitle(object sender, EventArgs e)
         {
             AlbumUC album = AlbumUC.getDisplayedAlbum();
             if (album == null)
@@ -294,12 +299,12 @@ namespace PhotoViewer
             album.sortByTitle();
         }
 
-        private void removePictureToolStripMenuItem_Click(object sender, EventArgs e)
+        private void removePicture(object sender, EventArgs e)
         {
             removeSelectedPictures();
         }
 
-        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        private void addPictures(object sender, EventArgs e)
         {
             var dialog = new System.Windows.Forms.OpenFileDialog();
             dialog.Multiselect = true;
@@ -325,13 +330,14 @@ namespace PhotoViewer
         }
 
 
-        private void removeAlbumToolStripMenuItem_Click(object sender, EventArgs e)
+        private void removeAlbum(object sender, EventArgs e)
         {
             this.removeSelectedAlbums();
         }
 
         private void albumsFlowLayoutPanel_MouseClick(object sender, MouseEventArgs e)
         {
+            focusAlbumLayout();
             clearAlbumSelection();
         }
         #endregion
