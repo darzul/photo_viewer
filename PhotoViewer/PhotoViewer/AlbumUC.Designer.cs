@@ -58,7 +58,10 @@ namespace PhotoViewer
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.AlbumUC_DragDrop);
+            this.pictureBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.AlbumUC_DragEnter);
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseClick);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseMove);
             // 
             // pictureBox3
             // 
@@ -69,7 +72,10 @@ namespace PhotoViewer
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox3.TabIndex = 1;
             this.pictureBox3.TabStop = false;
+            this.pictureBox3.DragDrop += new System.Windows.Forms.DragEventHandler(this.AlbumUC_DragDrop);
+            this.pictureBox3.DragEnter += new System.Windows.Forms.DragEventHandler(this.AlbumUC_DragEnter);
             this.pictureBox3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseClick);
+            this.pictureBox3.MouseMove += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseMove);
             // 
             // pictureBox2
             // 
@@ -80,7 +86,10 @@ namespace PhotoViewer
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.DragDrop += new System.Windows.Forms.DragEventHandler(this.AlbumUC_DragDrop);
+            this.pictureBox2.DragEnter += new System.Windows.Forms.DragEventHandler(this.AlbumUC_DragEnter);
             this.pictureBox2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseClick);
+            this.pictureBox2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseMove);
             // 
             // pictureBox4
             // 
@@ -91,7 +100,10 @@ namespace PhotoViewer
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox4.TabIndex = 3;
             this.pictureBox4.TabStop = false;
+            this.pictureBox4.DragDrop += new System.Windows.Forms.DragEventHandler(this.AlbumUC_DragDrop);
+            this.pictureBox4.DragEnter += new System.Windows.Forms.DragEventHandler(this.AlbumUC_DragEnter);
             this.pictureBox4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseClick);
+            this.pictureBox4.MouseMove += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseMove);
             // 
             // titleLabel
             // 
@@ -107,7 +119,10 @@ namespace PhotoViewer
             this.titleLabel.TabIndex = 4;
             this.titleLabel.Text = "Title";
             this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.titleLabel.DragDrop += new System.Windows.Forms.DragEventHandler(this.AlbumUC_DragDrop);
+            this.titleLabel.DragEnter += new System.Windows.Forms.DragEventHandler(this.AlbumUC_DragEnter);
             this.titleLabel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseClick);
+            this.titleLabel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseMove);
             // 
             // rightClickContextMenuStrip
             // 
@@ -117,31 +132,32 @@ namespace PhotoViewer
             this.webViewToolStripMenuItem});
             this.rightClickContextMenuStrip.Name = "rightClickContextMenuStrip";
             this.rightClickContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.rightClickContextMenuStrip.Size = new System.Drawing.Size(153, 92);
+            this.rightClickContextMenuStrip.Size = new System.Drawing.Size(126, 70);
             // 
             // renameToolStripMenuItem
             // 
             this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.renameToolStripMenuItem.Text = "Rename";
             this.renameToolStripMenuItem.Click += new System.EventHandler(this.rename);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.delete);
             // 
             // webViewToolStripMenuItem
             // 
             this.webViewToolStripMenuItem.Name = "webViewToolStripMenuItem";
-            this.webViewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.webViewToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.webViewToolStripMenuItem.Text = "Web view";
             this.webViewToolStripMenuItem.Click += new System.EventHandler(this.webView);
             // 
             // AlbumUC
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -154,7 +170,10 @@ namespace PhotoViewer
             this.Padding = new System.Windows.Forms.Padding(5);
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Size = new System.Drawing.Size(115, 145);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.AlbumUC_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.AlbumUC_DragEnter);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseClick);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.AlbumUC_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

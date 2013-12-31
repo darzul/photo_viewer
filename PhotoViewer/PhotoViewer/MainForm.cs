@@ -72,6 +72,17 @@ namespace PhotoViewer
             }
         }
 
+        public void changeAlbumPosition(int index, AlbumUC album)
+        {
+            albums.Remove(album);
+            albums.Insert(index, album);
+
+            for (int i = 0; i < albums.Count; i++)
+            {
+                albumsFlowLayoutPanel.Controls.SetChildIndex(albums.ElementAt(i), i);
+            }
+        }
+
         public AlbumUC getLastSelectedAlbum()
         {
             if (albumsSelected.Count == 0) 

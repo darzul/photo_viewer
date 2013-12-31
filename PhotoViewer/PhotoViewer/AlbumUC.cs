@@ -130,6 +130,11 @@ namespace PhotoViewer
             return this.pictures;
         }
 
+        public int getPictureId(PictureUC picture)
+        {
+            return pictures.IndexOf(picture);
+        }
+
         public MainForm getMainForm()
         {
             return mainForm;
@@ -200,6 +205,17 @@ namespace PhotoViewer
             pictureLayout.Controls.Add(picture);
         }
 
+        public void changePicturePosition(int index, PictureUC p)
+        {
+            pictures.Remove(p);
+            pictures.Insert(index, p);
+
+            for (int i = 0; i < pictures.Count; i++)
+            {
+                pictureLayout.Controls.SetChildIndex(pictures.ElementAt(i), i);
+            }
+        }
+
         public void deletePictures(List<PictureUC> list)
         {
             foreach (PictureUC p in list)
@@ -207,6 +223,12 @@ namespace PhotoViewer
                 this.pictures.Remove(p);
                 pictureLayout.Controls.Remove(p);
             }
+        }
+
+        public void deletePicture(PictureUC p)
+        {
+            this.pictures.Remove(p);
+            pictureLayout.Controls.Remove(p);
         }
 
         // Display picture of the album into the layout in arg
@@ -353,5 +375,33 @@ namespace PhotoViewer
         {
             mainForm.displayOnWeb(sender, e);
         }
+
+        #region Drag&Drop
+        private void AlbumUC_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.DoDragDrop(this, DragDropEffects.All);
+            }
+        }
+
+        private void AlbumUC_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetFormats().Contains("PhotoViewer.AlbumUC"))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void AlbumUC_DragDrop(object sender, DragEventArgs e)
+        {
+            AlbumUC album = e.Data.GetData(typeof(AlbumUC)) as AlbumUC;
+            mainForm.changeAlbumPosition(mainForm.albums.IndexOf(this), album);
+        }
+        #endregion
     }
 }
