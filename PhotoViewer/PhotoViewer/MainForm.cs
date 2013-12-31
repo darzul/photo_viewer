@@ -38,13 +38,13 @@ namespace PhotoViewer
             {
                 var album = new AlbumUC(dialog.SelectedPath.ToString());
                 albums.Add(album);
-                xmlAlbums.Add(album);
                 albumsFlowLayoutPanel.Controls.Add(album);
             }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            xmlAlbums.albums = albums;
             xmlAlbums.WriteAll();
         }
 
@@ -58,8 +58,8 @@ namespace PhotoViewer
                 if (xmlAlbums.albums.Count > 0)
                     foreach (AlbumUC album in xmlAlbums.albums)
                     {
-                        albumsFlowLayoutPanel.Controls.Add(album);
                         albums.Add(album);
+                        albumsFlowLayoutPanel.Controls.Add(album);
                     }
             }
         }

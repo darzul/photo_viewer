@@ -21,6 +21,16 @@ namespace PhotoViewer
 
         private static FlowLayoutPanel pictureLayout = null;
 
+        public AlbumUC(string path, string title)
+        {
+            InitializeComponent();
+
+            this.path = path;
+            this.titleLabel.ResetText();
+            this.title = title;
+            this.titleLabel.Text = this.title;
+        }
+
         public AlbumUC(string path)
         {
             InitializeComponent();

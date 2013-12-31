@@ -40,8 +40,9 @@
             this.displayOnWebToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.picturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.detailsListView = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
@@ -50,6 +51,7 @@
             this.secondarySplitContainer.Panel1.SuspendLayout();
             this.secondarySplitContainer.Panel2.SuspendLayout();
             this.secondarySplitContainer.SuspendLayout();
+            this.detailFlowLayoutPanel.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -118,6 +120,7 @@
             this.detailFlowLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.detailFlowLayoutPanel.Controls.Add(this.detailsListView);
             this.detailFlowLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.detailFlowLayoutPanel.Name = "detailFlowLayoutPanel";
             this.detailFlowLayoutPanel.Size = new System.Drawing.Size(511, 135);
@@ -147,7 +150,7 @@
             // createAlbumToolStripMenuItem
             // 
             this.createAlbumToolStripMenuItem.Name = "createAlbumToolStripMenuItem";
-            this.createAlbumToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.createAlbumToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.createAlbumToolStripMenuItem.Text = "Create";
             this.createAlbumToolStripMenuItem.Click += new System.EventHandler(this.createAlbumToolStripMenuItem_Click);
             // 
@@ -155,14 +158,14 @@
             // 
             this.removeAlbumToolStripMenuItem.Name = "removeAlbumToolStripMenuItem";
             this.removeAlbumToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Delete)));
-            this.removeAlbumToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.removeAlbumToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.removeAlbumToolStripMenuItem.Text = "Remove";
             this.removeAlbumToolStripMenuItem.Click += new System.EventHandler(this.removeAlbumToolStripMenuItem_Click);
             // 
             // displayOnWebToolStripMenuItem
             // 
             this.displayOnWebToolStripMenuItem.Name = "displayOnWebToolStripMenuItem";
-            this.displayOnWebToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.displayOnWebToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.displayOnWebToolStripMenuItem.Text = "Display on web";
             this.displayOnWebToolStripMenuItem.Click += new System.EventHandler(this.displayOnWebToolStripMenuItem_Click);
             // 
@@ -185,6 +188,13 @@
             this.selectAllToolStripMenuItem.Text = "Select all";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
+            // addToolStripMenuItem
+            // 
+            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.addToolStripMenuItem.Text = "Add";
+            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
+            // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
@@ -193,12 +203,16 @@
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
-            // addToolStripMenuItem
+            // detailsListView
             // 
-            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.addToolStripMenuItem.Text = "Add";
-            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
+            this.detailsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.detailsListView.Location = new System.Drawing.Point(3, 3);
+            this.detailsListView.Name = "detailsListView";
+            this.detailsListView.Size = new System.Drawing.Size(121, 0);
+            this.detailsListView.TabIndex = 0;
+            this.detailsListView.UseCompatibleStateImageBehavior = false;
             // 
             // MainForm
             // 
@@ -220,6 +234,7 @@
             this.secondarySplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.secondarySplitContainer)).EndInit();
             this.secondarySplitContainer.ResumeLayout(false);
+            this.detailFlowLayoutPanel.ResumeLayout(false);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -243,6 +258,7 @@
         private System.Windows.Forms.ToolStripMenuItem displayOnWebToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
+        private System.Windows.Forms.ListView detailsListView;
     }
 }
 
