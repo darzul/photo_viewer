@@ -173,13 +173,13 @@ namespace PhotoViewer
             }
         }
 
-        private void renameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void rename(object sender, EventArgs e)
         {
             String newTitle = MainForm.ShowDialog("Rename your picture", this.title);
             setTitle(newTitle);
         }
 
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void delete(object sender, EventArgs e)
         {
             MainForm mainForm = album.getMainForm();
             mainForm.removeSelectedPictures();

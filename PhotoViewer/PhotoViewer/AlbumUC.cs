@@ -34,7 +34,7 @@ namespace PhotoViewer
             AlbumUC.mainForm = mainForm;
         }
 
-        public static void setAlbumLayout(FlowLayoutPanel layout)
+        public static void setPicturesLayout(FlowLayoutPanel layout)
         {
             if (AlbumUC.pictureLayout == null)
             {
@@ -185,17 +185,17 @@ namespace PhotoViewer
                     mainForm.selectAlbum(this);
 
                     this.displayPictures();
-                    pictureLayout.Focus();
+                    mainForm.focusAlbumLayout();
                 }
             }
         }
 
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void delete(object sender, EventArgs e)
         {
             mainForm.removeSelectedAlbums();
         }
 
-        private void renameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void rename(object sender, EventArgs e)
         {
             String newTitle = MainForm.ShowDialog("Enter the new album title", this.title);
             this.setTitle(newTitle);
@@ -359,5 +359,10 @@ namespace PhotoViewer
         {
         }
         #endregion
+
+        private void webView(object sender, EventArgs e)
+        {
+            mainForm.displayOnWeb(sender, e);
+        }
     }
 }
