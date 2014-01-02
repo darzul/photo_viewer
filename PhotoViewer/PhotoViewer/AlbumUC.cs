@@ -104,7 +104,6 @@ namespace PhotoViewer
                 this.title = path;
                 this.titleLabel.Text = this.title;
             }
-
         }
         #endregion
 
@@ -161,7 +160,14 @@ namespace PhotoViewer
             {
                 if (Form.ModifierKeys == Keys.Control) 
                 {
-                    mainForm.selectAlbum(this);
+                    if (mainForm.getSelectedAlbums().Contains(this))
+                    {
+                        mainForm.unSelectAlbum(this);
+                    }
+                    else
+                    {
+                        mainForm.selectAlbum(this);
+                    }
                 }
                 else if (Form.ModifierKeys == Keys.Shift) 
                 {
@@ -234,7 +240,11 @@ namespace PhotoViewer
             }
 
             pictures.Add(picture);
-            pictureLayout.Controls.Add(picture);
+
+            if (getIdDisplayedAlbum() >= 0)
+            {
+                pictureLayout.Controls.Add(picture);
+            }
         }
 
         public void changePicturePosition(int index, PictureUC p)
@@ -278,9 +288,13 @@ namespace PhotoViewer
                 pictureLayout.Controls.Clear();
             }
 
-            foreach (PictureUC img in pictures)
+            foreach (PictureUC picture in pictures)
             {
-                pictureLayout.Controls.Add(img);
+                if (picture.isLoad() == false)
+                {
+                    picture.loadPicture();
+                }
+                pictureLayout.Controls.Add(picture);
             }
 
             // Set the number of the album displayed

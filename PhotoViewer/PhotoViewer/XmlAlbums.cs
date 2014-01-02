@@ -15,7 +15,7 @@ namespace PhotoViewer
         XmlWriterSettings writer_settings;
         XmlReaderSettings reader_settings;
         XmlSchemaSet schema;
-        public List<AlbumUC> albums;
+        private List<AlbumUC> albums;
         
 
         public XmlAlbums()
@@ -157,5 +157,14 @@ namespace PhotoViewer
             return albums;
         }
 
+        public List<AlbumUC> getAlbums()
+        {
+            return this.albums;
+        }
+
+        public void setAlbums(List<AlbumUC> albums)
+        {
+            this.albums = albums;
+        }
     }
 }
