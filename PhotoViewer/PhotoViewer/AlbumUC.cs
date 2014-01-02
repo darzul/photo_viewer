@@ -18,17 +18,6 @@ namespace PhotoViewer
         private static MainForm mainForm = null;
         private static FlowLayoutPanel pictureLayout = null;
         
-        public AlbumUC(string path, string title)
-        {
-            InitializeComponent();
-
-            this.path = path;
-            this.titleLabel.ResetText();
-            this.title = title;
-            this.titleLabel.Text = this.title;
-        }
-
-        
         public static void setMainForm(MainForm mainForm)
         {
             AlbumUC.mainForm = mainForm;
@@ -54,7 +43,7 @@ namespace PhotoViewer
         {
             if (albumDisplayed < 0 || albumDisplayed > mainForm.albums.Count)
             {
-                MessageBox.Show("No album displayed");
+                MessageBox.Show(Properties.Resources.NoAlbumDisplayed);
                 return null;
             }
 
@@ -97,7 +86,7 @@ namespace PhotoViewer
         {
             InitializeComponent();
 
-            if (Directory.Exists(path))
+            if (path.Contains('\\') && Directory.Exists(path))
             {
                 this.path = path;
                 this.titleLabel.ResetText();
@@ -110,7 +99,7 @@ namespace PhotoViewer
             // Album fictif, le path est en fait le titre
             else
             {
-                this.path = "undefined";
+                this.path = Properties.Resources.Undefined;
                 this.titleLabel.ResetText();
                 this.title = path;
                 this.titleLabel.Text = this.title;
@@ -210,7 +199,39 @@ namespace PhotoViewer
         #region Control pictures
         public void addPicture(String file)
         {
+            if (File.Exists(file) == false)
+            {
+                MessageBox.Show(Properties.Resources.FileNoExist);
+                return;
+            }
+
             PictureUC picture = new PictureUC(file, this);
+
+            // Set the four first pictures in the picturebox on the AlbumUC
+            if (pictures.Count <= 4)
+            {
+                switch (pictures.Count)
+                {
+                    case 4:
+                        pictureBox4.Image = ScaleImage(Image.FromFile(file), 50, 50);
+                        break;
+
+                    case 3:
+                        pictureBox3.Image = ScaleImage(Image.FromFile(file), 50, 50);
+                        break;
+
+                    case 2:
+                        pictureBox2.Image = ScaleImage(Image.FromFile(file), 50, 50);
+                        break;
+
+                    case 1:
+                        pictureBox1.Image = ScaleImage(Image.FromFile(file), 50, 50);
+                        break;
+
+                    case 0:
+                        break;
+                }
+            }
 
             pictures.Add(picture);
             pictureLayout.Controls.Add(picture);

@@ -151,7 +151,7 @@ namespace PhotoViewer
         {
             if (albumsSelected.Count == 0)
             {
-                System.Windows.Forms.MessageBox.Show("No album selected");
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.NoAlbumSelected);
                 return;
             }
 

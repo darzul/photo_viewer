@@ -128,7 +128,7 @@ namespace PhotoViewer
                         string path = reader.Value.ToString();
                         //MessageBox.Show("Album path shows " + path);
 
-                        albums.Add(new AlbumUC(path, title));
+                        albums.Add(new AlbumUC(title));
                         i++;
                         reader.Read();
                         reader.Read();
