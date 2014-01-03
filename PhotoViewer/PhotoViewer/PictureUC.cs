@@ -56,7 +56,6 @@ namespace PhotoViewer
         private int rate = 0;
         private string title;
         private string path;
-        private PropertyItem[] pictureProperties;
         private AlbumUC album;
         
         public PictureUC(string path, AlbumUC album)
@@ -65,6 +64,8 @@ namespace PhotoViewer
 
             this.album = album;
             this.path = path;
+
+            this.pictureBox.Image = AlbumUC.ScaleImage(Image.FromFile(path), 140, 135);
 
             this.title = System.IO.Path.GetFileNameWithoutExtension(path);
             this.titleLabel.Text = this.title;
@@ -78,7 +79,7 @@ namespace PhotoViewer
         {
             Image img = Image.FromFile(this.path);
             this.pictureBox.Image = AlbumUC.ScaleImage(img, 140, 135);
-            this.pictureProperties = img.PropertyItems;
+            //this.pictureProperties = img.PropertyItems;
         }
 
         public bool isLoad()
@@ -117,9 +118,95 @@ namespace PhotoViewer
             return this.rate;
         }
 
-        public PropertyItem[] GetPictureMetaData()
+        public string getExifWidth()
         {
-            return pictureProperties;
+            PropertyItem[] pictureProperties;
+            pictureProperties = Image.FromFile(path).PropertyItems;
+            ASCIIEncoding prop = new ASCIIEncoding();
+
+            return prop.GetString(pictureProperties.ElementAt(256).Value);
+        }
+
+        public string getExifHeight()
+        {
+            PropertyItem[] pictureProperties;
+            pictureProperties = Image.FromFile(path).PropertyItems;
+
+            ASCIIEncoding prop = new ASCIIEncoding();
+
+            return prop.GetString(pictureProperties.ElementAt(257).Value);
+        }
+
+        public string getExifTitle()
+        {
+            PropertyItem[] pictureProperties;
+            pictureProperties = Image.FromFile(path).PropertyItems;
+            ASCIIEncoding prop = new ASCIIEncoding();
+
+            return prop.GetString(pictureProperties.ElementAt(270).Value);
+        }
+
+        public string getExifCamera()
+        {
+            PropertyItem[] pictureProperties;
+            pictureProperties = Image.FromFile(path).PropertyItems;
+            ASCIIEncoding prop = new ASCIIEncoding();
+
+            return prop.GetString(pictureProperties.ElementAt(271).Value);
+        }
+
+        public string getExifModel()
+        {
+            PropertyItem[] pictureProperties;
+            pictureProperties = Image.FromFile(path).PropertyItems;
+            ASCIIEncoding prop = new ASCIIEncoding();
+
+            return prop.GetString(pictureProperties.ElementAt(272).Value);
+        }
+
+        public string getExifCreationDate()
+        {
+            PropertyItem[] pictureProperties;
+            pictureProperties = Image.FromFile(path).PropertyItems;
+            ASCIIEncoding prop = new ASCIIEncoding();
+
+            return prop.GetString(pictureProperties.ElementAt(306).Value);
+        }
+
+        public string getExifAuthor()
+        {
+            PropertyItem[] pictureProperties;
+            pictureProperties = Image.FromFile(path).PropertyItems;
+            ASCIIEncoding prop = new ASCIIEncoding();
+
+            return prop.GetString(pictureProperties.ElementAt(315).Value);
+        }
+
+        public string getExifCopyright()
+        {
+            PropertyItem[] pictureProperties;
+            pictureProperties = Image.FromFile(path).PropertyItems;
+            ASCIIEncoding prop = new ASCIIEncoding();
+
+            return prop.GetString(pictureProperties.ElementAt(33432).Value);
+        }
+
+        public string getExifVersion()
+        {
+            PropertyItem[] pictureProperties;
+            pictureProperties = Image.FromFile(path).PropertyItems;
+            ASCIIEncoding prop = new ASCIIEncoding();
+
+            return prop.GetString(pictureProperties.ElementAt(36864).Value);
+        }
+
+        public string getExifDateOfShooting()
+        {
+            PropertyItem[] pictureProperties;
+            pictureProperties = Image.FromFile(path).PropertyItems;
+            ASCIIEncoding prop = new ASCIIEncoding();
+
+            return prop.GetString(pictureProperties.ElementAt(36867).Value);
         }
         #endregion
 
@@ -166,6 +253,9 @@ namespace PhotoViewer
                 }
 
                 AlbumUC.focusPictureLayout();
+                
+                PropertyItem[] pictureProperties;
+                pictureProperties = Image.FromFile(path).PropertyItems;
                 detailLayout.Controls.Clear();
                 //Permet d'afficher les données EXIF de l'image une par une
                 foreach (PropertyItem current_prop in pictureProperties)

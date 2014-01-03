@@ -56,6 +56,12 @@
     <Compile Include="ExifDataUC.Designer.cs">
       <DependentUpon>ExifDataUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Diaporama.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Diaporama.Designer.cs">
+      <DependentUpon>Diaporama.cs</DependentUpon>
+    </Compile>
     <Compile Include="XmlConfig.cs" />
     <Compile Include="XmlAlbums.cs" />
     <Compile Include="MainForm.cs">
@@ -74,6 +80,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AlbumUC.resx">
       <DependentUpon>AlbumUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Diaporama.resx">
+      <DependentUpon>Diaporama.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExifDataUC.resx">
       <DependentUpon>ExifDataUC.cs</DependentUpon>
