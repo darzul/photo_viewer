@@ -17,7 +17,6 @@ namespace PhotoViewer
         private static int albumDisplayed = -1;
         private static MainForm mainForm = null;
         private static FlowLayoutPanel pictureLayout = null;
-
         
         public static void setMainForm(MainForm mainForm)
         {
@@ -44,7 +43,7 @@ namespace PhotoViewer
         {
             if (albumDisplayed < 0 || albumDisplayed > mainForm.albums.Count)
             {
-                MessageBox.Show("No album displayed");
+                MessageBox.Show(Properties.Resources.NoAlbumDisplayed);
                 return null;
             }
 
@@ -87,7 +86,7 @@ namespace PhotoViewer
         {
             InitializeComponent();
 
-            if (Directory.Exists(path))
+            if (path.Contains('\\') && Directory.Exists(path))
             {
                 this.path = path;
                 this.titleLabel.ResetText();
@@ -100,13 +99,12 @@ namespace PhotoViewer
             // Album fictif, le path est en fait le titre
             else
             {
-                this.path = "undefined";
+                this.path = Properties.Resources.Undefined;
                 this.titleLabel.ResetText();
                 this.title = path;
                 this.titleLabel.Text = this.title;
                 this.setThumbnailsPicture();
             }
-
         }
 
         public AlbumUC(string path, string title)
@@ -143,6 +141,11 @@ namespace PhotoViewer
             return this.pictures;
         }
 
+        public int getPictureId(PictureUC picture)
+        {
+            return pictures.IndexOf(picture);
+        }
+
         public MainForm getMainForm()
         {
             return mainForm;
@@ -169,7 +172,14 @@ namespace PhotoViewer
             {
                 if (Form.ModifierKeys == Keys.Control) 
                 {
-                    mainForm.selectAlbum(this);
+                    if (mainForm.getSelectedAlbums().Contains(this))
+                    {
+                        mainForm.unSelectAlbum(this);
+                    }
+                    else
+                    {
+                        mainForm.selectAlbum(this);
+                    }
                 }
                 else if (Form.ModifierKeys == Keys.Shift) 
                 {
@@ -207,10 +217,57 @@ namespace PhotoViewer
         #region Control pictures
         public void addPicture(String file)
         {
+            if (File.Exists(file) == false)
+            {
+                MessageBox.Show(Properties.Resources.FileNoExist);
+                return;
+            }
+
             PictureUC picture = new PictureUC(file, this);
 
+            // Set the four first pictures in the picturebox on the AlbumUC
+            if (pictures.Count <= 4)
+            {
+                switch (pictures.Count)
+                {
+                    case 4:
+                        pictureBox4.Image = ScaleImage(Image.FromFile(file), 50, 50);
+                        break;
+
+                    case 3:
+                        pictureBox3.Image = ScaleImage(Image.FromFile(file), 50, 50);
+                        break;
+
+                    case 2:
+                        pictureBox2.Image = ScaleImage(Image.FromFile(file), 50, 50);
+                        break;
+
+                    case 1:
+                        pictureBox1.Image = ScaleImage(Image.FromFile(file), 50, 50);
+                        break;
+
+                    case 0:
+                        break;
+                }
+            }
+
             pictures.Add(picture);
-            pictureLayout.Controls.Add(picture);
+
+            if (getIdDisplayedAlbum() >= 0)
+            {
+                pictureLayout.Controls.Add(picture);
+            }
+        }
+
+        public void changePicturePosition(int index, PictureUC p)
+        {
+            pictures.Remove(p);
+            pictures.Insert(index, p);
+
+            for (int i = 0; i < pictures.Count; i++)
+            {
+                pictureLayout.Controls.SetChildIndex(pictures.ElementAt(i), i);
+            }
         }
 
         public void deletePictures(List<PictureUC> list)
@@ -220,6 +277,12 @@ namespace PhotoViewer
                 this.pictures.Remove(p);
                 pictureLayout.Controls.Remove(p);
             }
+        }
+
+        public void deletePicture(PictureUC p)
+        {
+            this.pictures.Remove(p);
+            pictureLayout.Controls.Remove(p);
         }
 
         // Display picture of the album into the layout in arg
@@ -237,9 +300,13 @@ namespace PhotoViewer
                 pictureLayout.Controls.Clear();
             }
 
-            foreach (PictureUC img in pictures)
+            foreach (PictureUC picture in pictures)
             {
-                pictureLayout.Controls.Add(img);
+                if (picture.isLoad() == false)
+                {
+                    picture.loadPicture();
+                }
+                pictureLayout.Controls.Add(picture);
             }
 
             // Set the number of the album displayed
@@ -399,5 +466,33 @@ namespace PhotoViewer
         {
             mainForm.displayOnWeb(sender, e);
         }
+
+        #region Drag&Drop
+        private void AlbumUC_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.DoDragDrop(this, DragDropEffects.All);
+            }
+        }
+
+        private void AlbumUC_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetFormats().Contains("PhotoViewer.AlbumUC"))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void AlbumUC_DragDrop(object sender, DragEventArgs e)
+        {
+            AlbumUC album = e.Data.GetData(typeof(AlbumUC)) as AlbumUC;
+            mainForm.changeAlbumPosition(mainForm.albums.IndexOf(this), album);
+        }
+        #endregion
     }
 }

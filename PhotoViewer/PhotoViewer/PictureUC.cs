@@ -30,6 +30,12 @@ namespace PhotoViewer
             return PictureUC.picturesSelected;
         }
 
+        public static void unSelectPicture(PictureUC p)
+        {
+            picturesSelected.Remove(p);
+            p.BackColor = System.Drawing.SystemColors.ControlLight;
+        }
+
         public static void selectPicture(PictureUC p)
         {
             picturesSelected.Add(p);
@@ -58,7 +64,7 @@ namespace PhotoViewer
 
             this.album = album;
             this.path = path;
-            
+
             this.pictureBox.Image = AlbumUC.ScaleImage(Image.FromFile(path), 140, 135);
 
             this.title = System.IO.Path.GetFileNameWithoutExtension(path);
@@ -68,6 +74,22 @@ namespace PhotoViewer
 
 
         #region Getter/Setter
+
+        public void loadPicture()
+        {
+            Image img = Image.FromFile(this.path);
+            this.pictureBox.Image = AlbumUC.ScaleImage(img, 140, 135);
+            //this.pictureProperties = img.PropertyItems;
+        }
+
+        public bool isLoad()
+        {
+            if (this.pictureBox.Image == null)
+                return false;
+
+            return true;
+        }
+
         private void setTitle(String newTitle)
         {
             this.title = newTitle;
@@ -83,34 +105,13 @@ namespace PhotoViewer
             return this.path;
         }
 
+        public PropertyItem getDate () 
+        {
+            return this.pictureBox.Image.GetPropertyItem(306);
+        }
+
         public int getRate()
         {
-            if (Control.ModifierKeys == Keys.Shift)
-            {
-                PictureUC picStart = picturesSelected.Last();
-                album.multiSelectPic(picStart, this);
-
-            }
-            else if (Control.ModifierKeys == Keys.Control)
-            {
-                selectPicture(this);
-            }
-            else
-            {
-                clearSelection();
-
-                picturesSelected.Clear();
-                selectPicture(this);
-            }
-
-            //Permet d'afficher les données EXIF de l'image une par une
-            /*foreach (PropertyItem current_prop in pictureProperties)
-            {
-                ASCIIEncoding prop = new ASCIIEncoding();
-
-                MessageBox.Show(prop.GetString(current_prop.Value));
-            }*/
-
             if (this.rate < 0 || this.rate > 5)
                 return 0;
 
@@ -236,7 +237,14 @@ namespace PhotoViewer
                 }
                 else if (Control.ModifierKeys == Keys.Control)
                 {
-                    selectPicture(this);
+                    if (picturesSelected.Contains(this))
+                    {
+                        unSelectPicture(this);
+                    }
+                    else
+                    {
+                        selectPicture(this);
+                    }
                 }
                 else
                 {
@@ -269,6 +277,34 @@ namespace PhotoViewer
         {
             MainForm mainForm = album.getMainForm();
             mainForm.removeSelectedPictures();
+        }
+        #endregion
+
+        #region Drag&Drop
+        private void PictureUC_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.DoDragDrop(this, DragDropEffects.All);
+            }
+        }
+
+        private void PictureUC_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetFormats().Contains("PhotoViewer.PictureUC"))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void PictureUC_DragDrop(object sender, DragEventArgs e)
+        {
+            PictureUC picture = e.Data.GetData(typeof(PictureUC)) as PictureUC;
+            album.changePicturePosition(album.getPictureId(this) ,picture);
         }
         #endregion
     }

@@ -32,6 +32,7 @@
             this.albumsFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.secondarySplitContainer = new System.Windows.Forms.SplitContainer();
             this.picturesFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.pictureListView = new System.Windows.Forms.ListView();
             this.detailFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.albumsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +49,9 @@
             this.nameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listViewToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
@@ -56,6 +60,7 @@
             this.secondarySplitContainer.Panel1.SuspendLayout();
             this.secondarySplitContainer.Panel2.SuspendLayout();
             this.secondarySplitContainer.SuspendLayout();
+            this.picturesFlowLayoutPanel.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,6 +124,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picturesFlowLayoutPanel.AutoScroll = true;
+            this.picturesFlowLayoutPanel.Controls.Add(this.pictureListView);
             this.picturesFlowLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.picturesFlowLayoutPanel.Name = "picturesFlowLayoutPanel";
             this.picturesFlowLayoutPanel.Size = new System.Drawing.Size(511, 435);
@@ -127,6 +133,15 @@
             this.picturesFlowLayoutPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.picturesFlowLayoutPanel_DragDrop);
             this.picturesFlowLayoutPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.flowLayoutPanel_DragEnter);
             this.picturesFlowLayoutPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picturesFlowLayoutPanel_MouseClick);
+            // 
+            // pictureListView
+            // 
+            this.pictureListView.Location = new System.Drawing.Point(3, 3);
+            this.pictureListView.Name = "pictureListView";
+            this.pictureListView.Size = new System.Drawing.Size(490, 432);
+            this.pictureListView.TabIndex = 0;
+            this.pictureListView.UseCompatibleStateImageBehavior = false;
+            this.pictureListView.Visible = false;
             // 
             // detailFlowLayoutPanel
             // 
@@ -166,7 +181,7 @@
             this.emptyToolStripMenuItem,
             this.fromFolderToolStripMenuItem});
             this.createAlbumToolStripMenuItem.Name = "createAlbumToolStripMenuItem";
-            this.createAlbumToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.createAlbumToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.createAlbumToolStripMenuItem.Text = "New album";
             // 
             // emptyToolStripMenuItem
@@ -187,14 +202,14 @@
             // 
             this.removeAlbumToolStripMenuItem.Name = "removeAlbumToolStripMenuItem";
             this.removeAlbumToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Delete)));
-            this.removeAlbumToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.removeAlbumToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.removeAlbumToolStripMenuItem.Text = "Remove";
             this.removeAlbumToolStripMenuItem.Click += new System.EventHandler(this.removeAlbum);
             // 
             // displayOnWebToolStripMenuItem
             // 
             this.displayOnWebToolStripMenuItem.Name = "displayOnWebToolStripMenuItem";
-            this.displayOnWebToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.displayOnWebToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.displayOnWebToolStripMenuItem.Text = "Display on web";
             this.displayOnWebToolStripMenuItem.Click += new System.EventHandler(this.displayOnWeb);
             // 
@@ -204,7 +219,8 @@
             this.selectAllToolStripMenuItem,
             this.addToolStripMenuItem,
             this.deleteToolStripMenuItem,
-            this.sortByToolStripMenuItem});
+            this.sortByToolStripMenuItem,
+            this.displayInToolStripMenuItem});
             this.picturesToolStripMenuItem.Name = "picturesToolStripMenuItem";
             this.picturesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
             this.picturesToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -246,21 +262,44 @@
             // nameToolStripMenuItem
             // 
             this.nameToolStripMenuItem.Name = "nameToolStripMenuItem";
-            this.nameToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.nameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.nameToolStripMenuItem.Text = "Name";
             this.nameToolStripMenuItem.Click += new System.EventHandler(this.sortByTitle);
             // 
             // rateToolStripMenuItem
             // 
             this.rateToolStripMenuItem.Name = "rateToolStripMenuItem";
-            this.rateToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.rateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.rateToolStripMenuItem.Text = "Rate";
             // 
             // dateToolStripMenuItem
             // 
             this.dateToolStripMenuItem.Name = "dateToolStripMenuItem";
-            this.dateToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.dateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.dateToolStripMenuItem.Text = "Date";
+            // 
+            // displayInToolStripMenuItem
+            // 
+            this.displayInToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.listViewToolStripMenuItem,
+            this.listViewToolStripMenuItem1});
+            this.displayInToolStripMenuItem.Name = "displayInToolStripMenuItem";
+            this.displayInToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.displayInToolStripMenuItem.Text = "Display in";
+            // 
+            // listViewToolStripMenuItem
+            // 
+            this.listViewToolStripMenuItem.Name = "listViewToolStripMenuItem";
+            this.listViewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.listViewToolStripMenuItem.Text = "Normal";
+            this.listViewToolStripMenuItem.Click += new System.EventHandler(this.NormalDisplay);
+            // 
+            // listViewToolStripMenuItem1
+            // 
+            this.listViewToolStripMenuItem1.Name = "listViewToolStripMenuItem1";
+            this.listViewToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.listViewToolStripMenuItem1.Text = "List view";
+            this.listViewToolStripMenuItem1.Click += new System.EventHandler(this.listViewDisplay);
             // 
             // MainForm
             // 
@@ -282,6 +321,7 @@
             this.secondarySplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.secondarySplitContainer)).EndInit();
             this.secondarySplitContainer.ResumeLayout(false);
+            this.picturesFlowLayoutPanel.ResumeLayout(false);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -311,6 +351,10 @@
         private System.Windows.Forms.ToolStripMenuItem nameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dateToolStripMenuItem;
+        private System.Windows.Forms.ListView pictureListView;
+        private System.Windows.Forms.ToolStripMenuItem displayInToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listViewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listViewToolStripMenuItem1;
     }
 }
 

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Imaging;
 
 namespace PhotoViewer
 {
@@ -16,7 +17,7 @@ namespace PhotoViewer
         #region Constructor
         XmlAlbums xmlAlbums;
         private List<AlbumUC> albumsSelected = new List<AlbumUC>();
-        public List<AlbumUC> albums = new List<AlbumUC>();
+        public List<AlbumUC> albums;
         public List<String> extensions = new List<string> { "png", "jpg", "gif" };
 
         public MainForm()
@@ -70,6 +71,22 @@ namespace PhotoViewer
             }
         }
 
+        public void changeAlbumPosition(int index, AlbumUC album)
+        {
+            albums.Remove(album);
+            albums.Insert(index, album);
+
+            for (int i = 0; i < albums.Count; i++)
+            {
+                albumsFlowLayoutPanel.Controls.SetChildIndex(albums.ElementAt(i), i);
+            }
+        }
+
+        public List<AlbumUC> getSelectedAlbums()
+        {
+            return albumsSelected;
+        }
+
         public AlbumUC getLastSelectedAlbum()
         {
             if (albumsSelected.Count == 0) 
@@ -120,6 +137,12 @@ namespace PhotoViewer
             return false;
         }
 
+        public void unSelectAlbum(AlbumUC album)
+        {
+            albumsSelected.Remove(album);
+            album.BackColor = System.Drawing.SystemColors.ControlLight;
+        }
+
         public void clearAlbumSelection() 
         {
             if (albumsSelected.Count == 0)
@@ -139,7 +162,7 @@ namespace PhotoViewer
         {
             if (albumsSelected.Count == 0)
             {
-                System.Windows.Forms.MessageBox.Show("No album selected");
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.NoAlbumSelected);
                 return;
             }
 
@@ -180,7 +203,6 @@ namespace PhotoViewer
             {
                 return false;
             }
-
         }
 
         public void focusAlbumLayout()
@@ -202,7 +224,7 @@ namespace PhotoViewer
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            xmlAlbums.albums = albums;
+            xmlAlbums.setAlbums (albums);
             xmlAlbums.WriteAll();
         }
 
@@ -211,14 +233,19 @@ namespace PhotoViewer
             if (System.IO.File.Exists("albums.xml"))
             {
                 xmlAlbums.ReadAll();
+                List<AlbumUC> albums = xmlAlbums.getAlbums();
 
-                if (xmlAlbums.albums.Count > 0)
-                    foreach (AlbumUC album in xmlAlbums.albums)
-                    {
-                        albums.Add(album);
-                        albumsFlowLayoutPanel.Controls.Add(album);
-                    }
+                if (albums.Count > 0)
+                {
+                    this.albums = albums;
+                }
             }
+            else
+            {
+                this.albums = new List<AlbumUC>();
+            }
+
+            refreshAlbums();
         }
 
         private void picturesFlowLayoutPanel_Click(object sender, EventArgs e)
@@ -420,5 +447,61 @@ namespace PhotoViewer
             }
         }
         #endregion
+
+        private void NormalDisplay (object sender, EventArgs e)
+        {
+            if (pictureListView.Visible) 
+            {
+                pictureListView.Visible = false;
+                AlbumUC.getDisplayedAlbum().displayPictures();
+            }
+        }
+
+        private void createListView()
+        {
+            pictureListView.Columns.Add("Title");
+            pictureListView.Columns.Add("Date");
+            pictureListView.Columns.Add("Rank");
+            pictureListView.Columns.Add("Path");
+        }
+
+        private void listViewDisplay (object sender, EventArgs e)
+        {
+            if (pictureListView.Visible) 
+            {
+                return;
+            }
+
+            AlbumUC album = AlbumUC.getDisplayedAlbum();
+            if (album == null)
+            {
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.NoAlbumSelected);
+                return;
+            }
+
+            ListViewItem item;
+            String date;
+
+            foreach (PictureUC picture in album.getPictures()) 
+            {
+                if (picture.getDate() == null)
+                {
+                    date = "";
+                }
+                else
+                {
+                    date = picture.getDate().ToString();
+                }
+
+                item = new ListViewItem(new String []  {picture.getTitle(),
+                    date, picture.getRate().ToString(),
+                    picture.getPath()});
+
+                pictureListView.Items.Add(item);
+            }
+
+            pictureListView.Visible = true;
+            picturesFlowLayoutPanel.Controls.Clear();
+        }
 	}
 }

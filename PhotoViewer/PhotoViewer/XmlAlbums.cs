@@ -15,7 +15,7 @@ namespace PhotoViewer
         XmlWriterSettings writer_settings;
         XmlReaderSettings reader_settings;
         XmlSchemaSet schema;
-        public List<AlbumUC> albums;
+        private List<AlbumUC> albums;
         
 
         public XmlAlbums()
@@ -128,7 +128,7 @@ namespace PhotoViewer
                         string path = reader.Value.ToString();
                         //MessageBox.Show("Album path shows " + path);
 
-                        albums.Add(new AlbumUC(path, title));
+                        albums.Add(new AlbumUC(title));
                         i++;
                         reader.Read();
                         reader.Read();
@@ -157,5 +157,14 @@ namespace PhotoViewer
             return albums;
         }
 
+        public List<AlbumUC> getAlbums()
+        {
+            return this.albums;
+        }
+
+        public void setAlbums(List<AlbumUC> albums)
+        {
+            this.albums = albums;
+        }
     }
 }

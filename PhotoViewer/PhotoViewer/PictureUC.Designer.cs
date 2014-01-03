@@ -52,7 +52,10 @@
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
+            this.pictureBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.PictureUC_DragDrop);
+            this.pictureBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.PictureUC_DragEnter);
             this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureUC_MouseClick);
+            this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureUC_MouseMove);
             // 
             // titleLabel
             // 
@@ -70,7 +73,10 @@
             this.titleLabel.TabIndex = 1;
             this.titleLabel.Text = "Title";
             this.titleLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.titleLabel.DragDrop += new System.Windows.Forms.DragEventHandler(this.PictureUC_DragDrop);
+            this.titleLabel.DragEnter += new System.Windows.Forms.DragEventHandler(this.PictureUC_DragEnter);
             this.titleLabel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureUC_MouseClick);
+            this.titleLabel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureUC_MouseMove);
             // 
             // rightClickContextMenuStrip
             // 
@@ -96,6 +102,7 @@
             // 
             // PictureUC
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -108,7 +115,10 @@
             this.MinimumSize = new System.Drawing.Size(150, 180);
             this.Name = "PictureUC";
             this.Size = new System.Drawing.Size(150, 180);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.PictureUC_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.PictureUC_DragEnter);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureUC_MouseClick);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureUC_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.rightClickContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);

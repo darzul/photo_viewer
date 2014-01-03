@@ -14,8 +14,6 @@ namespace PhotoViewer
         [STAThread]
         static void Main()
         {
-            System.Diagnostics.Debug.WriteLine ("Let's go !");
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

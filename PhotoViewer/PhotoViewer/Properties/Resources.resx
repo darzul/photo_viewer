@@ -127,7 +127,19 @@
   <data name="lightbox_2_6_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lightbox-2.6.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="NoAlbumDisplayed" xml:space="preserve">
+    <value>No album displayed</value>
+  </data>
+  <data name="NoAlbumSelected" xml:space="preserve">
+    <value>No album selected</value>
+  </data>
   <data name="style" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\style.css;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="FileNoExist" xml:space="preserve">
+    <value>File does not exist on your computer</value>
+  </data>
+  <data name="Undefined" xml:space="preserve">
+    <value>undefined</value>
   </data>
 </root>

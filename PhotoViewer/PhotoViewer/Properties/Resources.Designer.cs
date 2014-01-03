@@ -61,6 +61,15 @@ namespace PhotoViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File does not exist on your computer.
+        /// </summary>
+        internal static string FileNoExist {
+            get {
+                return ResourceManager.GetString("FileNoExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
         /////@ sourceMappingURL=jquery-1.10.2.min.map
         ///*/
@@ -118,6 +127,24 @@ namespace PhotoViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No album displayed.
+        /// </summary>
+        internal static string NoAlbumDisplayed {
+            get {
+                return ResourceManager.GetString("NoAlbumDisplayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No album selected.
+        /// </summary>
+        internal static string NoAlbumSelected {
+            get {
+                return ResourceManager.GetString("NoAlbumSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to body {
         ///    margin: 3rem 5rem;
         ///    text-align: center;
@@ -147,6 +174,15 @@ namespace PhotoViewer.Properties {
         internal static string style {
             get {
                 return ResourceManager.GetString("style", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to undefined.
+        /// </summary>
+        internal static string Undefined {
+            get {
+                return ResourceManager.GetString("Undefined", resourceCulture);
             }
         }
     }
