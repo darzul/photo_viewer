@@ -138,6 +138,7 @@
             // 
             this.pictureListView.Location = new System.Drawing.Point(3, 3);
             this.pictureListView.Name = "pictureListView";
+            this.pictureListView.Scrollable = false;
             this.pictureListView.Size = new System.Drawing.Size(490, 432);
             this.pictureListView.TabIndex = 0;
             this.pictureListView.UseCompatibleStateImageBehavior = false;
@@ -262,20 +263,20 @@
             // nameToolStripMenuItem
             // 
             this.nameToolStripMenuItem.Name = "nameToolStripMenuItem";
-            this.nameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nameToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.nameToolStripMenuItem.Text = "Name";
             this.nameToolStripMenuItem.Click += new System.EventHandler(this.sortByTitle);
             // 
             // rateToolStripMenuItem
             // 
             this.rateToolStripMenuItem.Name = "rateToolStripMenuItem";
-            this.rateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rateToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.rateToolStripMenuItem.Text = "Rate";
             // 
             // dateToolStripMenuItem
             // 
             this.dateToolStripMenuItem.Name = "dateToolStripMenuItem";
-            this.dateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dateToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.dateToolStripMenuItem.Text = "Date";
             // 
             // displayInToolStripMenuItem
@@ -290,14 +291,14 @@
             // listViewToolStripMenuItem
             // 
             this.listViewToolStripMenuItem.Name = "listViewToolStripMenuItem";
-            this.listViewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.listViewToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.listViewToolStripMenuItem.Text = "Normal";
             this.listViewToolStripMenuItem.Click += new System.EventHandler(this.NormalDisplay);
             // 
             // listViewToolStripMenuItem1
             // 
             this.listViewToolStripMenuItem1.Name = "listViewToolStripMenuItem1";
-            this.listViewToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.listViewToolStripMenuItem1.Size = new System.Drawing.Size(119, 22);
             this.listViewToolStripMenuItem1.Text = "List view";
             this.listViewToolStripMenuItem1.Click += new System.EventHandler(this.listViewDisplay);
             // 
@@ -313,6 +314,7 @@
             this.Text = "iViewer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.mainSplitContainer.Panel1.ResumeLayout(false);
             this.mainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();

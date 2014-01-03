@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Drawing.Imaging;
 
 namespace PhotoViewer
 {
@@ -212,6 +213,11 @@ namespace PhotoViewer
             String newTitle = MainForm.ShowDialog("Enter the new album title", this.title);
             this.setTitle(newTitle);
         }
+
+        private void webView(object sender, EventArgs e)
+        {
+            mainForm.displayOnWeb(sender, e);
+        }
         #endregion
 
         #region Control pictures
@@ -290,7 +296,6 @@ namespace PhotoViewer
         {
             if (albumDisplayed >= 0)
             {
-
                 if (mainForm.albums.IndexOf(this) == albumDisplayed)
                 {
                     return;
@@ -311,6 +316,7 @@ namespace PhotoViewer
 
             // Set the number of the album displayed
             albumDisplayed = mainForm.albums.IndexOf(this);
+            mainForm.SetListviewNotVisible();
         }
 
         public void setThumbnailsPicture()
@@ -459,13 +465,45 @@ namespace PhotoViewer
 
         public void sortByDate()
         {
+            pictures.Sort(delegate(PictureUC p1, PictureUC p2)
+            {
+                PropertyItem date1 = p1.getDate();
+                PropertyItem date2 = p2.getDate();
+
+                if (date1 == null && date2 == null)
+                {
+                    return 0;
+                }
+                else if (date1 == null) 
+                {
+                    return -1;
+                }
+                else if (date2 == null)
+                {
+                    return 1;
+                }
+                else
+                {
+                    long tick1 = convertPropertyItemToDateTime(date1).Ticks;
+                    long tick2 = convertPropertyItemToDateTime(date2).Ticks;
+                    return (int) (tick1 - tick2);
+                }
+            }
+            );
+
+            refreshPicturesDisplay();
+        }
+
+        public DateTime convertPropertyItemToDateTime(PropertyItem item)
+        {
+            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
+            string text = encoding.GetString(item.Value, 0, item.Len - 1);
+
+            // Parse the date and time. 
+            System.Globalization.CultureInfo provider = System.Globalization.CultureInfo.InvariantCulture;
+            return DateTime.ParseExact(text, "yyyy:MM:d H:m:s", provider);
         }
         #endregion
-
-        private void webView(object sender, EventArgs e)
-        {
-            mainForm.displayOnWeb(sender, e);
-        }
 
         #region Drag&Drop
         private void AlbumUC_MouseMove(object sender, MouseEventArgs e)

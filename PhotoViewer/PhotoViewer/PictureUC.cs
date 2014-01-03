@@ -107,7 +107,15 @@ namespace PhotoViewer
 
         public PropertyItem getDate () 
         {
-            return this.pictureBox.Image.GetPropertyItem(306);
+            try
+            {
+                PropertyItem item = this.pictureBox.Image.PropertyItems[36867];
+                return item;
+            }
+            catch (Exception e) 
+            {
+                return null;
+            }
         }
 
         public int getRate()

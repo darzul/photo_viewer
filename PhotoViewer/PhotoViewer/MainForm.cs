@@ -33,6 +33,8 @@ namespace PhotoViewer
 
             AlbumUC.setPicturesLayout(picturesFlowLayoutPanel);
             AlbumUC.setMainForm(this);
+
+            createListView();
         }
         #endregion
 
@@ -366,6 +368,11 @@ namespace PhotoViewer
             focusAlbumLayout();
             clearAlbumSelection();
         }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            resizeListview();
+        }
         #endregion
 
         #region Static Methods
@@ -459,10 +466,12 @@ namespace PhotoViewer
 
         private void createListView()
         {
-            pictureListView.Columns.Add("Title");
+            pictureListView.Columns.Add("Title").Width = 100;
             pictureListView.Columns.Add("Date");
             pictureListView.Columns.Add("Rank");
-            pictureListView.Columns.Add("Path");
+            pictureListView.Columns.Add("Path").Width = 100;
+
+            pictureListView.View = View.Details;
         }
 
         private void listViewDisplay (object sender, EventArgs e)
@@ -502,6 +511,19 @@ namespace PhotoViewer
 
             pictureListView.Visible = true;
             picturesFlowLayoutPanel.Controls.Clear();
+            picturesFlowLayoutPanel.Controls.Add(pictureListView);
+            resizeListview();
+        }
+
+        public void SetListviewNotVisible()
+        {
+            this.pictureListView.Visible = false;
+        }
+
+        public void resizeListview()
+        {
+            pictureListView.Width = picturesFlowLayoutPanel.Width - 10;
+            pictureListView.Height = picturesFlowLayoutPanel.Height - 10;
         }
 	}
 }
