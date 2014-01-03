@@ -52,7 +52,6 @@ namespace PhotoViewer
         {
             var album = new AlbumUC(folder);
             albums.Add(album);
-            xmlAlbums.Add(album);
             albumsFlowLayoutPanel.Controls.Add(album);
         }
 
