@@ -503,5 +503,23 @@ namespace PhotoViewer
             pictureListView.Visible = true;
             picturesFlowLayoutPanel.Controls.Clear();
         }
+
+        private void showDiaporamaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.getSelectedAlbums().Count > 0)
+                    foreach (AlbumUC album in this.getSelectedAlbums())
+                    {
+                        Diaporama diaporama = new Diaporama(album);
+                        diaporama.Show();
+                        diaporama.StartDiaporama();
+                    }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
+            }
+        }
 	}
 }

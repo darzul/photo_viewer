@@ -12,47 +12,87 @@ namespace PhotoViewer
 {
     public partial class Diaporama : Form
     {
-        Timer timer;
         AlbumUC album;
+        int picture_index = 0;
+        int timeLapse;
+        bool diapoPaused = false;
 
 
         public Diaporama(AlbumUC album)
         {
             InitializeComponent();
 
+            timeLapse = 5;
             this.album = album;
         }
 
         public void StartDiaporama()
         {
-            int picture_index = 0;
+            timer.Interval = timeLapse * 1000;
+           
 
-            if (album.getPictures().Count > 0)
+            if (album.getPictures().Count > 0 && picture_index < album.getPictures().Count)
             {
-                PlayPictures(picture_index);
+                if (diapoPaused == false)
+                {
+                    PlayPicture(picture_index);
+                    picture_index++;
+                    timer.Start();
+                }
             }
-            else
+            else if(album.getPictures().Count <= 0)
                 MessageBox.Show("No pictures found");
+            else
+            this.Close();
+            
         }
 
-        private void PlayPictures(int p)
+        private void PlayPicture(int p)
         {
-            if (timer != null)
+            try
             {
-                timer.Stop();
+                diapoPictureBox.Image = Image.FromFile(album.getPictures().ElementAt(picture_index).getPath());
+
             }
-
-
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
         }
+
 
         private void Diaporama_Load(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Press Space bar to pause and ESC to quit");
         }
 
         private void Diaporama_KeyDown(object sender, KeyEventArgs e)
         {
+            if(e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
 
+            if (e.KeyCode.Equals(Keys.Space))
+            {
+                diapoPaused = !diapoPaused;
+
+                if (diapoPaused)
+                    timer.Stop();
+                else
+                    timer.Start();
+            }
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            timer.Stop();
+            StartDiaporama();
+        }
+
+        private void Diaporama_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
         }
     }
 }
