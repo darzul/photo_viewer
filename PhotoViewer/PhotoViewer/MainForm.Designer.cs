@@ -139,6 +139,7 @@
             // 
             this.pictureListView.Location = new System.Drawing.Point(3, 3);
             this.pictureListView.Name = "pictureListView";
+            this.pictureListView.Scrollable = false;
             this.pictureListView.Size = new System.Drawing.Size(490, 432);
             this.pictureListView.TabIndex = 0;
             this.pictureListView.UseCompatibleStateImageBehavior = false;
@@ -322,6 +323,7 @@
             this.Text = "iViewer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.mainSplitContainer.Panel1.ResumeLayout(false);
             this.mainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
