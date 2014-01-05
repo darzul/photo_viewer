@@ -118,6 +118,8 @@ namespace PhotoViewer
                 this.Visible = false;
             }
 
+            Size size = TextRenderer.MeasureText(this.propertyMaskedTextBox.Text, this.propertyMaskedTextBox.Font);
+            this.propertyMaskedTextBox.Width = size.Width;
         }
 
         //Méthode non-utilisée

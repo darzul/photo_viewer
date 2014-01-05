@@ -26,15 +26,10 @@ namespace PhotoViewer
 
             xmlAlbums = new XmlAlbums();
 
-            // Set the minimal size for the detailLayout
-            this.secondarySplitContainer.SplitterDistance = this.Height;
-
             PictureUC.setDetailLayout(this.detailFlowLayoutPanel);
 
             AlbumUC.setPicturesLayout(picturesFlowLayoutPanel);
             AlbumUC.setMainForm(this);
-
-            createListView();
         }
         #endregion
 
@@ -213,7 +208,7 @@ namespace PhotoViewer
         }
         #endregion
 
-        #region Event
+        #region Events
         private void createEmptyAlbum(object sender, EventArgs e)
         {
             createEmptyAlbum();
@@ -318,15 +313,6 @@ namespace PhotoViewer
             }
         }
 
-        private void sortByTitle(object sender, EventArgs e)
-        {
-            AlbumUC album = AlbumUC.getDisplayedAlbum();
-            if (album == null)
-                return;
-
-            album.sortByTitle();
-        }
-
         private void removePicture(object sender, EventArgs e)
         {
             removeSelectedPictures();
@@ -369,9 +355,76 @@ namespace PhotoViewer
             clearAlbumSelection();
         }
 
-        private void MainForm_Resize(object sender, EventArgs e)
+        private void sortByDate(object sender, EventArgs e)
         {
-            resizeListview();
+            AlbumUC album = AlbumUC.getDisplayedAlbum();
+            if (album == null)
+                return;
+
+            album.sortByDate();
+        }
+
+        private void sortByDateDesc(object sender, EventArgs e)
+        {
+            AlbumUC album = AlbumUC.getDisplayedAlbum();
+            if (album == null)
+                return;
+
+            album.sortByDateDesc();
+        }
+
+        private void sortByRate(object sender, EventArgs e)
+        {
+            AlbumUC album = AlbumUC.getDisplayedAlbum();
+            if (album == null)
+                return;
+
+            album.sortByRate();
+        }
+
+        private void sortByRateDesc(object sender, EventArgs e)
+        {
+            AlbumUC album = AlbumUC.getDisplayedAlbum();
+            if (album == null)
+                return;
+
+            album.sortByRateDesc();
+        }
+
+        private void sortByTitle(object sender, EventArgs e)
+        {
+            AlbumUC album = AlbumUC.getDisplayedAlbum();
+            if (album == null)
+                return;
+
+            album.sortByTitle();
+        }
+
+        private void sortByTitleDesc(object sender, EventArgs e)
+        {
+            AlbumUC album = AlbumUC.getDisplayedAlbum();
+            if (album == null)
+                return;
+
+            album.sortByTitleDesc();
+        }
+
+        private void showDiaporamaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.getSelectedAlbums().Count > 0)
+                    foreach (AlbumUC album in this.getSelectedAlbums())
+                    {
+                        Diaporama diaporama = new Diaporama(album);
+                        diaporama.Show();
+                        diaporama.StartDiaporama();
+                    }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
+            }
         }
         #endregion
 
@@ -454,94 +507,5 @@ namespace PhotoViewer
             }
         }
         #endregion
-
-        private void NormalDisplay (object sender, EventArgs e)
-        {
-            if (pictureListView.Visible) 
-            {
-                pictureListView.Visible = false;
-                AlbumUC.getDisplayedAlbum().displayPictures();
-            }
-        }
-
-        private void createListView()
-        {
-            pictureListView.Columns.Add("Title").Width = 100;
-            pictureListView.Columns.Add("Date");
-            pictureListView.Columns.Add("Rank");
-            pictureListView.Columns.Add("Path").Width = 100;
-
-            pictureListView.View = View.Details;
-        }
-
-        private void listViewDisplay (object sender, EventArgs e)
-        {
-            if (pictureListView.Visible) 
-            {
-                return;
-            }
-
-            AlbumUC album = AlbumUC.getDisplayedAlbum();
-            if (album == null)
-            {
-                System.Windows.Forms.MessageBox.Show(Properties.Resources.NoAlbumSelected);
-                return;
-            }
-
-            ListViewItem item;
-            String date;
-
-            foreach (PictureUC picture in album.getPictures()) 
-            {
-                if (picture.getDate() == null)
-                {
-                    date = "";
-                }
-                else
-                {
-                    date = picture.getDate().ToString();
-                }
-
-                item = new ListViewItem(new String []  {picture.getTitle(),
-                    date, picture.getRate().ToString(),
-                    picture.getPath()});
-
-                pictureListView.Items.Add(item);
-            }
-
-            pictureListView.Visible = true;
-            picturesFlowLayoutPanel.Controls.Clear();
-            picturesFlowLayoutPanel.Controls.Add(pictureListView);
-            resizeListview();
-        }
-
-        public void SetListviewNotVisible()
-        {
-            this.pictureListView.Visible = false;
-        }
-
-        public void resizeListview()
-        {
-            pictureListView.Width = picturesFlowLayoutPanel.Width - 10;
-            pictureListView.Height = picturesFlowLayoutPanel.Height - 10;
-        }
-
-        private void showDiaporamaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (this.getSelectedAlbums().Count > 0)
-                    foreach (AlbumUC album in this.getSelectedAlbums())
-                    {
-                        Diaporama diaporama = new Diaporama(album);
-                        diaporama.Show();
-                        diaporama.StartDiaporama();
-                    }
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.ToString());
-            }
-        }
 	}
 }

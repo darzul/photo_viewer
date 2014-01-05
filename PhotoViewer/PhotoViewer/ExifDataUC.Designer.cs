@@ -37,7 +37,7 @@
             this.propertyLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.propertyLabel.AutoEllipsis = true;
             this.propertyLabel.AutoSize = true;
-            this.propertyLabel.Location = new System.Drawing.Point(0, 0);
+            this.propertyLabel.Location = new System.Drawing.Point(3, 3);
             this.propertyLabel.Name = "propertyLabel";
             this.propertyLabel.Size = new System.Drawing.Size(35, 13);
             this.propertyLabel.TabIndex = 0;
@@ -60,7 +60,7 @@
             this.Controls.Add(this.propertyMaskedTextBox);
             this.Controls.Add(this.propertyLabel);
             this.Name = "ExifDataUC";
-            this.Size = new System.Drawing.Size(292, 25);
+            this.Size = new System.Drawing.Size(250, 20);
             this.ResumeLayout(false);
             this.PerformLayout();
 
