@@ -63,7 +63,6 @@ namespace PhotoViewer
 
         private void Diaporama_Load(object sender, EventArgs e)
         {
-            MessageBox.Show("Press Space bar to pause and ESC to quit");
         }
 
         private void Diaporama_KeyDown(object sender, KeyEventArgs e)

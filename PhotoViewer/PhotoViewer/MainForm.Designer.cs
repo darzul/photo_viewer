@@ -41,6 +41,7 @@
             this.fromFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeAlbumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayOnWebToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showDiaporamaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.picturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,7 +53,6 @@
             this.displayInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.showDiaporamaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
@@ -216,6 +216,13 @@
             this.displayOnWebToolStripMenuItem.Text = "Display on web";
             this.displayOnWebToolStripMenuItem.Click += new System.EventHandler(this.displayOnWeb);
             // 
+            // showDiaporamaToolStripMenuItem
+            // 
+            this.showDiaporamaToolStripMenuItem.Name = "showDiaporamaToolStripMenuItem";
+            this.showDiaporamaToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.showDiaporamaToolStripMenuItem.Text = "Show Diaporama";
+            this.showDiaporamaToolStripMenuItem.Click += new System.EventHandler(this.showDiaporamaToolStripMenuItem_Click);
+            // 
             // picturesToolStripMenuItem
             // 
             this.picturesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -304,13 +311,6 @@
             this.listViewToolStripMenuItem1.Text = "List view";
             this.listViewToolStripMenuItem1.Click += new System.EventHandler(this.listViewDisplay);
             // 
-            // showDiaporamaToolStripMenuItem
-            // 
-            this.showDiaporamaToolStripMenuItem.Name = "showDiaporamaToolStripMenuItem";
-            this.showDiaporamaToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.showDiaporamaToolStripMenuItem.Text = "Show Diaporama";
-            this.showDiaporamaToolStripMenuItem.Click += new System.EventHandler(this.showDiaporamaToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -320,6 +320,7 @@
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "iViewer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);

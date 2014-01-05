@@ -51,6 +51,7 @@ namespace PhotoViewer
                     writer.WriteStartElement("picture");
                     writer.WriteElementString("title", picture.getTitle());
                     writer.WriteElementString("path", picture.getPath());
+                    writer.WriteElementString("rate", picture.getRate().ToString());
                     writer.WriteEndElement();
                 }
 
@@ -63,6 +64,7 @@ namespace PhotoViewer
 
         public void WriteAll()
         {
+            if (this.albums != null)
             if (this.albums.Count == 0)
                 return;
 
@@ -85,6 +87,8 @@ namespace PhotoViewer
                             writer.WriteStartElement("picture");
                             writer.WriteElementString("title", picture.getTitle());
                             writer.WriteElementString("path", picture.getPath());
+                            writer.WriteElementString("rate", picture.getRate().ToString());
+                            MessageBox.Show("rate = " + picture.getRate().ToString());
                             writer.WriteEndElement();
                         }
 
@@ -113,45 +117,52 @@ namespace PhotoViewer
             {
                 XmlReader reader = XmlReader.Create("albums.xml", reader_settings);
 
-                while (reader.Read() == true)
+                try
                 {
-
-                    if (reader.Name.Equals("album"))
+                    while (reader.Read() == true)
                     {
-                        //MessageBox.Show(reader.Name);
-                        reader.ReadToFollowing("title");
-                        string title = reader.ReadElementContentAsString();
 
-
-                        reader.Read();
-                        //MessageBox.Show(reader.Name);
-                        string path = reader.Value.ToString();
-                        //MessageBox.Show("Album path shows " + path);
-
-                        albums.Add(new AlbumUC(title));
-                        i++;
-                        reader.Read();
-                        reader.Read();
-
-                        while (reader.Name.Equals("picture"))
+                        if (reader.Name.Equals("album"))
                         {
                             //MessageBox.Show(reader.Name);
-                            reader.ReadToFollowing("path");
-                            albums.ElementAt(i).addPicture(reader.ReadElementContentAsString());
+                            reader.ReadToFollowing("title");
+                            string title = reader.ReadElementContentAsString();
+
+
                             reader.Read();
+                            //MessageBox.Show(reader.Name);
+                            string path = reader.Value.ToString();
+                            //MessageBox.Show("Album path shows " + path);
+
+                            albums.Add(new AlbumUC(title));
+                            i++;
+                            reader.Read();
+                            reader.Read();
+
+                            int p = 0;
+                            while (reader.Name.Equals("picture"))
+                            {
+                                //MessageBox.Show(reader.Name);
+                                reader.ReadToFollowing("path");
+                                path = reader.ReadElementContentAsString();
+                                //reader.ReadToFollowing("rate");
+                                //MessageBox.Show(reader.Name + path);
+                                int rate = int.Parse(reader.ReadElementContentAsString());
+                                albums.ElementAt(i).addPicture(path);
+                                albums.ElementAt(i).getPictures().ElementAt(p).setRate(rate);
+                                p++;
+                                reader.Read();
+                            }
                         }
                     }
+
+                    reader.Close();
                 }
-
-                reader.Close();
+                catch (Exception e)
+                {
+                    //MessageBox.Show(e.ToString());
+                }
             }
-
-            /*foreach (AlbumUC album in albums)
-            {
-                MessageBox.Show(album.getTitle() + " " + album.getPath());
-                foreach (PictureUC picture in album.getPictures())
-                    MessageBox.Show(picture.getTitle() + " " + picture.getPath());
-            }*/
 
             this.albums = albums;
             return albums;

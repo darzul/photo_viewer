@@ -17,6 +17,14 @@ namespace PhotoViewer
         public string propertyText { get { return propertyMaskedTextBox.Text; } set { propertyMaskedTextBox.Text = value; } }
 
 
+        public ExifDataUC(string property, string value)
+        {
+            InitializeComponent();
+
+            this.labelText = property;
+            this.propertyText = value;
+        }
+
         public ExifDataUC(PropertyItem property)
         {
             InitializeComponent();
@@ -93,9 +101,10 @@ namespace PhotoViewer
             {
                 this.labelText = "Exposition";
 
-                ASCIIEncoding prop = new ASCIIEncoding();
+                //ASCIIEncoding prop = new ASCIIEncoding();
 
-                this.propertyText = prop.GetString(property.Value);
+                //this.propertyText = prop.GetString(property.Value);
+                this.propertyText = property.Value.ToString();
             }
             else if (property.Id == 36864)
             {

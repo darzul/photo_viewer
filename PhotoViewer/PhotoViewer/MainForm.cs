@@ -16,6 +16,7 @@ namespace PhotoViewer
     {
         #region Constructor
         XmlAlbums xmlAlbums;
+        XmlConfig xmlConfig;
         private List<AlbumUC> albumsSelected = new List<AlbumUC>();
         public List<AlbumUC> albums;
         public List<String> extensions = new List<string> { "png", "jpg", "gif" };
@@ -25,6 +26,7 @@ namespace PhotoViewer
             InitializeComponent();
 
             xmlAlbums = new XmlAlbums();
+            xmlConfig = new XmlConfig();
 
             // Set the minimal size for the detailLayout
             this.secondarySplitContainer.SplitterDistance = this.Height;
@@ -228,19 +230,25 @@ namespace PhotoViewer
         {
             xmlAlbums.setAlbums (albums);
             xmlAlbums.WriteAll();
+
+            /*if (xmlConfig.MainForm_Size.Equals(this.Size) == false || xmlConfig.MainForm_Position.Equals(this.Location) == false)
+            {
+                xmlConfig.MainForm_Size = this.Size;
+                xmlConfig.MainForm_Position = this.Location;
+                xmlConfig.writeConfig();
+            }*/
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (System.IO.File.Exists("albums.xml"))
-            {
-                xmlAlbums.ReadAll();
-                List<AlbumUC> albums = xmlAlbums.getAlbums();
+            if(System.IO.File.Exists("albums.xml"))
+            xmlAlbums.ReadAll();
 
-                if (albums.Count > 0)
-                {
-                    this.albums = albums;
-                }
+            List<AlbumUC> albums = xmlAlbums.getAlbums();
+            
+            if (albums.Count > 0)
+            {
+                this.albums = albums;
             }
             else
             {
@@ -248,6 +256,20 @@ namespace PhotoViewer
             }
 
             refreshAlbums();
+
+            xmlConfig.readConfig();
+
+            if (xmlConfig.MainForm_Size != null)
+            {
+                MessageBox.Show("In " + xmlConfig.MainForm_Size.ToString());
+                this.Size = xmlConfig.MainForm_Size;
+            }
+
+            if (xmlConfig.MainForm_Position != null)
+            {
+                MessageBox.Show("In " + xmlConfig.MainForm_Position.ToString());
+                this.Location = xmlConfig.MainForm_Position;
+            }
         }
 
         private void picturesFlowLayoutPanel_Click(object sender, EventArgs e)
@@ -533,6 +555,7 @@ namespace PhotoViewer
                 if (this.getSelectedAlbums().Count > 0)
                     foreach (AlbumUC album in this.getSelectedAlbums())
                     {
+                        MessageBox.Show("Press Space bar to pause and ESC to quit");
                         Diaporama diaporama = new Diaporama(album);
                         diaporama.Show();
                         diaporama.StartDiaporama();

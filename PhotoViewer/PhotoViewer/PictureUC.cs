@@ -53,7 +53,8 @@ namespace PhotoViewer
         #endregion
 
         #region Constructor and attributes
-        private int rate = 0;
+        private int rate = -1 ;
+        private List<RatingStarsUC> rating_stars = new List<RatingStarsUC>();
         private string title;
         private string path;
         private AlbumUC album;
@@ -121,9 +122,14 @@ namespace PhotoViewer
         public int getRate()
         {
             if (this.rate < 0 || this.rate > 5)
-                return 0;
+                return -1;
 
-            return this.rate;
+            return this.rate ;
+        }
+
+        public void setRate(int rate)
+        {
+            this.rate = rate;
         }
 
         public string getExifWidth()
@@ -261,16 +267,49 @@ namespace PhotoViewer
                 }
 
                 AlbumUC.focusPictureLayout();
+                detailLayout.Controls.Clear();
                 
                 PropertyItem[] pictureProperties;
                 pictureProperties = Image.FromFile(path).PropertyItems;
-                detailLayout.Controls.Clear();
-                //Permet d'afficher les données EXIF de l'image une par une
                 foreach (PropertyItem current_prop in pictureProperties)
                 {
                     ExifDataUC data = new ExifDataUC(current_prop);
 
                     detailLayout.Controls.Add(data);
+                }
+
+                ExifDataUC path_property = new ExifDataUC("Path", getPath());
+                detailLayout.Controls.Add(path_property);
+
+                Image current_picture = Image.FromFile(getPath());
+                ExifDataUC size_property = new ExifDataUC("Size", current_picture.Width.ToString() + "x" + current_picture.Height.ToString());
+                detailLayout.Controls.Add(size_property);
+
+                if (rating_stars.Count == 0)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        RatingStarsUC star = new RatingStarsUC(this);
+
+                        if (i < rate)
+                        {
+                            star.status = RatingStarsUC.starStatus.clicked;
+                        }
+                        detailLayout.Controls.Add(star);
+                        rating_stars.Add(star);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        if (i < rate)
+                        {
+                            rating_stars.ElementAt(i).status = RatingStarsUC.starStatus.clicked;
+                        }
+
+                        detailLayout.Controls.Add(rating_stars.ElementAt(i));
+                    }
                 }
             }
         }

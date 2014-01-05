@@ -12,8 +12,9 @@ namespace PhotoViewer
     {
         XmlWriterSettings writer_settings;
         XmlReaderSettings reader_settings;
-        public System.Drawing.Size Size;
-        public System.Windows.Forms.FormStartPosition position;
+        public System.Drawing.Size MainForm_Size;
+        public System.Drawing.Point MainForm_Position;
+
 
         public XmlConfig()
         {
@@ -37,10 +38,8 @@ namespace PhotoViewer
                     writer.WriteStartElement("configuration");
 
                     writer.WriteStartElement("MainForm");
-                    writer.WriteAttributeString("size", this.Size.ToString());
-                    writer.WriteEndAttribute();
-                    writer.WriteAttributeString("position", this.position.ToString());
-                    writer.WriteEndAttribute();
+                    writer.WriteAttributeString("size", this.MainForm_Size.ToString());
+                    writer.WriteAttributeString("position", this.MainForm_Position.ToString());
                     writer.WriteEndElement();
                     writer.WriteEndElement();
                 }
@@ -58,21 +57,29 @@ namespace PhotoViewer
 
         public void readConfig()
         {
-            XmlReader reader = XmlReader.Create("config.xml", reader_settings);
-
-            while (reader.Read() == true)
+            if (System.IO.File.Exists("config.xml"))
             {
-                if (reader.Name.Equals("MainForm"))
-                {
-                    reader.MoveToFirstAttribute();
-                    reader.ReadAttributeValue();
-                    System.Drawing.SizeConverter sizeConverter = new System.Drawing.SizeConverter();
-                    this.Size = (System.Drawing.Size)(sizeConverter.ConvertFromString(reader.Value));
+                XmlReader reader = XmlReader.Create("config.xml", reader_settings);
 
-                    reader.MoveToNextAttribute();
-                    reader.ReadAttributeValue();
-                    //this.position = reader.Value;
+                while (reader.Read() == true)
+                {
+                    if (reader.Name.Equals("MainForm"))
+                    {
+                        reader.MoveToFirstAttribute();
+                        reader.ReadAttributeValue();
+                        System.Drawing.SizeConverter sizeConverter = new System.Drawing.SizeConverter();
+                        this.MainForm_Size = (System.Drawing.Size)(sizeConverter.ConvertFromString(reader.Value));
+                        MessageBox.Show("Size = " + MainForm_Size.ToString());
+
+                        reader.MoveToNextAttribute();
+                        reader.ReadAttributeValue();
+                        System.Drawing.PointConverter positionConverter = new System.Drawing.PointConverter();
+                        this.MainForm_Position = (System.Drawing.Point)(positionConverter.ConvertFromString(reader.Value));
+                        break;
+                    }
                 }
+
+                reader.Close();
             }
         }
     }
