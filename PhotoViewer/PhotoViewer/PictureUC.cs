@@ -50,6 +50,14 @@ namespace PhotoViewer
             }
             picturesSelected.Clear();
         }
+
+        public static long convertDateToInt(String textDate)
+        {
+            DateTime realDate = DateTime.ParseExact(textDate, "yyyy:MM:dd HH:mm:ss",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+
+            return realDate.Ticks;
+        }
         #endregion
 
         #region Constructor and attributes
@@ -57,6 +65,7 @@ namespace PhotoViewer
         private List<RatingStarsUC> rating_stars = new List<RatingStarsUC>();
         private string title;
         private string path;
+        private long ticksDate = 0;
         private AlbumUC album;
         
         public PictureUC(string path, AlbumUC album)
@@ -65,6 +74,7 @@ namespace PhotoViewer
 
             this.album = album;
             this.path = path;
+            this.ticksDate = setDateFromExif();
 
             this.pictureBox.Image = AlbumUC.ScaleImage(Image.FromFile(path), 140, 135);
 
@@ -72,7 +82,6 @@ namespace PhotoViewer
             this.titleLabel.Text = this.title;
         }
         #endregion
-
 
         #region Getter/Setter
 
@@ -106,19 +115,6 @@ namespace PhotoViewer
             return this.path;
         }
 
-        public PropertyItem getDate () 
-        {
-            try
-            {
-                PropertyItem item = this.pictureBox.Image.PropertyItems[36867];
-                return item;
-            }
-            catch (Exception e) 
-            {
-                return null;
-            }
-        }
-
         public int getRate()
         {
             if (this.rate < 0 || this.rate > 5)
@@ -135,92 +131,178 @@ namespace PhotoViewer
         public string getExifWidth()
         {
             PropertyItem[] pictureProperties;
-            pictureProperties = Image.FromFile(path).PropertyItems;
+            pictureProperties = this.pictureBox.Image.PropertyItems;
             ASCIIEncoding prop = new ASCIIEncoding();
 
-            return prop.GetString(pictureProperties.ElementAt(256).Value);
+            foreach (PropertyItem current_prop in pictureProperties)
+            {
+                if (current_prop.Id == 256)
+                {
+                    return prop.GetString(current_prop.Value);
+                }
+            }
+
+            return null;
         }
 
         public string getExifHeight()
         {
             PropertyItem[] pictureProperties;
-            pictureProperties = Image.FromFile(path).PropertyItems;
+            pictureProperties = this.pictureBox.Image.PropertyItems;
 
             ASCIIEncoding prop = new ASCIIEncoding();
 
-            return prop.GetString(pictureProperties.ElementAt(257).Value);
+            foreach (PropertyItem current_prop in pictureProperties)
+            {
+                if (current_prop.Id == 257)
+                {
+                    return prop.GetString(current_prop.Value);
+                }
+            }
+
+            return null;
         }
 
         public string getExifTitle()
         {
             PropertyItem[] pictureProperties;
-            pictureProperties = Image.FromFile(path).PropertyItems;
+            pictureProperties = this.pictureBox.Image.PropertyItems;
             ASCIIEncoding prop = new ASCIIEncoding();
 
-            return prop.GetString(pictureProperties.ElementAt(270).Value);
+            foreach (PropertyItem current_prop in pictureProperties)
+            {
+                if (current_prop.Id == 270)
+                {
+                    return prop.GetString(current_prop.Value);
+                }
+            }
+
+            return null;
         }
 
         public string getExifCamera()
         {
             PropertyItem[] pictureProperties;
-            pictureProperties = Image.FromFile(path).PropertyItems;
+            pictureProperties = this.pictureBox.Image.PropertyItems;
             ASCIIEncoding prop = new ASCIIEncoding();
 
-            return prop.GetString(pictureProperties.ElementAt(271).Value);
+            foreach (PropertyItem current_prop in pictureProperties)
+            {
+                if (current_prop.Id == 271)
+                {
+                    return prop.GetString(current_prop.Value);
+                }
+            }
+
+            return null;
         }
 
         public string getExifModel()
         {
             PropertyItem[] pictureProperties;
-            pictureProperties = Image.FromFile(path).PropertyItems;
+            pictureProperties = this.pictureBox.Image.PropertyItems;
             ASCIIEncoding prop = new ASCIIEncoding();
 
-            return prop.GetString(pictureProperties.ElementAt(272).Value);
+            foreach (PropertyItem current_prop in pictureProperties)
+            {
+                if (current_prop.Id == 272)
+                {
+                    return prop.GetString(current_prop.Value);
+                }
+            }
+
+            return null;
         }
 
         public string getExifCreationDate()
         {
             PropertyItem[] pictureProperties;
-            pictureProperties = Image.FromFile(path).PropertyItems;
+            pictureProperties = this.pictureBox.Image.PropertyItems;
             ASCIIEncoding prop = new ASCIIEncoding();
 
-            return prop.GetString(pictureProperties.ElementAt(306).Value);
+            foreach (PropertyItem current_prop in pictureProperties)
+            {
+                if (current_prop.Id == 306)
+                {
+                    return prop.GetString(current_prop.Value);
+                }
+            }
+
+            return null;
         }
 
         public string getExifAuthor()
         {
             PropertyItem[] pictureProperties;
-            pictureProperties = Image.FromFile(path).PropertyItems;
+            pictureProperties = this.pictureBox.Image.PropertyItems;
             ASCIIEncoding prop = new ASCIIEncoding();
 
-            return prop.GetString(pictureProperties.ElementAt(315).Value);
+            foreach (PropertyItem current_prop in pictureProperties)
+            {
+                if (current_prop.Id == 315)
+                {
+                    return prop.GetString(current_prop.Value);
+                }
+            }
+
+            return null;
         }
 
         public string getExifCopyright()
         {
             PropertyItem[] pictureProperties;
-            pictureProperties = Image.FromFile(path).PropertyItems;
+            pictureProperties = this.pictureBox.Image.PropertyItems;
             ASCIIEncoding prop = new ASCIIEncoding();
 
-            return prop.GetString(pictureProperties.ElementAt(33432).Value);
+            foreach (PropertyItem current_prop in pictureProperties)
+            {
+                if (current_prop.Id == 33432)
+                {
+                    return prop.GetString(current_prop.Value);
+                }
+            }
+
+            return null;
         }
 
         public string getExifVersion()
         {
             PropertyItem[] pictureProperties;
-            pictureProperties = Image.FromFile(path).PropertyItems;
+            pictureProperties = this.pictureBox.Image.PropertyItems;
             ASCIIEncoding prop = new ASCIIEncoding();
 
-            return prop.GetString(pictureProperties.ElementAt(36864).Value);
+            foreach (PropertyItem current_prop in pictureProperties)
+            {
+                if (current_prop.Id == 36864)
+                {
+                    return prop.GetString(current_prop.Value);
+                }
+            }
+
+            return null;
         }
 
-        public string getExifDateOfShooting()
+        public long setDateFromExif()
         {
             PropertyItem[] pictureProperties;
             pictureProperties = Image.FromFile(path).PropertyItems;
             ASCIIEncoding prop = new ASCIIEncoding();
 
-            return prop.GetString(pictureProperties.ElementAt(36867).Value);
+            foreach (PropertyItem current_prop in pictureProperties)
+            {
+                if (current_prop.Id == 36867)
+                {
+                    return convertDateToInt(prop.GetString(current_prop.Value)
+                        .Replace("\0", ""));
+                }
+            }
+
+            return 0;
+        }
+
+        public long getTicksDate () 
+        {
+            return this.ticksDate;
         }
         #endregion
 

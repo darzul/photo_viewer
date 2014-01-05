@@ -36,14 +36,12 @@
             // 
             // diapoPictureBox
             // 
-            this.diapoPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.diapoPictureBox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.diapoPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.diapoPictureBox.Location = new System.Drawing.Point(0, 0);
             this.diapoPictureBox.Name = "diapoPictureBox";
-            this.diapoPictureBox.Size = new System.Drawing.Size(0, 0);
-            this.diapoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.diapoPictureBox.Size = new System.Drawing.Size(284, 262);
+            this.diapoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.diapoPictureBox.TabIndex = 0;
             this.diapoPictureBox.TabStop = false;
             // 
@@ -69,7 +67,6 @@
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Diaporama_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.diapoPictureBox)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

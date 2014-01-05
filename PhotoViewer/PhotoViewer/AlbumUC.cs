@@ -316,7 +316,6 @@ namespace PhotoViewer
 
             // Set the number of the album displayed
             albumDisplayed = mainForm.albums.IndexOf(this);
-            mainForm.SetListviewNotVisible();
         }
 
         public void setThumbnailsPicture()
@@ -452,6 +451,17 @@ namespace PhotoViewer
             refreshPicturesDisplay();
         }
 
+        public void sortByTitleDesc()
+        {
+            pictures.Sort(delegate(PictureUC p1, PictureUC p2)
+            {
+                return p2.getTitle().CompareTo(p1.getTitle());
+            }
+            );
+
+            refreshPicturesDisplay();
+        }
+
         public void sortByRate()
         {
             pictures.Sort(delegate(PictureUC p1, PictureUC p2)
@@ -463,45 +473,63 @@ namespace PhotoViewer
             refreshPicturesDisplay();
         }
 
-        public void sortByDate()
+        public void sortByRateDesc()
         {
             pictures.Sort(delegate(PictureUC p1, PictureUC p2)
             {
-                PropertyItem date1 = p1.getDate();
-                PropertyItem date2 = p2.getDate();
-
-                if (date1 == null && date2 == null)
-                {
-                    return 0;
-                }
-                else if (date1 == null) 
-                {
-                    return -1;
-                }
-                else if (date2 == null)
-                {
-                    return 1;
-                }
-                else
-                {
-                    long tick1 = convertPropertyItemToDateTime(date1).Ticks;
-                    long tick2 = convertPropertyItemToDateTime(date2).Ticks;
-                    return (int) (tick1 - tick2);
-                }
+                return p2.getRate() - p1.getRate();
             }
             );
 
             refreshPicturesDisplay();
         }
 
-        public DateTime convertPropertyItemToDateTime(PropertyItem item)
+        public void sortByDate()
         {
-            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
-            string text = encoding.GetString(item.Value, 0, item.Len - 1);
+            pictures.Sort(delegate(PictureUC p1, PictureUC p2)
+            {
+                if (p1.getTicksDate() == 0 && p2.getTicksDate() == 0)
+                {
+                    return 0;
+                }
+                else if (p1.getTicksDate() == 0)
+                {
+                    return 1;
+                }
+                else if (p2.getTicksDate() == 0)
+                {
+                    return -1;
+                }
 
-            // Parse the date and time. 
-            System.Globalization.CultureInfo provider = System.Globalization.CultureInfo.InvariantCulture;
-            return DateTime.ParseExact(text, "yyyy:MM:d H:m:s", provider);
+                return (int)(p2.getTicksDate() - p1.getTicksDate());
+            }
+            );
+
+            refreshPicturesDisplay();
+        }
+
+        public void sortByDateDesc()
+        {
+            pictures.Sort(delegate(PictureUC p1, PictureUC p2)
+            {
+                if (p1.getTicksDate() == 0 && p2.getTicksDate() == 0)
+                {
+                    return 0;
+                }
+                else if (p1.getTicksDate() == 0)
+                {
+                    return -1;
+                }
+                else if (p2.getTicksDate() == 0)
+                {
+                    return 1;
+                }
+
+                return (int) (p1.getTicksDate() - p2.getTicksDate());
+            }
+            );
+
+            refreshPicturesDisplay();
         }
         #endregion
 
