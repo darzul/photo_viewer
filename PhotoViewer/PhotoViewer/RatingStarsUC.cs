@@ -14,6 +14,7 @@ namespace PhotoViewer
     //Code found on Daniweb, written by ddanbe
     public partial class RatingStarsUC : UserControl
     {
+        #region Constructor and attributes
         PointF[] Star;SolidBrush FillBrush;
         public enum starStatus { unClicked, hover, clicked };
         public starStatus status;
@@ -27,7 +28,9 @@ namespace PhotoViewer
             this.Paint += new PaintEventHandler(MyPainting);
             stars_list.Add(this);
         }
+        #endregion
 
+        #region Drawing methods
         private void MyPainting(object sender, PaintEventArgs e)
         {
             for (int i = 0; i < stars_list.Count; i++)
@@ -97,7 +100,9 @@ namespace PhotoViewer
             pnts[9].X += pnts[9].X - pnts[1].X; pnts[9].Y = pnts[1].Y;  // mirror point
             return pnts;
         }
+        #endregion
 
+        #region Events
         private void RatingStarsUC_Click(object sender, EventArgs e)
         {
             int i;
@@ -138,5 +143,6 @@ namespace PhotoViewer
                     }
             }
         }
+        #endregion
     }
 }
