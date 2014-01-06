@@ -24,6 +24,10 @@ namespace PhotoViewer
             AlbumUC.mainForm = mainForm;
         }
 
+        /// <summary>
+        /// Define the flowlayoutpanel
+        /// </summary>
+        /// <param name="layout">Reference of flowlayoutpanel</param>
         public static void setPicturesLayout(FlowLayoutPanel layout)
         {
             if (AlbumUC.pictureLayout == null)
@@ -32,6 +36,10 @@ namespace PhotoViewer
             }
         }
 
+        /// <summary>
+        /// Give the ID of the displayed album
+        /// </summary>
+        /// <returns>Id</returns>
         public static int getIdDisplayedAlbum()
         {
             if (albumDisplayed < 0 || albumDisplayed > mainForm.albums.Count)
@@ -40,6 +48,10 @@ namespace PhotoViewer
             return albumDisplayed;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Return the AlbumUC currently displayed</returns>
         public static AlbumUC getDisplayedAlbum()
         {
             if (albumDisplayed < 0 || albumDisplayed > mainForm.albums.Count)
@@ -51,6 +63,13 @@ namespace PhotoViewer
             return mainForm.albums.ElementAt(albumDisplayed);
         }
 
+        /// <summary>
+        /// Resize picture to maximum dimension with the same ratio width/height
+        /// </summary>
+        /// <param name="image">Picture to resize</param>
+        /// <param name="maxWidth">Max width picture</param>
+        /// <param name="maxHeight">Max height picture</param>
+        /// <returns>Picture resized</returns>
         static public Bitmap ScaleImage(Image image, int maxWidth, int maxHeight)
         {
             var ratioX = (double)maxWidth / image.Width;
@@ -67,11 +86,17 @@ namespace PhotoViewer
             return bmp;
         }
 
+        /// <summary>
+        /// Set album displayed to -1 (No album display)
+        /// </summary>
         public static void resetDisplayedAlbum()
         {
             albumDisplayed = -1;
         }
 
+        /// <summary>
+        /// Give the focus to picture flowlayoutpanel
+        /// </summary>
         public static void focusPictureLayout()
         {
             pictureLayout.Focus();
@@ -97,7 +122,7 @@ namespace PhotoViewer
                 importPicturesFromAlbum();
             }
 
-            // Album fictif, le path est en fait le titre
+            // Fictif album, the path is the title
             else
             {
                 this.path = Properties.Resources.Undefined;
@@ -224,6 +249,10 @@ namespace PhotoViewer
         #endregion
 
         #region Control pictures
+        /// <summary>
+        /// Add picture to this album
+        /// </summary>
+        /// <param name="file">path of the picture</param>
         public void addPicture(String file)
         {
             if (File.Exists(file) == false)
@@ -265,6 +294,11 @@ namespace PhotoViewer
             }
         }
 
+        /// <summary>
+        /// Change the position of one picture
+        /// </summary>
+        /// <param name="index">Ne index for the picture</param>
+        /// <param name="p">The PictureUC to change</param>
         public void changePicturePosition(int index, PictureUC p)
         {
             pictures.Remove(p);
@@ -276,6 +310,10 @@ namespace PhotoViewer
             }
         }
 
+        /// <summary>
+        /// Delete the picture in the list
+        /// </summary>
+        /// <param name="list">List of pictures will be delete</param>
         public void deletePictures(List<PictureUC> list)
         {
             foreach (PictureUC p in list)
@@ -285,13 +323,19 @@ namespace PhotoViewer
             }
         }
 
+        /// <summary>
+        /// Delete one picture
+        /// </summary>
+        /// <param name="p">The picture to delete</param>
         public void deletePicture(PictureUC p)
         {
             this.pictures.Remove(p);
             pictureLayout.Controls.Remove(p);
         }
 
-        // Display picture of the album into the layout in arg
+        /// <summary>
+        /// Display the picture of the album in picture flowlayoutpanel
+        /// </summary>
         public void displayPictures()
         {
             if (albumDisplayed >= 0)
@@ -318,6 +362,9 @@ namespace PhotoViewer
             albumDisplayed = mainForm.albums.IndexOf(this);
         }
 
+        /// <summary>
+        /// Print the four first picture of the Album in the picturebox
+        /// </summary>
         public void setThumbnailsPicture()
         {
             /* Add the four first pictures in pictureBox for the directory */
@@ -351,8 +398,14 @@ namespace PhotoViewer
                     break;
             }
         }
+        /// <summary>
+        /// Search all picture in a directory and add them into this album
+        /// </summary>
         public void importPicturesFromAlbum()
         {
+            if (!Directory.Exists(this.path))
+                return;
+
             /* Search picture in directory and sub-directory */
             string[] files = Directory.GetFiles(this.path, "*.*", SearchOption.AllDirectories);
 
@@ -398,6 +451,12 @@ namespace PhotoViewer
         #endregion
 
         #region Selection methods
+
+        /// <summary>
+        /// Select picture between picStart and picEnd
+        /// </summary>
+        /// <param name="picStart">Picture one</param>
+        /// <param name="picEnd">Picture two</param>
         public void multiSelectPic(PictureUC picStart, PictureUC picEnd)
         {
 
@@ -419,6 +478,9 @@ namespace PhotoViewer
             }
         }
 
+        /// <summary>
+        /// Select all pictures in the album
+        /// </summary>
         public void selectAllPictures()
         {
             PictureUC.clearSelection();
@@ -429,6 +491,9 @@ namespace PhotoViewer
             }
         }
 
+        /// <summary>
+        /// Refresh the controls of each picture display in flowlayoutpanel picture
+        /// </summary>
         public void refreshPicturesDisplay () 
         {
             pictureLayout.Controls.Clear();
@@ -440,6 +505,9 @@ namespace PhotoViewer
         #endregion
 
         #region Sort methods
+        /// <summary>
+        /// Sort by title alphabetically
+        /// </summary>
         public void sortByTitle()
         {
             pictures.Sort(delegate(PictureUC p1, PictureUC p2)
@@ -451,6 +519,9 @@ namespace PhotoViewer
             refreshPicturesDisplay();
         }
 
+        /// <summary>
+        /// Sort by Title desc-alphabetically
+        /// </summary>
         public void sortByTitleDesc()
         {
             pictures.Sort(delegate(PictureUC p1, PictureUC p2)
@@ -462,6 +533,9 @@ namespace PhotoViewer
             refreshPicturesDisplay();
         }
 
+        /// <summary>
+        /// Sort by rate
+        /// </summary>
         public void sortByRate()
         {
             pictures.Sort(delegate(PictureUC p1, PictureUC p2)
@@ -473,6 +547,9 @@ namespace PhotoViewer
             refreshPicturesDisplay();
         }
 
+        /// <summary>
+        /// Sort by desc-rate
+        /// </summary>
         public void sortByRateDesc()
         {
             pictures.Sort(delegate(PictureUC p1, PictureUC p2)
@@ -484,6 +561,9 @@ namespace PhotoViewer
             refreshPicturesDisplay();
         }
 
+        /// <summary>
+        /// Sort by date of shooting
+        /// </summary>
         public void sortByDate()
         {
             pictures.Sort(delegate(PictureUC p1, PictureUC p2)
@@ -508,6 +588,9 @@ namespace PhotoViewer
             refreshPicturesDisplay();
         }
 
+        /// <summary>
+        /// Sort by date of shooting descending
+        /// </summary>
         public void sortByDateDesc()
         {
             pictures.Sort(delegate(PictureUC p1, PictureUC p2)

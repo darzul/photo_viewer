@@ -16,6 +16,12 @@ namespace PhotoViewer
         public int MainForm_Width;
         public int MainForm_PositionX;
         public int MainForm_PositionY;
+        public int mainSplitPanel_Height;
+        public int mainSplitPanel_Width;
+        public int mainSplitPanel_SplitterDistance;
+        public int secondarySplitPanel_Height;
+        public int secondarySplitPanel_Width;
+        public int secondarySplitPanel_SplitterDistance;
 
         public XmlConfig()
         {
@@ -44,6 +50,19 @@ namespace PhotoViewer
                     writer.WriteAttributeString("X", this.MainForm_PositionX.ToString());
                     writer.WriteAttributeString("Y", this.MainForm_PositionY.ToString());
                     writer.WriteEndElement();
+
+                    writer.WriteStartElement("mainSplitPanel");
+                    writer.WriteAttributeString("height", this.mainSplitPanel_Height.ToString());
+                    writer.WriteAttributeString("width", this.mainSplitPanel_Width.ToString());
+                    writer.WriteAttributeString("splitterDistance", this.mainSplitPanel_SplitterDistance.ToString());
+                    writer.WriteEndElement();
+
+                    writer.WriteStartElement("secondarySplitPanel");
+                    writer.WriteAttributeString("height", this.secondarySplitPanel_Height.ToString());
+                    writer.WriteAttributeString("width", this.secondarySplitPanel_Width.ToString());
+                    writer.WriteAttributeString("splitterDistance", this.secondarySplitPanel_SplitterDistance.ToString());
+                    writer.WriteEndElement();
+
                     writer.WriteEndElement();
                 }
                 
@@ -82,6 +101,32 @@ namespace PhotoViewer
                             reader.ReadAttributeValue();
                             MainForm_PositionY = int.Parse(reader.Value);
                         }
+
+                        if (reader.Name.Equals("mainSplitPanel"))
+                        {
+                            reader.MoveToFirstAttribute();
+                            reader.ReadAttributeValue();
+                            mainSplitPanel_Height = int.Parse(reader.Value);
+                            reader.MoveToNextAttribute();
+                            reader.ReadAttributeValue();
+                            mainSplitPanel_Width = int.Parse(reader.Value);
+                            reader.MoveToNextAttribute();
+                            reader.ReadAttributeValue();
+                            mainSplitPanel_SplitterDistance = int.Parse(reader.Value);
+                        }
+
+                        if (reader.Name.Equals("secondarySplitPanel"))
+                        {
+                            reader.MoveToFirstAttribute();
+                            reader.ReadAttributeValue();
+                            secondarySplitPanel_Height = int.Parse(reader.Value);
+                            reader.MoveToNextAttribute();
+                            reader.ReadAttributeValue();
+                            secondarySplitPanel_Width = int.Parse(reader.Value);
+                            reader.MoveToNextAttribute();
+                            reader.ReadAttributeValue();
+                            secondarySplitPanel_SplitterDistance = int.Parse(reader.Value);
+                        }
                     }
 
                     reader.Close();
@@ -91,7 +136,7 @@ namespace PhotoViewer
                     return this;
                 }
             }
-
+            MessageBox.Show("mainSplitterDistance = " + mainSplitPanel_SplitterDistance.ToString() + "secondHeight = " + secondarySplitPanel_Height.ToString());
             return this;
         }
     }

@@ -302,6 +302,12 @@ namespace PhotoViewer
             xmlConfig.MainForm_Width = this.Size.Width;
             xmlConfig.MainForm_PositionX = this.Location.X;
             xmlConfig.MainForm_PositionY = this.Location.Y;
+            xmlConfig.mainSplitPanel_Height = this.mainSplitContainer.Height;
+            xmlConfig.mainSplitPanel_Width = this.mainSplitContainer.Width;
+            xmlConfig.mainSplitPanel_SplitterDistance = this.mainSplitContainer.SplitterDistance;
+            xmlConfig.secondarySplitPanel_Height = this.secondarySplitContainer.Height;
+            xmlConfig.secondarySplitPanel_Width = this.secondarySplitContainer.Width;
+            xmlConfig.secondarySplitPanel_SplitterDistance = this.secondarySplitContainer.SplitterDistance;
             xmlConfig.writeConfig();
         }
 
@@ -324,25 +330,67 @@ namespace PhotoViewer
             refreshAlbums();
 
             xmlConfig = xmlConfig.readConfig();
-
-            if (xmlConfig.MainForm_Height <= 0 || xmlConfig.MainForm_Width <= 0)
+            System.Drawing.Size initial_mainSplitPanelSize = mainSplitContainer.Size;
+            int initial_mainSplitPanelSplitterDistance = mainSplitContainer.SplitterDistance;
+            System.Drawing.Size initial_secondarySplitPanelSize = secondarySplitContainer.Size;
+            int initial_secondarySplitPanelSplitterDistance = secondarySplitContainer.SplitterDistance;
+            
+            if (xmlConfig.MainForm_Height >= 0 && xmlConfig.MainForm_Width >= 0)
             {
-                //MessageBox.Show("In size " + xmlConfig.MainForm_Height.ToString());
-
+                this.Height = xmlConfig.MainForm_Height;
+                this.Width = xmlConfig.MainForm_Width;
             }
             else
             {
                 this.Size = new Size(workAreaWidth, workAreaHeight);
             }
 
-            if (xmlConfig.MainForm_PositionX <= 0 && xmlConfig.MainForm_PositionY <= 0)
+            if (xmlConfig.MainForm_PositionX >= 0 && xmlConfig.MainForm_PositionY >= 0)
             {
-                //MessageBox.Show("In " + xmlConfig.MainForm_PositionX.ToString());
-
+                this.StartPosition = FormStartPosition.Manual;
+                this.Location = new Point (xmlConfig.MainForm_PositionX, xmlConfig.MainForm_PositionY);
             }
             else
             {
                 this.StartPosition = FormStartPosition.Manual;
+            }
+
+            if (xmlConfig.mainSplitPanel_Height >= 0 && xmlConfig.mainSplitPanel_Width >= 0)
+            {
+                this.mainSplitContainer.Height = xmlConfig.mainSplitPanel_Height;
+                this.mainSplitContainer.Width = xmlConfig.mainSplitPanel_Width;
+            }
+            else
+            {
+                this.mainSplitContainer.Size = initial_mainSplitPanelSize;
+            }
+
+            if (xmlConfig.mainSplitPanel_SplitterDistance >= 0)
+            {
+                this.mainSplitContainer.SplitterDistance = xmlConfig.mainSplitPanel_SplitterDistance;
+            }
+            else
+            {
+                this.mainSplitContainer.SplitterDistance = initial_mainSplitPanelSplitterDistance;
+            }
+
+            if (xmlConfig.secondarySplitPanel_Height >= 0 && xmlConfig.secondarySplitPanel_Width >= 0)
+            {
+                this.secondarySplitContainer.Height = xmlConfig.secondarySplitPanel_Height;
+                this.secondarySplitContainer.Width = xmlConfig.secondarySplitPanel_Width;
+            }
+            else
+            {
+                this.secondarySplitContainer.Size = initial_secondarySplitPanelSize;
+            }
+
+            if (xmlConfig.secondarySplitPanel_SplitterDistance >= 0)
+            {
+                this.secondarySplitContainer.SplitterDistance = xmlConfig.secondarySplitPanel_SplitterDistance;
+            }
+            else
+            {
+                this.secondarySplitContainer.SplitterDistance = initial_secondarySplitPanelSplitterDistance;
             }
         }
 
@@ -351,6 +399,11 @@ namespace PhotoViewer
             PictureUC.clearSelection();
         }
 
+        /// <summary>
+        /// Event to select all pictures
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void selectAllPictures(object sender, EventArgs e)
         {
             PictureUC.clearSelection();
@@ -419,11 +472,21 @@ namespace PhotoViewer
             }
         }
 
+        /// <summary>
+        /// Event to remove selected pictures
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void removePicture(object sender, EventArgs e)
         {
             removeSelectedPictures();
         }
 
+        /// <summary>
+        /// Event to add a picture
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addPictures(object sender, EventArgs e)
         {
             var dialog = new System.Windows.Forms.OpenFileDialog();
@@ -535,6 +598,13 @@ namespace PhotoViewer
         #endregion
 
         #region Static Methods
+
+        /// <summary>
+        /// Open a dialog with a label
+        /// </summary>
+        /// <param name="text">Label's text</param>
+        /// <param name="caption">TextBox's text</param>
+        /// <returns></returns>
         public static string ShowDialog(string text, string caption)
         {
             Form prompt = new Form();
