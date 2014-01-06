@@ -42,6 +42,7 @@
             this.propertyLabel.Size = new System.Drawing.Size(35, 13);
             this.propertyLabel.TabIndex = 0;
             this.propertyLabel.Text = "label1";
+            this.propertyLabel.Click += new System.EventHandler(this.propertyLabelFocus);
             // 
             // propertyMaskedTextBox
             // 
@@ -52,6 +53,7 @@
             this.propertyMaskedTextBox.Name = "propertyMaskedTextBox";
             this.propertyMaskedTextBox.Size = new System.Drawing.Size(100, 20);
             this.propertyMaskedTextBox.TabIndex = 1;
+            this.propertyMaskedTextBox.Click += new System.EventHandler(this.ExifDataUCFocus);
             // 
             // ExifDataUC
             // 
@@ -61,6 +63,7 @@
             this.Controls.Add(this.propertyLabel);
             this.Name = "ExifDataUC";
             this.Size = new System.Drawing.Size(250, 20);
+            this.Click += new System.EventHandler(this.ExifDataUCFocus);
             this.ResumeLayout(false);
             this.PerformLayout();
 

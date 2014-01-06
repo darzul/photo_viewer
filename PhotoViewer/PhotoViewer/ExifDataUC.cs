@@ -14,8 +14,18 @@ namespace PhotoViewer
     public partial class ExifDataUC : UserControl
     {
         #region Constructor(s) and attributes
+        private static MainForm mainForm;
         public string labelText { get { return propertyLabel.Text; } set { propertyLabel.Text = value; } }
         public string propertyText { get { return propertyMaskedTextBox.Text; } set { propertyMaskedTextBox.Text = value; } }
+
+        /// <summary>
+        /// Set the mainForm
+        /// </summary>
+        /// <param name="form">The mainForm</param>
+        public static void setMainForm (MainForm form) 
+        {
+            mainForm = form;
+        }
 
         /// <summary>
         /// Constructeur pour ExifDataUC à partir de deux chaines.
@@ -138,6 +148,18 @@ namespace PhotoViewer
 
             Size size = TextRenderer.MeasureText(this.propertyMaskedTextBox.Text, this.propertyMaskedTextBox.Font);
             this.propertyMaskedTextBox.Width = size.Width;
+        }
+        #endregion
+
+        #region Events
+        private void ExifDataUCFocus(object sender, EventArgs e)
+        {
+            mainForm.focusDetailLayout();
+        }
+
+        private void propertyLabelFocus(object sender, EventArgs e)
+        {
+            this.propertyMaskedTextBox.Focus();
         }
         #endregion
     }

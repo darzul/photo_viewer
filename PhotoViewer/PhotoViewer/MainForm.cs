@@ -40,6 +40,8 @@ namespace PhotoViewer
 
             AlbumUC.setPicturesLayout(picturesFlowLayoutPanel);
             AlbumUC.setMainForm(this);
+
+            ExifDataUC.setMainForm(this);
         }
         #endregion
 
@@ -274,15 +276,24 @@ namespace PhotoViewer
         }
 
         /// <summary>
-        /// Set the focus on controlflowlayout
+        /// Set the focus on flowlayoutpanel
         /// </summary>
         public void focusAlbumLayout()
         {
             albumsFlowLayoutPanel.Focus();
         }
+
+        public void focusDetailLayout()
+        {
+            detailFlowLayoutPanel.Focus();
+        }
         #endregion
 
         #region Events
+        private void detailFlowLayoutPanel_Click(object sender, EventArgs e)
+        {
+            focusDetailLayout();
+        }
         private void createEmptyAlbum(object sender, EventArgs e)
         {
             createEmptyAlbum();
@@ -635,6 +646,5 @@ namespace PhotoViewer
             }
         }
         #endregion
-
    }
 }

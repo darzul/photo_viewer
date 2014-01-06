@@ -12,10 +12,10 @@ namespace PhotoViewer
     {
         XmlWriterSettings writer_settings;
         XmlReaderSettings reader_settings;
-        public int MainForm_Height;
-        public int MainForm_Width;
-        public int MainForm_PositionX;
-        public int MainForm_PositionY;
+        public int MainForm_Height = -1;
+        public int MainForm_Width = -1;
+        public int MainForm_PositionX = -1;
+        public int MainForm_PositionY = -1;
 
         public XmlConfig()
         {

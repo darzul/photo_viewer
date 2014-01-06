@@ -145,6 +145,7 @@
             this.detailFlowLayoutPanel.Name = "detailFlowLayoutPanel";
             this.detailFlowLayoutPanel.Size = new System.Drawing.Size(511, 135);
             this.detailFlowLayoutPanel.TabIndex = 0;
+            this.detailFlowLayoutPanel.Click += new System.EventHandler(this.detailFlowLayoutPanel_Click);
             // 
             // menuStrip
             // 
@@ -264,7 +265,7 @@
             this.increasingToolStripMenuItem1,
             this.descendingToolStripMenuItem2});
             this.nameToolStripMenuItem.Name = "nameToolStripMenuItem";
-            this.nameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nameToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.nameToolStripMenuItem.Text = "Name";
             // 
             // increasingToolStripMenuItem1
@@ -287,20 +288,20 @@
             this.increasingToolStripMenuItem,
             this.descendingToolStripMenuItem1});
             this.rateToolStripMenuItem.Name = "rateToolStripMenuItem";
-            this.rateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rateToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.rateToolStripMenuItem.Text = "Rate";
             // 
             // increasingToolStripMenuItem
             // 
             this.increasingToolStripMenuItem.Name = "increasingToolStripMenuItem";
-            this.increasingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.increasingToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.increasingToolStripMenuItem.Text = "Increasing";
             this.increasingToolStripMenuItem.Click += new System.EventHandler(this.sortByRate);
             // 
             // descendingToolStripMenuItem1
             // 
             this.descendingToolStripMenuItem1.Name = "descendingToolStripMenuItem1";
-            this.descendingToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.descendingToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
             this.descendingToolStripMenuItem1.Text = "Descending";
             this.descendingToolStripMenuItem1.Click += new System.EventHandler(this.sortByRateDesc);
             // 
@@ -310,7 +311,7 @@
             this.crescentToolStripMenuItem,
             this.descendingToolStripMenuItem});
             this.dateToolStripMenuItem.Name = "dateToolStripMenuItem";
-            this.dateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dateToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.dateToolStripMenuItem.Text = "Date";
             // 
             // crescentToolStripMenuItem
