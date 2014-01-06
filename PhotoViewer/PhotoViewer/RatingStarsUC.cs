@@ -21,6 +21,10 @@ namespace PhotoViewer
         PictureUC picture;
         public static List<RatingStarsUC> stars_list = new List<RatingStarsUC>();
 
+        /// <summary>
+        /// Constructeur pour RatingStarsUC pour une image PictureUC
+        /// </summary>
+        /// <param name="picture">L'image à laquelle est associée l'étoile</param>
         public RatingStarsUC(PictureUC picture)
         {
             InitializeComponent();
@@ -31,6 +35,11 @@ namespace PhotoViewer
         #endregion
 
         #region Drawing methods
+        /// <summary>
+        /// Dessine une étoile lors de l'événement Paint
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MyPainting(object sender, PaintEventArgs e)
         {
             for (int i = 0; i < stars_list.Count; i++)
@@ -103,6 +112,11 @@ namespace PhotoViewer
         #endregion
 
         #region Events
+        /// <summary>
+        /// Intervient lors de l'événement Click. Peint les étoiles en jaune puis actualise l'affichage
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RatingStarsUC_Click(object sender, EventArgs e)
         {
             int i;
@@ -117,6 +131,11 @@ namespace PhotoViewer
             this.picture.setRate((stars_list.IndexOf(this)%5)+1);
         }
 
+        /// <summary>
+        /// Intervient lors de l'événement MouseHover. Peint l'étoile en orange puis actualise l'affichage
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RatingStarsUC_MouseHover(object sender, EventArgs e)
         {
             for (int i = 0; i <= stars_list.IndexOf(this); i++)
@@ -132,6 +151,11 @@ namespace PhotoViewer
             }
         }
 
+        /// <summary>
+        /// Intervient lors de l'événement MouseLeave. Repeint l'étoile en gris puis actualise l'affichage
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RatingStarsUC_MouseLeave(object sender, EventArgs e)
         {
             for (int i = 0; i <= stars_list.IndexOf(this); i++)

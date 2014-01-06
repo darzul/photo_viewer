@@ -17,7 +17,11 @@ namespace PhotoViewer
         public string labelText { get { return propertyLabel.Text; } set { propertyLabel.Text = value; } }
         public string propertyText { get { return propertyMaskedTextBox.Text; } set { propertyMaskedTextBox.Text = value; } }
 
-
+        /// <summary>
+        /// Constructeur pour ExifDataUC à partir de deux chaines.
+        /// </summary>
+        /// <param name="property">Le nom de la propriété.</param>
+        /// <param name="value">Valeur de la propriété.</param>
         public ExifDataUC(string property, string value)
         {
             InitializeComponent();
@@ -26,6 +30,10 @@ namespace PhotoViewer
             this.propertyText = value;
         }
 
+        /// <summary>
+        /// Constructeur pour ExifDataUC à partir d'un PropertyItem.
+        /// </summary>
+        /// <param name="property">La propriété à afficher</param>
         public ExifDataUC(PropertyItem property)
         {
             InitializeComponent();

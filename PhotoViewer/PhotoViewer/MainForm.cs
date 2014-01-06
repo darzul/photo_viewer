@@ -259,7 +259,7 @@ namespace PhotoViewer
 
             if (xmlConfig.MainForm_Height <= 0 || xmlConfig.MainForm_Width <= 0)
             {
-                MessageBox.Show("In size " + xmlConfig.MainForm_Height.ToString());
+                //MessageBox.Show("In size " + xmlConfig.MainForm_Height.ToString());
 
             }
             else
@@ -269,7 +269,7 @@ namespace PhotoViewer
 
             if (xmlConfig.MainForm_PositionX <= 0 && xmlConfig.MainForm_PositionY <= 0)
             {
-                MessageBox.Show("In " + xmlConfig.MainForm_PositionX.ToString());
+                //MessageBox.Show("In " + xmlConfig.MainForm_PositionX.ToString());
 
             }
             else
