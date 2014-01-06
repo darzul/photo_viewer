@@ -118,7 +118,7 @@ namespace PhotoViewer
         public int getRate()
         {
             if (this.rate < 0 || this.rate > 5)
-                return -1;
+                return 0;
 
             return this.rate ;
         }

@@ -225,7 +225,7 @@ namespace PhotoViewer
         {
             if (File.Exists(file) == false)
             {
-                MessageBox.Show(Properties.Resources.FileNoExist);
+                MessageBox.Show(file +" "+ Properties.Resources.FileNoExist);
                 return;
             }
 
@@ -236,23 +236,20 @@ namespace PhotoViewer
             {
                 switch (pictures.Count)
                 {
-                    case 4:
+                    case 3:
                         pictureBox4.Image = ScaleImage(Image.FromFile(file), 50, 50);
                         break;
 
-                    case 3:
+                    case 2:
                         pictureBox3.Image = ScaleImage(Image.FromFile(file), 50, 50);
                         break;
 
-                    case 2:
+                    case 1:
                         pictureBox2.Image = ScaleImage(Image.FromFile(file), 50, 50);
                         break;
 
-                    case 1:
-                        pictureBox1.Image = ScaleImage(Image.FromFile(file), 50, 50);
-                        break;
-
                     case 0:
+                        pictureBox1.Image = ScaleImage(Image.FromFile(file), 50, 50);
                         break;
                 }
             }
@@ -466,7 +463,7 @@ namespace PhotoViewer
         {
             pictures.Sort(delegate(PictureUC p1, PictureUC p2)
             {
-                return p1.getRate() - p2.getRate();
+                return p2.getRate() - p1.getRate();
             }
             );
 
@@ -477,7 +474,7 @@ namespace PhotoViewer
         {
             pictures.Sort(delegate(PictureUC p1, PictureUC p2)
             {
-                return p2.getRate() - p1.getRate();
+                return p1.getRate() - p2.getRate();
             }
             );
 

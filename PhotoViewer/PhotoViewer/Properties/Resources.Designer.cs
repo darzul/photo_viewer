@@ -61,6 +61,15 @@ namespace PhotoViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to albums.xml.
+        /// </summary>
+        internal static string AlbumXmlFile {
+            get {
+                return ResourceManager.GetString("AlbumXmlFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File does not exist on your computer.
         /// </summary>
         internal static string FileNoExist {

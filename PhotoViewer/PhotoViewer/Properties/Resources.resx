@@ -142,4 +142,7 @@
   <data name="Undefined" xml:space="preserve">
     <value>undefined</value>
   </data>
+  <data name="AlbumXmlFile" xml:space="preserve">
+    <value>albums.xml</value>
+  </data>
 </root>
