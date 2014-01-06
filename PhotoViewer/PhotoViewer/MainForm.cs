@@ -332,12 +332,6 @@ namespace PhotoViewer
             }
             else
             {
-                MessageBox.Show(xmlConfig.MainForm_Size.Width.ToString());
-                MessageBox.Show(xmlConfig.MainForm_Size.Height.ToString());
-                this.Size = xmlConfig.MainForm_Size;
-            }
-            else
-            {
                 this.Size = new Size(workAreaWidth, workAreaHeight);
             }
 
@@ -345,11 +339,6 @@ namespace PhotoViewer
             {
                 //MessageBox.Show("In " + xmlConfig.MainForm_PositionX.ToString());
 
-            }
-            else
-            {
-                MessageBox.Show(xmlConfig.MainForm_Position.X.ToString());
-                this.Location = xmlConfig.MainForm_Position;
             }
             else
             {
