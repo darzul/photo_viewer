@@ -12,6 +12,7 @@ namespace PhotoViewer
 {
     public partial class Diaporama : Form
     {
+        #region Constructor and attributes
         AlbumUC album;
         int picture_index = 0;
         int timeLapse;
@@ -25,7 +26,9 @@ namespace PhotoViewer
             this.album = album;
             Cursor.Hide();
         }
+        #endregion
 
+        #region Methods
         public void StartDiaporama()
         {
             timer.Interval = timeLapse * 100;
@@ -63,8 +66,9 @@ namespace PhotoViewer
                 MessageBox.Show(e.ToString());
             }
         }
+        #endregion
 
-
+        #region Events
         private void Diaporama_Load(object sender, EventArgs e)
         {
             MessageBox.Show("Press Space bar to pause"+ Environment.NewLine +@"
@@ -134,5 +138,6 @@ namespace PhotoViewer
                 }
             }
         }
+        #endregion
     }
 }

@@ -12,6 +12,7 @@ namespace PhotoViewer
 {
     public class XmlAlbums
     {
+        #region Constructor and attributes
         XmlWriterSettings writer_settings;
         XmlReaderSettings reader_settings;
         XmlSchemaSet schema;
@@ -31,35 +32,12 @@ namespace PhotoViewer
             schema = new XmlSchemaSet();
             albums = new List<AlbumUC>();
         }
+        #endregion
 
+        #region Albums reading and writing
         public void Add(AlbumUC album)
         {
             albums.Add(album);
-        }
-
-        public void WriteAlbum(AlbumUC album)
-        {
-            XmlWriter writer = XmlWriter.Create(album.getTitle()+".xml", writer_settings);
-
-            using (writer) {
-                writer.WriteStartElement("album");
-                writer.WriteElementString("title", album.getTitle());
-                writer.WriteElementString("path", album.getPath());
-
-                foreach (PictureUC picture in album.getPictures())
-                {
-                    writer.WriteStartElement("picture");
-                    writer.WriteElementString("title", picture.getTitle());
-                    writer.WriteElementString("path", picture.getPath());
-                    writer.WriteElementString("rate", picture.getRate().ToString());
-                    writer.WriteEndElement();
-                }
-
-                writer.WriteEndElement();
-            }
-
-            writer.Flush();
-            writer.Close();
         }
 
         public void WriteAll()
@@ -123,15 +101,12 @@ namespace PhotoViewer
 
                         if (reader.Name.Equals("album"))
                         {
-                            //MessageBox.Show(reader.Name);
                             reader.ReadToFollowing("title");
                             string title = reader.ReadElementContentAsString();
 
 
                             reader.Read();
-                            //MessageBox.Show(reader.Name);
                             string path = reader.Value.ToString();
-                            //MessageBox.Show("Album path shows " + path);
 
                             albums.Add(new AlbumUC(title));
                             i++;
@@ -141,10 +116,8 @@ namespace PhotoViewer
                             int p = 0;
                             while (reader.Name.Equals("picture"))
                             {
-                                //MessageBox.Show(reader.Name);
                                 reader.ReadToFollowing("path");
                                 path = reader.ReadElementContentAsString();
-                                //MessageBox.Show(reader.Name + path);
                                 int rate = int.Parse(reader.ReadElementContentAsString());
                                 albums.ElementAt(i).addPicture(path);
                                 albums.ElementAt(i).getPictures().ElementAt(p).setRate(rate);
@@ -158,14 +131,16 @@ namespace PhotoViewer
                 }
                 catch (Exception e)
                 {
-                    //MessageBox.Show(e.ToString());
+
                 }
             }
 
             this.albums = albums;
             return albums;
         }
+        #endregion
 
+        #region Getters/Setters
         public List<AlbumUC> getAlbums()
         {
             return this.albums;
@@ -175,5 +150,6 @@ namespace PhotoViewer
         {
             this.albums = albums;
         }
+        #endregion
     }
 }

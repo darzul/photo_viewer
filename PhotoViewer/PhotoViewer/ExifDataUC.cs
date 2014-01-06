@@ -13,6 +13,7 @@ namespace PhotoViewer
 {
     public partial class ExifDataUC : UserControl
     {
+        #region Constructor(s) and attributes
         public string labelText { get { return propertyLabel.Text; } set { propertyLabel.Text = value; } }
         public string propertyText { get { return propertyMaskedTextBox.Text; } set { propertyMaskedTextBox.Text = value; } }
 
@@ -130,11 +131,6 @@ namespace PhotoViewer
             Size size = TextRenderer.MeasureText(this.propertyMaskedTextBox.Text, this.propertyMaskedTextBox.Font);
             this.propertyMaskedTextBox.Width = size.Width;
         }
-
-        //Méthode non-utilisée
-        public void getNull()
-        {
-
-        }
+        #endregion
     }
 }
