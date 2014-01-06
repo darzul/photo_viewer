@@ -53,7 +53,7 @@ namespace PhotoViewer
 
         public static long convertDateToInt(String textDate)
         {
-            DateTime realDate = DateTime.ParseExact(textDate, "yyyy:MM:dd HH:mm:ss",
+            DateTime realDate = DateTime.ParseExact(textDate, Properties.Resources.formatDate,
                                        System.Globalization.CultureInfo.InvariantCulture);
 
             return realDate.Ticks;
@@ -126,6 +126,13 @@ namespace PhotoViewer
         public void setRate(int rate)
         {
             this.rate = rate;
+        }
+
+        public string getExtension()
+        {
+            String extension = path.Split('.').Last().ToLower();
+
+            return extension;
         }
 
         public string getExifWidth()
@@ -367,6 +374,9 @@ namespace PhotoViewer
                 ExifDataUC size_property = new ExifDataUC("Size", current_picture.Width.ToString() + "x" + current_picture.Height.ToString());
                 detailLayout.Controls.Add(size_property);
 
+                ExifDataUC extension_property = new ExifDataUC("Format", getExtension());
+                detailLayout.Controls.Add(extension_property);
+
                 if (rating_stars.Count == 0)
                 {
                     for (int i = 0; i < 5; i++)
@@ -398,7 +408,7 @@ namespace PhotoViewer
 
         private void rename(object sender, EventArgs e)
         {
-            String newTitle = MainForm.ShowDialog("Rename your picture", this.title);
+            String newTitle = MainForm.ShowDialog(Properties.Resources.renameYourPicture, this.title);
             setTitle(newTitle);
         }
 

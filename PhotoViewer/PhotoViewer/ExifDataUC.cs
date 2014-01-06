@@ -31,43 +31,43 @@ namespace PhotoViewer
 
             if (property.Id == 256)
             {
-                this.labelText = "Width";
+                this.labelText = Properties.Resources.ExifWidth;
                 this.propertyText = property.Value.ToString();
             }
             else if (property.Id == 257)
             {
-                this.labelText = "Height";
+                this.labelText = Properties.Resources.ExifHeight;
                 this.propertyText = property.Value.ToString();
             }
             else if (property.Id == 258)
             {
-                this.labelText = "Bits per color";
+                this.labelText = Properties.Resources.ExifBitsPerColor;
                 this.propertyText = property.Value.ToString();
             }
             else if (property.Id == 270 || property.Id == 800)
             {
-                this.labelText = "Title";
+                this.labelText = Properties.Resources.ExifTitle;
                 ASCIIEncoding prop = new ASCIIEncoding();
 
                 this.propertyText = prop.GetString(property.Value);
             }
             else if (property.Id == 271)
             {
-                this.labelText = "Camera";
+                this.labelText = Properties.Resources.ExifCamera;
                 ASCIIEncoding prop = new ASCIIEncoding();
 
                 this.propertyText = prop.GetString(property.Value);
             }
             else if (property.Id == 272)
             {
-                this.labelText = "Model";
+                this.labelText = Properties.Resources.ExifModel;
                 ASCIIEncoding prop = new ASCIIEncoding();
 
                 this.propertyText = prop.GetString(property.Value);
             }
             else if (property.Id == 305)
             {
-                this.labelText = "Software used";
+                this.labelText = Properties.Resources.ExifSoftwareUsed;
 
                 ASCIIEncoding prop = new ASCIIEncoding();
 
@@ -75,7 +75,7 @@ namespace PhotoViewer
             }
             else if (property.Id == 306)
             {
-                this.labelText = "Created";
+                this.labelText = Properties.Resources.ExifCreated;
 
                 ASCIIEncoding prop = new ASCIIEncoding();
 
@@ -83,7 +83,7 @@ namespace PhotoViewer
             }
             else if (property.Id == 315)
             {
-                this.labelText = "Author";
+                this.labelText = Properties.Resources.ExifAuthor;
 
                 ASCIIEncoding prop = new ASCIIEncoding();
 
@@ -91,7 +91,7 @@ namespace PhotoViewer
             }
             else if (property.Id == 33432)
             {
-                this.labelText = "Copyright";
+                this.labelText = Properties.Resources.ExifCopyright;
 
                 ASCIIEncoding prop = new ASCIIEncoding();
 
@@ -99,16 +99,16 @@ namespace PhotoViewer
             }
             else if (property.Id == 33434)
             {
-                this.labelText = "Exposition";
+                this.labelText = Properties.Resources.ExifExposition;
 
-                //ASCIIEncoding prop = new ASCIIEncoding();
+                ASCIIEncoding prop = new ASCIIEncoding();
 
-                //this.propertyText = prop.GetString(property.Value);
-                this.propertyText = property.Value.ToString();
+                this.propertyText = prop.GetString(property.Value);
+                //this.propertyText = property.Value.ToString();
             }
             else if (property.Id == 36864)
             {
-                this.labelText = "EXIF Version";
+                this.labelText = Properties.Resources.ExifVersion;
 
                 ASCIIEncoding prop = new ASCIIEncoding();
 
@@ -116,7 +116,7 @@ namespace PhotoViewer
             }
             else if (property.Id == 36867)
             {
-                this.labelText = "Date of shooting";
+                this.labelText = Properties.Resources.ExifDateOfShooting;
 
                 ASCIIEncoding prop = new ASCIIEncoding();
 

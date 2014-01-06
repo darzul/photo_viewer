@@ -57,7 +57,7 @@ namespace PhotoViewer
 
         private void createEmptyAlbum()
         {
-            createAlbumFromFolder(ShowDialog("Tape the album's title", ""));
+            createAlbumFromFolder(ShowDialog(Properties.Resources.TapeTheAlbumsTitle, ""));
         }
 
         public void refreshAlbums()
@@ -236,7 +236,7 @@ namespace PhotoViewer
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if(System.IO.File.Exists("albums.xml"))
+            if(System.IO.File.Exists(Properties.Resources.AlbumXmlFile))
             xmlAlbums.ReadAll();
 
             List<AlbumUC> albums = xmlAlbums.getAlbums();
