@@ -68,7 +68,7 @@ namespace PhotoViewer
             if (this.albums.Count == 0)
                 return;
 
-            XmlWriter writer = XmlWriter.Create("albums.xml", writer_settings);
+            XmlWriter writer = XmlWriter.Create(Properties.Resources.AlbumXmlFile, writer_settings);
 
             using(writer)
             {
@@ -88,7 +88,6 @@ namespace PhotoViewer
                             writer.WriteElementString("title", picture.getTitle());
                             writer.WriteElementString("path", picture.getPath());
                             writer.WriteElementString("rate", picture.getRate().ToString());
-                            MessageBox.Show("rate = " + picture.getRate().ToString());
                             writer.WriteEndElement();
                         }
 
@@ -113,9 +112,9 @@ namespace PhotoViewer
             List<AlbumUC> albums = new List<AlbumUC>();
             int i = -1;
 
-            if(System.IO.File.Exists("albums.xml"))
+            if(System.IO.File.Exists(Properties.Resources.AlbumXmlFile))
             {
-                XmlReader reader = XmlReader.Create("albums.xml", reader_settings);
+                XmlReader reader = XmlReader.Create(Properties.Resources.AlbumXmlFile, reader_settings);
 
                 try
                 {
@@ -145,7 +144,6 @@ namespace PhotoViewer
                                 //MessageBox.Show(reader.Name);
                                 reader.ReadToFollowing("path");
                                 path = reader.ReadElementContentAsString();
-                                //reader.ReadToFollowing("rate");
                                 //MessageBox.Show(reader.Name + path);
                                 int rate = int.Parse(reader.ReadElementContentAsString());
                                 albums.ElementAt(i).addPicture(path);

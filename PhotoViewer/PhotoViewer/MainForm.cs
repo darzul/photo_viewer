@@ -20,6 +20,10 @@ namespace PhotoViewer
         private List<AlbumUC> albumsSelected = new List<AlbumUC>();
         public List<AlbumUC> albums;
         public List<String> extensions = new List<string> { "png", "jpg", "gif" };
+        public static int maxWidth = Screen.PrimaryScreen.Bounds.Width;
+        public static int maxHeight = Screen.PrimaryScreen.Bounds.Height;
+        public static int workAreaWidth = Screen.PrimaryScreen.WorkingArea.Width;
+        public static int workAreaHeight = Screen.PrimaryScreen.WorkingArea.Height;
 
         public MainForm()
         {
@@ -57,7 +61,7 @@ namespace PhotoViewer
 
         private void createEmptyAlbum()
         {
-            createAlbumFromFolder(ShowDialog("Tape the album's title", ""));
+            createAlbumFromFolder(ShowDialog(Properties.Resources.TapeTheAlbumsTitle, ""));
         }
 
         public void refreshAlbums()

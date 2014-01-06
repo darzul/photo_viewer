@@ -139,6 +139,57 @@
   <data name="FileNoExist" xml:space="preserve">
     <value>File does not exist on your computer</value>
   </data>
+  <data name="TapeTheAlbumsTitle" xml:space="preserve">
+    <value>Tape the album's title</value>
+  </data>
+  <data name="AlbumXmlFile" xml:space="preserve">
+    <value>albums.xml</value>
+  </data>
+  <data name="formatDate" xml:space="preserve">
+    <value>yyyy:MM:dd HH:mm:ss</value>
+  </data>
+  <data name="renameYourPicture" xml:space="preserve">
+    <value>Rename your picture</value>
+  </data>
+  <data name="ExifWidth" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="ExifHeight" xml:space="preserve">
+    <value>Height</value>
+  </data>
+  <data name="ExifBitsPerColor" xml:space="preserve">
+    <value>Bits per color</value>
+  </data>
+  <data name="ExifTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="ExifCamera" xml:space="preserve">
+    <value>Camera</value>
+  </data>
+  <data name="ExifModel" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="ExifSoftwareUsed" xml:space="preserve">
+    <value>Software used</value>
+  </data>
+  <data name="ExifCreated" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="ExifAuthor" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="ExifCopyright" xml:space="preserve">
+    <value>Copyright</value>
+  </data>
+  <data name="ExifExposition" xml:space="preserve">
+    <value>Exposition</value>
+  </data>
+  <data name="ExifVersion" xml:space="preserve">
+    <value>Exif version</value>
+  </data>
+  <data name="ExifDateOfShooting" xml:space="preserve">
+    <value>Date of shooting</value>
+  </data>
   <data name="Undefined" xml:space="preserve">
     <value>undefined</value>
   </data>
