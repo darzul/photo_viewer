@@ -136,7 +136,6 @@ namespace PhotoViewer
                     return this;
                 }
             }
-            MessageBox.Show("mainSplitterDistance = " + mainSplitPanel_SplitterDistance.ToString() + "secondHeight = " + secondarySplitPanel_Height.ToString());
             return this;
         }
     }
