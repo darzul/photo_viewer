@@ -53,6 +53,10 @@ namespace PhotoViewer
             
         }
 
+        /// <summary>
+        /// Display a picture
+        /// </summary>
+        /// <param name="p">Picture's index</param>
         private void PlayPicture(int p)
         {
             try

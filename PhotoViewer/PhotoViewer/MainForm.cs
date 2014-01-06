@@ -325,31 +325,20 @@ namespace PhotoViewer
 
             xmlConfig = xmlConfig.readConfig();
 
-            if (xmlConfig.MainForm_Height <= 0 || xmlConfig.MainForm_Width <= 0)
+            if (xmlConfig.MainForm_Height >= 0 && xmlConfig.MainForm_Width >= 0)
             {
-                MessageBox.Show("In size " + xmlConfig.MainForm_Height.ToString());
-
-            }
-            else
-            {
-                MessageBox.Show(xmlConfig.MainForm_Size.Width.ToString());
-                MessageBox.Show(xmlConfig.MainForm_Size.Height.ToString());
-                this.Size = xmlConfig.MainForm_Size;
+                this.Height = xmlConfig.MainForm_Height;
+                this.Width = xmlConfig.MainForm_Width;
             }
             else
             {
                 this.Size = new Size(workAreaWidth, workAreaHeight);
             }
 
-            if (xmlConfig.MainForm_PositionX <= 0 && xmlConfig.MainForm_PositionY <= 0)
+            if (xmlConfig.MainForm_PositionX >= 0 && xmlConfig.MainForm_PositionY >= 0)
             {
-                MessageBox.Show("In " + xmlConfig.MainForm_PositionX.ToString());
-
-            }
-            else
-            {
-                MessageBox.Show(xmlConfig.MainForm_Position.X.ToString());
-                this.Location = xmlConfig.MainForm_Position;
+                this.StartPosition = FormStartPosition.Manual;
+                this.Location = new Point (xmlConfig.MainForm_PositionX, xmlConfig.MainForm_PositionY);
             }
             else
             {
@@ -362,6 +351,11 @@ namespace PhotoViewer
             PictureUC.clearSelection();
         }
 
+        /// <summary>
+        /// Event to select all pictures
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void selectAllPictures(object sender, EventArgs e)
         {
             PictureUC.clearSelection();
@@ -430,11 +424,21 @@ namespace PhotoViewer
             }
         }
 
+        /// <summary>
+        /// Event to remove selected pictures
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void removePicture(object sender, EventArgs e)
         {
             removeSelectedPictures();
         }
 
+        /// <summary>
+        /// Event to add a picture
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addPictures(object sender, EventArgs e)
         {
             var dialog = new System.Windows.Forms.OpenFileDialog();
@@ -546,6 +550,13 @@ namespace PhotoViewer
         #endregion
 
         #region Static Methods
+
+        /// <summary>
+        /// Open a dialog with a label
+        /// </summary>
+        /// <param name="text">Label's text</param>
+        /// <param name="caption">TextBox's text</param>
+        /// <returns></returns>
         public static string ShowDialog(string text, string caption)
         {
             Form prompt = new Form();
