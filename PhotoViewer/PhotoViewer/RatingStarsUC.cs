@@ -109,7 +109,7 @@ namespace PhotoViewer
                     stars_list.ElementAt(i).Refresh();
                 }
             }
-            this.picture.setRate((stars_list.IndexOf(this)%5));
+            this.picture.setRate((stars_list.IndexOf(this)%5)+1);
         }
 
         private void RatingStarsUC_MouseHover(object sender, EventArgs e)
