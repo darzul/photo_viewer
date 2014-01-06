@@ -12,9 +12,10 @@ namespace PhotoViewer
     {
         XmlWriterSettings writer_settings;
         XmlReaderSettings reader_settings;
-        public System.Drawing.Size MainForm_Size;
-        public System.Drawing.Point MainForm_Position;
-
+        public int MainForm_Height;
+        public int MainForm_Width;
+        public int MainForm_PositionX;
+        public int MainForm_PositionY;
 
         public XmlConfig()
         {
@@ -38,8 +39,10 @@ namespace PhotoViewer
                     writer.WriteStartElement("configuration");
 
                     writer.WriteStartElement("MainForm");
-                    writer.WriteAttributeString("size", this.MainForm_Size.ToString());
-                    writer.WriteAttributeString("position", this.MainForm_Position.ToString());
+                    writer.WriteAttributeString("height", this.MainForm_Height.ToString());
+                    writer.WriteAttributeString("width", this.MainForm_Width.ToString());
+                    writer.WriteAttributeString("X", this.MainForm_PositionX.ToString());
+                    writer.WriteAttributeString("Y", this.MainForm_PositionY.ToString());
                     writer.WriteEndElement();
                     writer.WriteEndElement();
                 }
@@ -55,32 +58,41 @@ namespace PhotoViewer
             writer.Close();
         }
 
-        public void readConfig()
+        public XmlConfig readConfig()
         {
             if (System.IO.File.Exists("config.xml"))
             {
-                XmlReader reader = XmlReader.Create("config.xml", reader_settings);
-
-                while (reader.Read() == true)
+                try
                 {
-                    if (reader.Name.Equals("MainForm"))
+                    XmlReader reader = XmlReader.Create("config.xml", reader_settings);
+                    while (reader.Read() == true)
                     {
-                        reader.MoveToFirstAttribute();
-                        reader.ReadAttributeValue();
-                        System.Drawing.SizeConverter sizeConverter = new System.Drawing.SizeConverter();
-                        this.MainForm_Size = (System.Drawing.Size)(sizeConverter.ConvertFromString(reader.Value));
-                        MessageBox.Show("Size = " + MainForm_Size.ToString());
-
-                        reader.MoveToNextAttribute();
-                        reader.ReadAttributeValue();
-                        System.Drawing.PointConverter positionConverter = new System.Drawing.PointConverter();
-                        this.MainForm_Position = (System.Drawing.Point)(positionConverter.ConvertFromString(reader.Value));
-                        break;
+                        if (reader.Name.Equals("MainForm"))
+                        {
+                            reader.MoveToFirstAttribute();
+                            reader.ReadAttributeValue();
+                            MainForm_Height = int.Parse(reader.Value);
+                            reader.MoveToNextAttribute();
+                            reader.ReadAttributeValue();
+                            MainForm_Width = int.Parse(reader.Value);
+                            reader.MoveToNextAttribute();
+                            reader.ReadAttributeValue();
+                            MainForm_PositionX = int.Parse(reader.Value);
+                            reader.MoveToNextAttribute();
+                            reader.ReadAttributeValue();
+                            MainForm_PositionY = int.Parse(reader.Value);
+                        }
                     }
-                }
 
-                reader.Close();
+                    reader.Close();
+                }
+                catch (Exception e)
+                {
+                    return this;
+                }
             }
+
+            return this;
         }
     }
 }

@@ -230,12 +230,11 @@ namespace PhotoViewer
             xmlAlbums.setAlbums (albums);
             xmlAlbums.WriteAll();
 
-            /*if (xmlConfig.MainForm_Size.Equals(this.Size) == false || xmlConfig.MainForm_Position.Equals(this.Location) == false)
-            {
-                xmlConfig.MainForm_Size = this.Size;
-                xmlConfig.MainForm_Position = this.Location;
-                xmlConfig.writeConfig();
-            }*/
+            xmlConfig.MainForm_Height = this.Size.Height;
+            xmlConfig.MainForm_Width = this.Size.Width;
+            xmlConfig.MainForm_PositionX = this.Location.X;
+            xmlConfig.MainForm_PositionY = this.Location.Y;
+            xmlConfig.writeConfig();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -256,18 +255,26 @@ namespace PhotoViewer
 
             refreshAlbums();
 
-            xmlConfig.readConfig();
+            xmlConfig = xmlConfig.readConfig();
 
-            if (xmlConfig.MainForm_Size != null)
+            if (xmlConfig.MainForm_Height <= 0 || xmlConfig.MainForm_Width <= 0)
             {
-                MessageBox.Show("In " + xmlConfig.MainForm_Size.ToString());
-                this.Size = xmlConfig.MainForm_Size;
+                MessageBox.Show("In size " + xmlConfig.MainForm_Height.ToString());
+
+            }
+            else
+            {
+                this.Size = new Size(xmlConfig.MainForm_Width, xmlConfig.MainForm_Height);
             }
 
-            if (xmlConfig.MainForm_Position != null)
+            if (xmlConfig.MainForm_PositionX <= 0 && xmlConfig.MainForm_PositionY <= 0)
             {
-                MessageBox.Show("In " + xmlConfig.MainForm_Position.ToString());
-                this.Location = xmlConfig.MainForm_Position;
+                MessageBox.Show("In " + xmlConfig.MainForm_PositionX.ToString());
+
+            }
+            else
+            {
+                this.Location = new Point(xmlConfig.MainForm_PositionX, xmlConfig.MainForm_PositionY);
             }
         }
 
