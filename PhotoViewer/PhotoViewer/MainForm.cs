@@ -20,8 +20,12 @@ namespace PhotoViewer
         private List<AlbumUC> albumsSelected = new List<AlbumUC>();
         public List<AlbumUC> albums;
         public List<String> extensions = new List<string> { "png", "jpg", "gif" };
+
+        // Total screen's size
         public static int maxWidth = Screen.PrimaryScreen.Bounds.Width;
         public static int maxHeight = Screen.PrimaryScreen.Bounds.Height;
+
+        // Screen's size without task bar
         public static int workAreaWidth = Screen.PrimaryScreen.WorkingArea.Width;
         public static int workAreaHeight = Screen.PrimaryScreen.WorkingArea.Height;
 
@@ -40,6 +44,9 @@ namespace PhotoViewer
         #endregion
 
         #region Albums management
+        /// <summary>
+        /// Create album from existing folder 
+        /// </summary>
         public void createAlbumFromFolder()
         {
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
@@ -52,6 +59,10 @@ namespace PhotoViewer
             }
         }
 
+        /// <summary>
+        /// Create album from existing folder
+        /// </summary>
+        /// <param name="folder">Absolute path of the folder</param>
         public void createAlbumFromFolder(String folder)
         {
             var album = new AlbumUC(folder);
@@ -59,11 +70,17 @@ namespace PhotoViewer
             albumsFlowLayoutPanel.Controls.Add(album);
         }
 
+        /// <summary>
+        /// Create album with only a title
+        /// </summary>
         private void createEmptyAlbum()
         {
             createAlbumFromFolder(ShowDialog(Properties.Resources.TapeTheAlbumsTitle, ""));
         }
 
+        /// <summary>
+        /// Refresh controls album in controlflowlayout
+        /// </summary>
         public void refreshAlbums()
         {
             albumsFlowLayoutPanel.Controls.Clear();
@@ -74,6 +91,11 @@ namespace PhotoViewer
             }
         }
 
+        /// <summary>
+        /// Change the position of an album in list albums and his id in the controlflowlayout
+        /// </summary>
+        /// <param name="index">Futur index of your album</param>
+        /// <param name="album">Your moved album</param>
         public void changeAlbumPosition(int index, AlbumUC album)
         {
             albums.Remove(album);
@@ -85,11 +107,19 @@ namespace PhotoViewer
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Albums which are in the selected albums list</returns>
         public List<AlbumUC> getSelectedAlbums()
         {
             return albumsSelected;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Last album which has been selected</returns>
         public AlbumUC getLastSelectedAlbum()
         {
             if (albumsSelected.Count == 0) 
@@ -100,12 +130,21 @@ namespace PhotoViewer
             return albumsSelected.Last();
         }
 
+        /// <summary>
+        /// Select the album in the parameter
+        /// </summary>
+        /// <param name="album">The album you want to select</param>
         public void selectAlbum(AlbumUC album)
         {
             album.BackColor = Color.FromArgb(119, 181, 254);
             albumsSelected.Add(album);
         }
 
+        /// <summary>
+        /// Select all album between the two albums in parameter
+        /// </summary>
+        /// <param name="start">You first album</param>
+        /// <param name="end">Your second album</param>
         public void multiSelectAlbums(AlbumUC start, AlbumUC end)
         {
             int startId = albums.IndexOf(start);
@@ -124,12 +163,20 @@ namespace PhotoViewer
             }
         }
 
+        /// <summary>
+        /// Select all albums in the controlflowlayout
+        /// </summary>
         public void selectAllAlbums()
         {
             foreach (AlbumUC album in albums)
                 selectAlbum(album);
         }
 
+        /// <summary>
+        /// Check if the album is in the selected album list
+        /// </summary>
+        /// <param name="album">Album you want to check</param>
+        /// <returns></returns>
         public bool isSelected(AlbumUC album)
         {
             if (albumsSelected.Contains(album))
@@ -140,12 +187,19 @@ namespace PhotoViewer
             return false;
         }
 
+        /// <summary>
+        /// Unselect an Album
+        /// </summary>
+        /// <param name="album">The album you want to unselect</param>
         public void unSelectAlbum(AlbumUC album)
         {
             albumsSelected.Remove(album);
             album.BackColor = System.Drawing.SystemColors.ControlLight;
         }
 
+        /// <summary>
+        /// Reset the album selection
+        /// </summary>
         public void clearAlbumSelection() 
         {
             if (albumsSelected.Count == 0)
@@ -161,6 +215,9 @@ namespace PhotoViewer
             albumsSelected.Clear();
         }
 
+        /// <summary>
+        /// Delete all selected album
+        /// </summary>
         public void removeSelectedAlbums()
         {
             if (albumsSelected.Count == 0)
@@ -178,6 +235,9 @@ namespace PhotoViewer
             }
         }
 
+        /// <summary>
+        /// Remove selected pictures
+        /// </summary>
         public void removeSelectedPictures()
         {
             if (PictureUC.getPicturesSelected().Count <= 0)
@@ -194,6 +254,11 @@ namespace PhotoViewer
             PictureUC.clearSelection();
         }
 
+        /// <summary>
+        /// Check if the file is a picture
+        /// </summary>
+        /// <param name="file">Path of the file</param>
+        /// <returns>True is the file is a picture</returns>
         public bool isPicture(String file)
         {
             String extension = file.Split('.').Last().ToLower();
@@ -208,6 +273,9 @@ namespace PhotoViewer
             }
         }
 
+        /// <summary>
+        /// Set the focus on controlflowlayout
+        /// </summary>
         public void focusAlbumLayout()
         {
             albumsFlowLayoutPanel.Focus();
@@ -260,14 +328,23 @@ namespace PhotoViewer
 
             if (xmlConfig.MainForm_Size != null)
             {
-                MessageBox.Show("In " + xmlConfig.MainForm_Size.ToString());
+                MessageBox.Show(xmlConfig.MainForm_Size.Width.ToString());
+                MessageBox.Show(xmlConfig.MainForm_Size.Height.ToString());
                 this.Size = xmlConfig.MainForm_Size;
+            }
+            else
+            {
+                this.Size = new Size(workAreaWidth, workAreaHeight);
             }
 
             if (xmlConfig.MainForm_Position != null)
             {
-                MessageBox.Show("In " + xmlConfig.MainForm_Position.ToString());
+                MessageBox.Show(xmlConfig.MainForm_Position.X.ToString());
                 this.Location = xmlConfig.MainForm_Position;
+            }
+            else
+            {
+                this.StartPosition = FormStartPosition.Manual;
             }
         }
 
@@ -287,6 +364,11 @@ namespace PhotoViewer
             album.selectAllPictures();
         }
 
+        /// <summary>
+        /// Generate a html file with the picture of your album
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void displayOnWeb(object sender, EventArgs e)
         {
             AlbumUC album = AlbumUC.getDisplayedAlbum();

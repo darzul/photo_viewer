@@ -209,7 +209,7 @@
             // showDiaporamaToolStripMenuItem
             // 
             this.showDiaporamaToolStripMenuItem.Name = "showDiaporamaToolStripMenuItem";
-            this.showDiaporamaToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.showDiaporamaToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.showDiaporamaToolStripMenuItem.Text = "Show Diaporama";
             this.showDiaporamaToolStripMenuItem.Click += new System.EventHandler(this.showDiaporamaToolStripMenuItem_Click);
             // 
@@ -270,14 +270,14 @@
             // increasingToolStripMenuItem1
             // 
             this.increasingToolStripMenuItem1.Name = "increasingToolStripMenuItem1";
-            this.increasingToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.increasingToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
             this.increasingToolStripMenuItem1.Text = "Increasing";
             this.increasingToolStripMenuItem1.Click += new System.EventHandler(this.sortByTitle);
             // 
             // descendingToolStripMenuItem2
             // 
             this.descendingToolStripMenuItem2.Name = "descendingToolStripMenuItem2";
-            this.descendingToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.descendingToolStripMenuItem2.Size = new System.Drawing.Size(136, 22);
             this.descendingToolStripMenuItem2.Text = "Descending";
             this.descendingToolStripMenuItem2.Click += new System.EventHandler(this.sortByTitleDesc);
             // 
@@ -293,16 +293,16 @@
             // increasingToolStripMenuItem
             // 
             this.increasingToolStripMenuItem.Name = "increasingToolStripMenuItem";
-            this.increasingToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.increasingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.increasingToolStripMenuItem.Text = "Increasing";
             this.increasingToolStripMenuItem.Click += new System.EventHandler(this.sortByRate);
             // 
             // descendingToolStripMenuItem1
             // 
             this.descendingToolStripMenuItem1.Name = "descendingToolStripMenuItem1";
-            this.descendingToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
+            this.descendingToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.descendingToolStripMenuItem1.Text = "Descending";
-            this.descendingToolStripMenuItem1.Click += new System.EventHandler(this.sortByDateDesc);
+            this.descendingToolStripMenuItem1.Click += new System.EventHandler(this.sortByRateDesc);
             // 
             // dateToolStripMenuItem
             // 

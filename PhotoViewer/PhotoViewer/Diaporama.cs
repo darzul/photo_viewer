@@ -40,10 +40,13 @@ namespace PhotoViewer
                     timer.Start();
                 }
             }
-            else if(album.getPictures().Count <= 0)
+            else if (album.getPictures().Count <= 0)
                 MessageBox.Show("No pictures found");
             else
-            this.Close();
+            {
+                Cursor.Show();
+                this.Close();
+            }
             
         }
 
