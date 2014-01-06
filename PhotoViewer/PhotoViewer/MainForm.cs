@@ -313,6 +313,12 @@ namespace PhotoViewer
             xmlConfig.MainForm_Width = this.Size.Width;
             xmlConfig.MainForm_PositionX = this.Location.X;
             xmlConfig.MainForm_PositionY = this.Location.Y;
+            xmlConfig.mainSplitPanel_Height = this.mainSplitContainer.Height;
+            xmlConfig.mainSplitPanel_Width = this.mainSplitContainer.Width;
+            xmlConfig.mainSplitPanel_SplitterDistance = this.mainSplitContainer.SplitterDistance;
+            xmlConfig.secondarySplitPanel_Height = this.secondarySplitContainer.Height;
+            xmlConfig.secondarySplitPanel_Width = this.secondarySplitContainer.Width;
+            xmlConfig.secondarySplitPanel_SplitterDistance = this.secondarySplitContainer.SplitterDistance;
             xmlConfig.writeConfig();
         }
 
@@ -335,7 +341,11 @@ namespace PhotoViewer
             refreshAlbums();
 
             xmlConfig = xmlConfig.readConfig();
-
+            System.Drawing.Size initial_mainSplitPanelSize = mainSplitContainer.Size;
+            int initial_mainSplitPanelSplitterDistance = mainSplitContainer.SplitterDistance;
+            System.Drawing.Size initial_secondarySplitPanelSize = secondarySplitContainer.Size;
+            int initial_secondarySplitPanelSplitterDistance = secondarySplitContainer.SplitterDistance;
+            
             if (xmlConfig.MainForm_Height >= 0 && xmlConfig.MainForm_Width >= 0)
             {
                 this.Height = xmlConfig.MainForm_Height;
@@ -354,6 +364,44 @@ namespace PhotoViewer
             else
             {
                 this.StartPosition = FormStartPosition.Manual;
+            }
+
+            if (xmlConfig.mainSplitPanel_Height >= 0 && xmlConfig.mainSplitPanel_Width >= 0)
+            {
+                this.mainSplitContainer.Height = xmlConfig.mainSplitPanel_Height;
+                this.mainSplitContainer.Width = xmlConfig.mainSplitPanel_Width;
+            }
+            else
+            {
+                this.mainSplitContainer.Size = initial_mainSplitPanelSize;
+            }
+
+            if (xmlConfig.mainSplitPanel_SplitterDistance >= 0)
+            {
+                this.mainSplitContainer.SplitterDistance = xmlConfig.mainSplitPanel_SplitterDistance;
+            }
+            else
+            {
+                this.mainSplitContainer.SplitterDistance = initial_mainSplitPanelSplitterDistance;
+            }
+
+            if (xmlConfig.secondarySplitPanel_Height >= 0 && xmlConfig.secondarySplitPanel_Width >= 0)
+            {
+                this.secondarySplitContainer.Height = xmlConfig.secondarySplitPanel_Height;
+                this.secondarySplitContainer.Width = xmlConfig.secondarySplitPanel_Width;
+            }
+            else
+            {
+                this.secondarySplitContainer.Size = initial_secondarySplitPanelSize;
+            }
+
+            if (xmlConfig.secondarySplitPanel_SplitterDistance >= 0)
+            {
+                this.secondarySplitContainer.SplitterDistance = xmlConfig.secondarySplitPanel_SplitterDistance;
+            }
+            else
+            {
+                this.secondarySplitContainer.SplitterDistance = initial_secondarySplitPanelSplitterDistance;
             }
         }
 
