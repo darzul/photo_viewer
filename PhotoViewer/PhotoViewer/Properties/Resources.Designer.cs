@@ -60,8 +60,7 @@ namespace PhotoViewer.Properties {
             }
         }
         
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à albums.xml.
+        ///   Looks up a localized string similar to albums.xml.
         /// </summary>
         internal static string AlbumXmlFile {
             get {
@@ -70,8 +69,7 @@ namespace PhotoViewer.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Author.
-        /// </summary>
+        ///   Looks up a localized string similar to File does not exist on your computer.
         internal static string ExifAuthor {
             get {
                 return ResourceManager.GetString("ExifAuthor", resourceCulture);

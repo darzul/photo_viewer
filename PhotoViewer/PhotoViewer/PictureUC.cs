@@ -123,7 +123,7 @@ namespace PhotoViewer
         public int getRate()
         {
             if (this.rate < 0 || this.rate > 5)
-                return -1;
+                return 0;
 
             return this.rate ;
         }
@@ -454,5 +454,31 @@ namespace PhotoViewer
             album.changePicturePosition(album.getPictureId(this) ,picture);
         }
         #endregion
+
+        private void printPictureFullScreen () 
+        {
+            Image image = Image.FromFile(this.path);
+            image = AlbumUC.ScaleImage(image, MainForm.maxWidth, MainForm.maxHeight);
+
+            PictureBox picturebox = new PictureBox();
+            picturebox.Image = image;
+            picturebox.SizeMode = PictureBoxSizeMode.CenterImage;
+
+            Form form = new Form();
+            form.Controls.Add(picturebox);
+            picturebox.Dock = DockStyle.Fill;
+            form.BackColor = Color.Black;
+            form.Width = MainForm.workAreaWidth;
+            form.Height = MainForm.workAreaHeight;
+
+            form.StartPosition = FormStartPosition.Manual;
+
+            form.Show();
+        }
+
+        private void doubleClick(object sender, EventArgs e)
+        {
+            printPictureFullScreen();
+        }
     }
 }

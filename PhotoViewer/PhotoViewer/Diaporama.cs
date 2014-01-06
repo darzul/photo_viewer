@@ -17,8 +17,6 @@ namespace PhotoViewer
         int picture_index = 0;
         int timeLapse;
         bool diapoPaused = false;
-        int maxWidth = Screen.PrimaryScreen.Bounds.Width;
-        int maxHeight = Screen.PrimaryScreen.Bounds.Height;
 
         public Diaporama(AlbumUC album)
         {
@@ -57,7 +55,7 @@ namespace PhotoViewer
             try
             {
                 Image image = Image.FromFile(album.getPictures().ElementAt(picture_index).getPath());
-                diapoPictureBox.Image = AlbumUC.ScaleImage(image, maxWidth, maxHeight);
+                diapoPictureBox.Image = AlbumUC.ScaleImage(image, MainForm.maxWidth, MainForm.maxHeight);
 
             }
             catch (Exception e)

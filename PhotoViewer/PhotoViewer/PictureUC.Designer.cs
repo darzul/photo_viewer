@@ -54,6 +54,7 @@
             this.pictureBox.TabStop = false;
             this.pictureBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.PictureUC_DragDrop);
             this.pictureBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.PictureUC_DragEnter);
+            this.pictureBox.DoubleClick += new System.EventHandler(this.doubleClick);
             this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureUC_MouseClick);
             this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureUC_MouseMove);
             // 

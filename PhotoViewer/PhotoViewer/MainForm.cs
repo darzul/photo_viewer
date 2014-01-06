@@ -20,6 +20,10 @@ namespace PhotoViewer
         private List<AlbumUC> albumsSelected = new List<AlbumUC>();
         public List<AlbumUC> albums;
         public List<String> extensions = new List<string> { "png", "jpg", "gif" };
+        public static int maxWidth = Screen.PrimaryScreen.Bounds.Width;
+        public static int maxHeight = Screen.PrimaryScreen.Bounds.Height;
+        public static int workAreaWidth = Screen.PrimaryScreen.WorkingArea.Width;
+        public static int workAreaHeight = Screen.PrimaryScreen.WorkingArea.Height;
 
         public MainForm()
         {
@@ -237,7 +241,7 @@ namespace PhotoViewer
         private void MainForm_Load(object sender, EventArgs e)
         {
             if(System.IO.File.Exists(Properties.Resources.AlbumXmlFile))
-            xmlAlbums.ReadAll();
+                xmlAlbums.ReadAll();
 
             List<AlbumUC> albums = xmlAlbums.getAlbums();
             
@@ -319,8 +323,8 @@ namespace PhotoViewer
                 {
                     htmlText += @"
                         <div class='container'>
-                        <a href=" + p.getPath() + " data-lightbox=" + p.getTitle() + @">
-                            <img class='cadre' src=" + p.getPath() + @">
+                        <a href='" + p.getPath() + "' data-lightbox='" + p.getTitle() + @"'>
+                            <img class='cadre' src='" + p.getPath() + @"'>
                         </a>
                         </div>";
                 }
@@ -530,22 +534,5 @@ namespace PhotoViewer
         }
         #endregion
 
-        /*private void showDiaporamaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (this.getSelectedAlbums().Count > 0)
-                    foreach (AlbumUC album in this.getSelectedAlbums())
-                    {
-                        MessageBox.Show("Press Space bar to pause and ESC to quit");
-                        Diaporama diaporama = new Diaporama(album);
-                        diaporama.Show();
-                        diaporama.StartDiaporama();
-                    }
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.ToString());
-            }
-        }*/   }
+   }
 }
