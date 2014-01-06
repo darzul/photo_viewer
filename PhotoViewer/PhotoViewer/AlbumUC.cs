@@ -200,6 +200,8 @@ namespace PhotoViewer
                     this.displayPictures();
                     mainForm.focusAlbumLayout();
                 }
+
+                getPictures().ElementAt(0).getDetailLayout().Controls.Clear();
             }
         }
 

@@ -61,7 +61,7 @@ namespace PhotoViewer
         #endregion
 
         #region Constructor and attributes
-        private int rate = -1 ;
+        private int rate = 0 ;
         private List<RatingStarsUC> rating_stars = new List<RatingStarsUC>();
         private string title;
         private string path;
@@ -113,6 +113,11 @@ namespace PhotoViewer
         public string getPath()
         {
             return this.path;
+        }
+
+        public FlowLayoutPanel getDetailLayout()
+        {
+            return detailLayout;
         }
 
         public int getRate()
@@ -356,6 +361,7 @@ namespace PhotoViewer
                 }
 
                 AlbumUC.focusPictureLayout();
+                FlowLayoutPanel starsPanel = new FlowLayoutPanel();
                 detailLayout.Controls.Clear();
                 
                 PropertyItem[] pictureProperties;
@@ -377,6 +383,8 @@ namespace PhotoViewer
                 ExifDataUC extension_property = new ExifDataUC("Format", getExtension());
                 detailLayout.Controls.Add(extension_property);
 
+                detailLayout.Controls.Add(starsPanel);
+
                 if (rating_stars.Count == 0)
                 {
                     for (int i = 0; i < 5; i++)
@@ -387,7 +395,7 @@ namespace PhotoViewer
                         {
                             star.status = RatingStarsUC.starStatus.clicked;
                         }
-                        detailLayout.Controls.Add(star);
+                        starsPanel.Controls.Add(star);
                         rating_stars.Add(star);
                     }
                 }
@@ -400,7 +408,7 @@ namespace PhotoViewer
                             rating_stars.ElementAt(i).status = RatingStarsUC.starStatus.clicked;
                         }
 
-                        detailLayout.Controls.Add(rating_stars.ElementAt(i));
+                        starsPanel.Controls.Add(rating_stars.ElementAt(i));
                     }
                 }
             }
