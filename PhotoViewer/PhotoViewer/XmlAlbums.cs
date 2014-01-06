@@ -15,10 +15,11 @@ namespace PhotoViewer
         #region Constructor and attributes
         XmlWriterSettings writer_settings;
         XmlReaderSettings reader_settings;
-        XmlSchemaSet schema;
         private List<AlbumUC> albums;
-        
 
+        /// <summary>
+        /// Constructeur pour XmlAlbums
+        /// </summary>
         public XmlAlbums()
         {
             writer_settings = new XmlWriterSettings();
@@ -29,17 +30,23 @@ namespace PhotoViewer
             reader_settings.IgnoreWhitespace = true;
             reader_settings.IgnoreComments = true;
 
-            schema = new XmlSchemaSet();
             albums = new List<AlbumUC>();
         }
         #endregion
 
         #region Albums reading and writing
+        /// <summary>
+        /// Ajoute un album à XmlAlbums.albums
+        /// </summary>
+        /// <param name="album">AlbumUC</param>
         public void Add(AlbumUC album)
         {
             albums.Add(album);
         }
 
+        /// <summary>
+        /// Ecrit la liste des albums sous forme de fichier XML
+        /// </summary>
         public void WriteAll()
         {
             if (this.albums != null)
@@ -85,6 +92,9 @@ namespace PhotoViewer
             writer.Close();
         }
 
+        /// <summary>
+        /// Lit la liste des albums à partir d'un fichier XML
+        /// </summary>
         public List<AlbumUC> ReadAll()
         {
             List<AlbumUC> albums = new List<AlbumUC>();
@@ -141,11 +151,18 @@ namespace PhotoViewer
         #endregion
 
         #region Getters/Setters
+        /// <summary>
+        /// Retourne la liste des albums
+        /// </summary>
         public List<AlbumUC> getAlbums()
         {
             return this.albums;
         }
 
+        /// <summary>
+        /// Modifie la liste des albums par le paramètre album
+        /// </summary>
+        /// <param name="albums"></param>
         public void setAlbums(List<AlbumUC> albums)
         {
             this.albums = albums;

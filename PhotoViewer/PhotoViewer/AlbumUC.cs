@@ -226,6 +226,7 @@ namespace PhotoViewer
                     mainForm.focusAlbumLayout();
                 }
 
+                if(getPictures().Count > 0)
                 getPictures().ElementAt(0).getDetailLayout().Controls.Clear();
             }
         }
